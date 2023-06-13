@@ -1,4 +1,3 @@
-const mesa = require('../models/mesa');
 const Mesa = require('../models/mesa');
 const mesaCtrl = {}
 
