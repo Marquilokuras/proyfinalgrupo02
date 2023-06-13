@@ -6,7 +6,7 @@ const router = express.Router();
 
 router.post('/', mesaCtrl.createMesa); //Dar de alta un Mesa
 router.get('/', mesaCtrl.getMesa); //Obtener todas los Mesa
-//router.delete('/:id', usuarioCtrl.deleteUsuario); //Eliminar un Mesa
+router.put('/reserva', mesaCtrl.reservarMesa); //Reserva 1 Mesa
 //router.put('/:id',usuarioCtrl.editUsuario); //Modificar un Mesa
 //exportamos el modulo de rutas
 module.exports = router;
