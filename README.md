@@ -1,4 +1,4 @@
-# TRABAJO PRÁCTICO FINAL
+# TRABAJO PRÁCTICO FINAL GRUPO 02
 
 Nombre y Apellido: 
 
