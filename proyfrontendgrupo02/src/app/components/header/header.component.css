@@ -1,0 +1,4 @@
+.nav-link.active {
+    background-color: #0F2557; /* Estilo de fondo para la opción activa */
+    color: black; /* Color de texto para la opción activa */
+}
