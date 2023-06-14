@@ -8,14 +8,19 @@ import { FormsModule } from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { HomeComponent } from './components/home/home/home.component';
+import { HomeComponent } from './components/home/home.component';
+import { LoginService } from './service/login/login.service';
+import { LoginComponent } from './components/login/login.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    LoginComponent,
+    MenuComponent
   ],
   
   imports: [
@@ -24,7 +29,7 @@ import { HomeComponent } from './components/home/home/home.component';
     FormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [LoginService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

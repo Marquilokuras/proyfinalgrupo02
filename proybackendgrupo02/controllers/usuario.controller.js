@@ -22,12 +22,43 @@ usuarioCtrl.createUsuario = async (req, res) => {
     }
 }
 
+usuarioCtrl.loginUsuario = async (req, res) => {
+
+    //el método findOne retorna un objeto que cumpla con los criterios de busqueda
+    Usuario.findOne({ email: req.body.email, password: req.body.password })
+        .then(user => {
+            if (!user) {
+                res.json({
+                    status: 0,
+                    msg: "not found"
+                })
+            } else {
+                res.json({
+                    status: 1,
+                    msg: "success",
+                    email: user.email, //retorno información útil para el frontend
+                    tipoUsuario: user.tipoUsuario, //retorno información útil para el frontend
+                    userid: user._id //retorno información útil para el frontend
+                })
+            }
+        })
+        .catch(err => {
+            if (err) {
+                res.json({
+                    status: 0,
+                    msg: 'error'
+                })
+            }
+        })
+
+}
+
 usuarioCtrl.editUsuario = async (req, res) => {
     try {
         const { id } = req.params;
         req.body;
-        await Usuario.findByIdAndUpdate( { _id: id },req.body, {new: true,});
-      
+        await Usuario.findByIdAndUpdate({ _id: id }, req.body, { new: true, });
+
         res.json({
             status: '1',
             msg: 'Usuario Modifiado'
