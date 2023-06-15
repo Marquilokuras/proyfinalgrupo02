@@ -1,0 +1,31 @@
+<div class="container">
+    <h2>Gestion de Bebidas</h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Ingredientes</th>
+            <th scope="col">Tipo de Vaso</th>
+            <th scope="col">Precio</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let bebida of listaBebida">
+            <td>{{bebida.nombreBebida}}</td>
+            <td>{{bebida.ingredientesBebida}}</td>
+            <td>{{bebida.tipoVasoBebida}}</td>
+            <td>$ {{bebida.precioBebida}}</td>
+            <td>   
+                <button type="button" class="btn btn-primary" style="margin-right: 10px;" (click)="actualizarBebida(bebida)" >Modificar</button>
+                <button type="button" class="btn btn-danger">Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="nuevoBebida()">Agregar Bebida</button>
+  </div>
+  
+  

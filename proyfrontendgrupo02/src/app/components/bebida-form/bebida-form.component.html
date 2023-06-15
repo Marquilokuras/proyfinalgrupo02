@@ -1,0 +1,26 @@
+<form>
+  <div class="mb-3">
+    <label for="_id" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="_id" name="_id" [(ngModel)]="bebida._id">
+  </div>
+    <div class="mb-3">
+      <label for="nombre" class="form-label">Nombre</label>
+      <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="bebida.nombreBebida">
+    </div>
+    <div class="mb-3">
+      <label for="ingredientes" class="form-label">Ingredientes</label>
+      <input type="text" class="form-control" id="ingredientes" name="ingredientes" [(ngModel)]="bebida.ingredientesBebida">
+    </div>
+    <div class="mb-3">
+      <label for="precio" class="form-label">Precio</label>
+      <input type="number" class="form-control" id="precio" name="precio" [(ngModel)]="bebida.precioBebida">
+    </div>
+    <div class="mb-3">
+      <label for="tipoVaso" class="form-label">Tipo de Vaso</label>
+      <input type="text" class="form-control" id="tipoVaso" name="tipoVaso" [(ngModel)]="bebida.tipoVasoBebida">
+    </div>
+
+      <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarBebida()">Guardar</button>
+      <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarBebida()">Modificar</button>
+    </form>
+  
