@@ -104,5 +104,8 @@
       }
     }
   },
-  "defaultProject": "tp5-quinterosMarcos-frontend"
+  "defaultProject": "tp5-quinterosMarcos-frontend",
+  "cli": {
+    "analytics": false
+  }
 }

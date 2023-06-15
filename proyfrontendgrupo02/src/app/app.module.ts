@@ -12,6 +12,8 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginService } from './service/login/login.service';
 import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { BebidaComponent } from './components/bebida/bebida.component';
+import { BebidaFormComponent } from './components/bebida-form/bebida-form.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { MenuComponent } from './components/menu/menu.component';
     FooterComponent,
     HomeComponent,
     LoginComponent,
-    MenuComponent
+    MenuComponent,
+    BebidaComponent,
+    BebidaFormComponent
   ],
   
   imports: [
