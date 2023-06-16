@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Bebida } from 'src/app/models/bebida';
 import { BebidaService } from 'src/app/service/bebida.service';
+import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
   selector: 'app-bebida',
@@ -12,9 +13,15 @@ export class BebidaComponent {
 
   listaBebida: Array<Bebida>
 
-  public constructor (private bebidaService:BebidaService,
-                      private router:Router){
+  public constructor (private loginService:LoginService,private bebidaService:BebidaService, private router:Router){
     this.listaBebida = new Array<Bebida>();
+    if (this.loginService.userLoggedIn()) {
+      //controlo si alguien esta logueado, ejecuto acciones normales
+      //controlo si alguien esta logueado, ejecuto acciones normales
+    } else {
+      alert("Debe validarse e ingresar su usuario y clave");
+      this.router.navigate(['login']);
+    }
   }
   
   ngOnInit(){

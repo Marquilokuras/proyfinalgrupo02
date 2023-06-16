@@ -1,1 +1,6 @@
-<p>menu works!</p>
+<div class="bebida" *ngFor="let bebidas of carta">
+      <h3>{{bebidas.nombreBebida}}</h3>
+      <p><strong>Ingredientes:</strong> {{bebidas.ingredientesBebida}}</p>
+      <p><strong>Precio:</strong> ${{bebidas.precioBebida}}</p>
+      <p><strong>Tipo de Vaso:</strong> {{bebidas.tipoVasoBebida}}</p>
+</div>
