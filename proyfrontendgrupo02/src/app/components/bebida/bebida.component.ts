@@ -22,7 +22,7 @@ export class BebidaComponent {
   }
 
 
-  obtenerBebidas() {
+ public obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result=>{
         console.log(result)
@@ -47,5 +47,22 @@ export class BebidaComponent {
   public actualizarBebida(bebida:Bebida){
     console.log(bebida._id)
     this.router.navigate(["bebida-form",bebida._id])
+  }
+
+  public eliminarBebida(bebida: Bebida){
+    this.bebidaService.eliminarBebida(bebida).subscribe(
+      result=>{
+        if(result.status==1){
+          alert(result.msg)
+          this.obtenerBebidas();
+        }
+        console.log(result)
+      },
+  
+      error=>{
+        console.log(error)
+        alert(error.msg)
+      }
+    )
   }
 }

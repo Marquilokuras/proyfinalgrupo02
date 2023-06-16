@@ -44,7 +44,7 @@ bebidaCtrl.eliminarBebida = async (req,res)=>{
         await Bebida.deleteOne({_id: req.params.id});
         res.json({ 
             status: '1', 
-            msg: 'Bebida eliminads'
+            msg: 'Bebida eliminada'
         }) 
     }catch (error) { 
         res.status(400).json({ 
