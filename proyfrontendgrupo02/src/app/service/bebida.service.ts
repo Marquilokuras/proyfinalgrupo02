@@ -49,6 +49,7 @@ export class BebidaService {
   }
 
   public actualizarBebida(bebida:Bebida):Observable<any>{
+    console.log(bebida)
     const httpOptions={
       headers : new HttpHeaders({
         "Content-type":"application/json"
@@ -58,7 +59,7 @@ export class BebidaService {
     
     let body = JSON.stringify(bebida);
 
-    return this._http.post(this.urlBase,body,httpOptions);
+    return this._http.put(this.urlBase+bebida._id,body,httpOptions);
   }
 
   public eliminarBebida(bebida:Bebida):Observable<any>{
@@ -69,6 +70,6 @@ export class BebidaService {
       params : new HttpParams()
     }
 
-    return this._http.get(this.urlBase+bebida._id,httpOptions);
+    return this._http.delete(this.urlBase+bebida._id,httpOptions);
   }
 }
