@@ -8,7 +8,7 @@ const UsuarioSchema = new Schema({
     password: { type: String, required: true },
     dniUsuario: { type: String, required: true },
     edadUsuario: { type: Number, required: true },
-    tipoUsuario: { type: String, required: true, enum: ['cliente','gestor', 'administrador'], },
+    tipoUsuario: { type: String, required: true, enum: ['cliente','gestor', 'administrador'] },
 })
 
 module.exports = mongoose.models.Usuario || mongoose.model('Usuario', UsuarioSchema);

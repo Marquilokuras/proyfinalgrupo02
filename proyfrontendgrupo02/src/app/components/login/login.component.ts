@@ -15,6 +15,14 @@ export class LoginComponent implements OnInit {
   returnUrl!: string;
   msglogin!: string; // mensaje que indica si no paso el loguin
 
+  emailUsuario !: string;
+  passwordUsuario !: string;
+  nombreUsuario !: string;
+  apellidoUsuario !: string;
+  dniUsuario !: string;
+  edadUsuario !: number;
+  tipoUsuarioCliente : string = "cliente"
+
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
   }
 
@@ -44,4 +52,20 @@ export class LoginComponent implements OnInit {
         console.log(error);
       });
   }
+
+  altaUsuarioCliente() {
+    this.loginService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
+      (result) => {
+        var user = result;
+        console.log(user)
+
+      },
+      error => {
+        alert("Error de conexion");
+        console.log("error en conexion");
+        console.log(error);
+      }
+    );
+  }
+
 }
