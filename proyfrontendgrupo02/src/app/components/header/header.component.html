@@ -1,37 +1,23 @@
-<header class="nav nav-expand-lg nav-dark bg-dark">
-    <div *ngIf="tipoLogged()  == ('administrador')">
-        <!-- ADMINISTRADOR-->
+<header class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div *ngIf="tipoLogged()  == ('administrador')" class="navbar-item">
+      <!-- ADMINISTRADOR -->
+  </div>
+  <div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
+      <!-- GESTOR -->
+      <a class="navbar-link" [routerLink]="['bebida']">Bebidas</a>
+  </div>
+  <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
+      <!-- CLIENTE -->
+  </div>
 
-
-
-    </div>
-    <div *ngIf="tipoLogged()  == ('gestor')">
-        <!-- GESTOR -->
-
-        <li><a [routerLink]="['bebida']">Bebidas</a></li>
-
-    </div>
-    <div *ngIf="tipoLogged()  == ('cliente')">
-        <!-- CLIENTE -->
-
-
-
-    </div>
-
-    <div>
-        <!-- USUARIOS NO REGISTRADOS -->
-        <li class="active"><a [routerLink]="['home']">Home</a></li>
-        <li><a [routerLink]="['about']">About</a></li>
-        <li><a [routerLink]="['menu']">Carta</a></li>
-
-        <div>
-            <a *ngIf="!loginService.userLoggedIn()" [routerLink]="['login']">Login</a>
-            <a *ngIf="loginService.userLoggedIn()" [routerLink]="['login']" (click)="logout()">
-                {{loginService.userLogged()}} Logout
-            </a>
-        </div>
-    </div>
-
+  <div class="navbar-item">
+      <!-- USUARIOS NO REGISTRADOS -->
+      <a class="navbar-link active" [routerLink]="['home']"><i class="fa-solid fa-house"></i> Home</a>
+      <a class="navbar-link" [routerLink]="['about']"><i class="fa-sharp fa-solid fa-circle-info"></i> Acerca de</a>
+      <a class="navbar-link" [routerLink]="['menu']"><i class="fa-solid fa-martini-glass-citrus"></i> Carta</a>
+          <a *ngIf="!loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']"><i class="fa-solid fa-user"></i> Login</a>
+          <a *ngIf="loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']" (click)="logout()">
+              {{loginService.userLogged()}}<i class="fa-solid fa-right-from-bracket"></i> Logout
+          </a>
+  </div>
 </header>
-
-<br>

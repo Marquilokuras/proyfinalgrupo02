@@ -2,3 +2,28 @@
     background-color: #0F2557; /* Estilo de fondo para la opción activa */
     color: black; /* Color de texto para la opción activa */
 }
+
+/* Estilos generales del header */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #333;
+  color: white;
+}
+
+/* Estilos para los elementos del header */
+header a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+header a:hover {
+  color: #ccc;
+}
+
+header .active a {
+  font-weight: bold;
+}
