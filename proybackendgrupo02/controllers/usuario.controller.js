@@ -10,6 +10,7 @@ usuarioCtrl.createUsuario = async (req, res) => {
     var usuario = new Usuario(req.body);
     try {
         await usuario.save();
+        console.log("eror")
         res.json({
             'status': '1',
             'msg': 'Usuario guardado.'

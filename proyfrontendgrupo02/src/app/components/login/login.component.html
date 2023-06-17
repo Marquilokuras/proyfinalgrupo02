@@ -17,5 +17,37 @@
         <div class="alert alert-danger" *ngIf="msglogin">{{msglogin}}</div>
       </form>
     </div>
+    <div class="col-md-6">
+      <h2>Register</h2>
+      <form name="registerForm" class="register-form">
+        <div class="form-group">
+          <label for="registerEmail">Email</label>
+          <input type="text" class="form-control" name="registerEmail" [(ngModel)]="emailUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" class="form-control" name="registerPassword" [(ngModel)]="passwordUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerNombre">Nombre</label>
+          <input type="text" class="form-control" name="registerNombre" [(ngModel)]="nombreUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerApellido">Apellido</label>
+          <input type="text" class="form-control" name="registerApellido" [(ngModel)]="apellidoUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerDni">Dni</label>
+          <input type="text" class="form-control" name="registerDni" [(ngModel)]="dniUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerEdad">Edad</label>
+          <input type="number" class="form-control" name="registerEdad" [(ngModel)]="edadUsuario" />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" (click)="altaUsuarioCliente()">Registrar</button>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
