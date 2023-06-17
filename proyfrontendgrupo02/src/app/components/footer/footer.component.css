@@ -1,0 +1,45 @@
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+footer {
+  margin-top: auto;
+}
+
+.footer-icon {
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+.footer-icon:before {
+  display: inline-block;
+  font-family: "Bootstrap Icons";
+  font-weight: 400;
+  content: attr(data-bi);
+  vertical-align: middle;
+}
+
+.footer-icon.bi-envelope-fill:before {
+  content: "\e208";
+}
+
+.footer-icon.bi-geo-alt-fill:before {
+  content: "\e1c8";
+}
+
+.footer-icon.bi-telephone-fill:before {
+  content: "\e232";
+}
+.no-underline-link {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.no-underline-link:hover {
+  text-decoration: none;
+  color: #fff;
+  transform: scale(1.1);
+}
+

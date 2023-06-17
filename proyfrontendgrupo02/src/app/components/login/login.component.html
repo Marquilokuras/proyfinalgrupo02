@@ -1,18 +1,21 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>Login</h2>
+      <form name="form" class="login-form">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="formcontrol" name="email" [(ngModel)]="userform.email" />
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="userform.email" />
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="formcontrol" name="password" [(ngModel)]="userform.password" />
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" />
         </div>
         <div class="form-group">
-            <button class="btn btn-primary" (click)="login()">Login</button>
+          <button class="btn btn-primary btn-block" (click)="login()">Login</button>
         </div>
-        <div class="alert-danger">{{msglogin}}</div>
-    </form>
+        <div class="alert alert-danger" *ngIf="msglogin">{{msglogin}}</div>
+      </form>
+    </div>
+  </div>
 </div>
-
