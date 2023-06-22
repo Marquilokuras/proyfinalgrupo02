@@ -5,6 +5,7 @@
   <div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
       <!-- GESTOR -->
       <a class="navbar-link" [routerLink]="['bebida']">Bebidas</a>
+      <a [routerLink]="['mesa']">Mesas</a>
   </div>
   <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
       <!-- CLIENTE -->
@@ -20,4 +21,5 @@
               {{loginService.userLogged()}}<i class="fa-solid fa-right-from-bracket"></i> Logout
           </a>
   </div>
+
 </header>

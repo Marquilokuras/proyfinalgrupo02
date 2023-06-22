@@ -1,0 +1,69 @@
+<div class="row">
+  <div class="col-6">
+<h2>Mesas</h2>
+
+  <div class="table-responsive" >
+    <table class="table table-striped" >
+      <thead>
+        <tr>
+          <th scope="col">Numero de mesa</th>
+          <th scope="col">Estado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let m of mesasDisponibles">
+          <td>{{m.numeroMesa}}</td>
+          <td *ngIf="m.disponibilidadReserva === true">Disponible</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  </div>
+
+
+  <div class="col-6 bg-body-secondary">
+<h2>Reserva</h2>
+  <form >
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+                <label for="numero" class="form-label">Número de mesa</label>
+                <div>
+                  <select name="espectador" id="id" class="form-select">
+                  <option *ngFor=" let e of mesasDisponibles" [ngValue]="e">{{e.numeroMesa}}</option>
+                </select>
+                </div>
+                
+            
+
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="estado" class="form-label">Cantidad de personas</label>
+              <input type="number" class="form-control" id="cantP" name="personas" [(ngModel)]="cantidadPersonas" (ngModelChange)="actualizarCantidadMesa()">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+                <label for="mesa" class="form-label">Cantidad de mesas</label>
+                <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="mesa.cantidadMesa" disabled>
+              </div>
+          </div>
+            <div class="col-md-6">
+            <div class="mb-3">
+              <label for="sillas" class="form-label">Cantidad de sillas</label>
+              <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="mesa.cantidadSilla" disabled>
+            </div>
+          </div>
+
+        </div>
+       
+        <button  type="submit" class="btn btn-primary" >Guardar</button>
+      </form>
+
+  </div>
+</div>

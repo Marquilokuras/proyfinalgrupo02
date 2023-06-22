@@ -1,0 +1,29 @@
+     <div class="container">
+    <h2>abm </h2>
+    <div class="table-responsive" style="max-width: 500px;">
+      <table class="table table-striped" style="max-width: 100%;">
+        <thead>
+          <tr>
+            <th scope="col">Numero de mesa</th>
+            <th scope="col">Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let mesa of mesas">
+            <td>#{{mesa.numeroMesa}}</td>
+            <td *ngIf="mesa.disponibilidadReserva === true">Disponible</td>
+            <td *ngIf="mesa.disponibilidadReserva === false">No disponible</td>
+            <td>   
+        <button type="button" class="btn btn-primary" (click)="modificarMesa(mesa)" >Modificar</button>
+         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)" >Eliminar</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <button type="button" class="btn btn-primary" (click)="nuevaMesa()">Agregar Mesa</button>
+  </div>
+
+  
+  
+  
