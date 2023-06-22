@@ -15,13 +15,10 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'bebida',component:BebidaComponent},
   {path:'bebida-form/:id', component:BebidaFormComponent},
-
   {path:'mesa-form/:id', component:MesaFormComponent},
   {path:'mesa', component:MesaComponent},
   {path:'mesa-cliente', component:MesaClienteComponent},
-
   {path: 'menu', component:MenuComponent},
-
   {path: '**', pathMatch:'full',redirectTo:'home' },
   
 ];
