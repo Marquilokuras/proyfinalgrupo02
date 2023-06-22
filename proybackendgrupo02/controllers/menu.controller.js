@@ -20,4 +20,35 @@ menuCtrl.mostrarBebidasDisponibles = async (req, res) => {
     }
 };
 
+menuCtrl.crearMenu = async (req,res)=>{
+    var menu = new Menu(req.body)
+    try{
+        await menu.save();
+        res.json({
+            'status':'1',
+            'msg':' Menu guardada'
+        })
+    }catch (error) {
+        res.status(400).json({
+            'status': '0', 
+            'msg': 'Error procesando operacion.'
+        })
+    }
+}
+
+menuCtrl.editarMenu = async (req,res) =>{
+    const menu = new Menu(req.body);
+    try{
+        await Menu.updateOne({_id: req.body._id },menu);
+        res.json({
+            'status': '1', 
+            'msg': 'Menu Actualizado'
+        })
+    }catch (error) { 
+        res.status(400).json({ 
+            'status': '0', 
+            'msg': 'Error procesando operacion.'}) 
+    } 
+}
+
 module.exports = menuCtrl;
