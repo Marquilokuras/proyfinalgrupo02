@@ -14,6 +14,9 @@ import { LoginComponent } from './components/login/login.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { BebidaComponent } from './components/bebida/bebida.component';
 import { BebidaFormComponent } from './components/bebida-form/bebida-form.component';
+import { MesaComponent } from './components/mesa/mesa.component';
+import { MesaFormComponent } from './components/mesa-form/mesa-form.component';
+import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { BebidaFormComponent } from './components/bebida-form/bebida-form.compon
     LoginComponent,
     MenuComponent,
     BebidaComponent,
-    BebidaFormComponent
+    BebidaFormComponent,
+    MesaComponent,
+    MesaFormComponent,
+    MesaClienteComponent
   ],
   
   imports: [

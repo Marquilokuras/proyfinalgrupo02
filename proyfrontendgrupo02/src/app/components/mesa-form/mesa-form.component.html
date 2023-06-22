@@ -1,0 +1,37 @@
+
+     <form>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+                <label for="numero" class="form-label">Número de mesa</label>
+                <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="mesa.numeroMesa">
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="sillas" class="form-label">Cantidad de sillas</label>
+              <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="mesa.cantidadSilla">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+                <label for="mesa" class="form-label">Cantidad de mesas</label>
+                <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="mesa.cantidadMesa">
+              </div>
+          </div>
+          <div class="col-md-6">
+            <div class="mb-3">
+              <label for="estado" class="form-label">Estado</label>
+              <select class="form-select" id="estado" name="estado" [(ngModel)]="mesa.disponibilidadReserva">
+                <option value="true">Disponible</option>
+                <option value="false">No Disponible</option>
+              </select>
+            </div>
+          </div>
+        </div>
+       
+        <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarMesa()">Guardar</button>
+        <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarMesa()">Modificar</button> 
+      </form>
