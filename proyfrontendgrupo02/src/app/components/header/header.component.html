@@ -6,9 +6,11 @@
       <!-- GESTOR -->
       <a class="navbar-link" [routerLink]="['bebida']">Bebidas</a>
       <a [routerLink]="['mesa']">Mesas</a>
+      <a [routerLink]="['mesa-form']">Gestionar Mesa</a>
   </div>
   <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
       <!-- CLIENTE -->
+      <a [routerLink]="['mesa-cliente']">Reservar Mesa</a>
   </div>
 
   <div class="navbar-item">
