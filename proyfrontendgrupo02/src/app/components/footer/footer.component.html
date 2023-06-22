@@ -1,34 +1,41 @@
-<!-- Remove the container if you want to extend the Footer to full width. -->
-<div class="container my-5">
-    <footer class="bg-dark text-center text-white">
-    <!-- Grid container -->
-    <div class="container p-4 pb-0">
-      <!-- Section: Form -->
-      <section class="">
-        <form action="">
-          <!--Grid row-->
-          <div class="row d-flex justify-content-center">
-            <!--Grid column-->
-            <div class="col-auto">
-              <p class="pt-2">
-                <strong>© 2023 Copyright:</strong>
-              </p>
-            </div>
-            <!--Grid column-->
-          </div>
-          <!--Grid row-->
-        </form>
-      </section>
-      <!-- Section: Form -->
+<footer class="bg-dark text-white py-5">
+  <div class="container-fluid">
+    <div class="row text-center">
+      <div class="col-md-6 col-lg-4 d-none d-md-block">
+        <h5 class="mb-4">The Winton House</h5>
+        <p>El lugar perfecto para desconectar del ajetreo diario y disfrutar del ambiente. <br>
+           Solo buena música, risas y tragos inolvidables. <br>
+           Siempre dispuestos a recomendarte los mejores cócteles de la casa.</p>
+      </div>
+      <div class="col-md-6 col-lg-4">
+        <h5 class="mb-4"><i class="bi bi-clock-fill"></i>  Horario de atención</h5>
+        <ul class="list-unstyled">
+          <li>Lunes - Viernes: 18:00 - 02:00</li>
+          <li>Sábados: 20:00 - 04:00</li>
+          <li>Domingos: Cerrado</li>
+        </ul>
+      </div>
+      <div class="col-md-12 col-lg-4">
+        <h5 class="mb-4"><i class="bi bi-person-circle"></i>  Contacto</h5>
+        <ul class="list-unstyled">
+          <li>
+            <li class="mb-1">
+              <a href="https://goo.gl/maps/pTK5attt6Zdeb6uLA" target="_blank" rel="noopener noreferrer" class="text-white no-underline-link">
+              <i class="bi bi-geo-alt-fill"></i>
+              Dirección: Av. Gdor. José María Fascio 900
+              </a>
+            </li>
+            <li class="mb-1" (click)="copyPhoneNumber()">
+              <i class="bi bi-whatsapp"></i>
+              Teléfono: +5493884589004
+            </li>
+          <li class="mb-1"><i class="bi bi-facebook"></i> The Winton House</li>
+          <li class="mb-1"><i class="bi bi-instagram"></i> @thewintonhouse</li>
+        </ul>
+      </div>
     </div>
-    <!-- Grid container -->
-  
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
-        Grupo 02
-    </div>
-    <!-- Copyright -->
-  </footer>
-    
   </div>
-  <!-- End of .container -->
+  <div class="text-center mt-4">
+    <p>&copy; 2023 The Winton House. Todos los derechos reservados.</p>
+  </div>
+</footer>

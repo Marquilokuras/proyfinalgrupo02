@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BebidaService } from 'src/app/service/bebida.service';
 import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
@@ -6,21 +7,29 @@ import { LoginService } from 'src/app/service/login/login.service';
   templateUrl: './menu.component.html',
   styleUrls: ['./menu.component.css']
 })
+
 export class MenuComponent implements OnInit {
   router: any;
+  carta = new Array();
 
-  constructor(public loginService: LoginService) { 
-    if(this.loginService.userLoggedIn()){
-      //controlo si alguien esta logueado, ejecuto acciones normales
-      //controlo si alguien esta logueado, ejecuto acciones normales
-       } else {
-       alert("Debe validarse e ingresar su usuario y clave");
-       this.router.navigate(['login']);
-       }
-      
+  constructor(public loginService: LoginService, public bebidaService: BebidaService) {
+    
   }
 
   ngOnInit(): void {
+    this.obtenerBebidas();
   }
 
+  obtenerBebidas() {
+    this.bebidaService.obtenerBebidas().subscribe(
+      result => {
+        console.log(result)
+        this.carta = result;
+      },
+
+      error => {
+        console.log(error)
+      }
+    )
+  }
 }

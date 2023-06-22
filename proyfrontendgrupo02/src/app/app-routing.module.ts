@@ -7,15 +7,21 @@ import { BebidaFormComponent } from './components/bebida-form/bebida-form.compon
 import { MesaFormComponent } from './components/mesa-form/mesa-form.component';
 import { MesaComponent } from './components/mesa/mesa.component';
 import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.component';
+import { MenuComponent } from './components/menu/menu.component';
+
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'login', component: LoginComponent },
   {path: 'bebida',component:BebidaComponent},
   {path:'bebida-form/:id', component:BebidaFormComponent},
+
   {path:'mesa-form/:id', component:MesaFormComponent},
   {path:'mesa', component:MesaComponent},
   {path:'mesa-cliente', component:MesaClienteComponent},
+
+  {path: 'menu', component:MenuComponent},
+
   {path: '**', pathMatch:'full',redirectTo:'home' },
   
 ];

@@ -56,8 +56,8 @@ ngOnInit():void{
   }
 
   public actualizarBebida(){
+    console.log(this.bebida)
    this.bebidaService.actualizarBebida(this.bebida).subscribe(
-    
     result=>{
       console.log(this.bebida);
       if(result.status==1){

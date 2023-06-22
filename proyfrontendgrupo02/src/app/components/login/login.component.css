@@ -1,0 +1,20 @@
+/* Estilos para el formulario de inicio de sesión */
+.login-form {
+  margin-top: 30px;
+}
+
+.login-form h2 {
+  margin-bottom: 30px;
+}
+
+.login-form .form-group {
+  margin-bottom: 20px;
+}
+
+.login-form .btn-primary {
+  width: 100%;
+}
+
+.login-form .alert-danger {
+  margin-top: 20px;
+}

@@ -1,18 +1,57 @@
-<div class="col-md-6 col-md-offset-3">
-    <h2>Login</h2>
-    <form name="form">
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h2>Login</h2>
+      <form name="form" class="login-form">
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="text" class="formcontrol" name="email" [(ngModel)]="userform.email" />
+          <label for="email">Email</label>
+          <input type="text" class="form-control" name="email" [(ngModel)]="userform.email" />
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="formcontrol" name="password" [(ngModel)]="userform.password" />
+          <label for="password">Password</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" />
         </div>
         <div class="form-group">
-            <button class="btn btn-primary" (click)="login()">Login</button>
+          <button class="btn btn-primary btn-block" (click)="login()">Login</button>
         </div>
-        <div class="alert-danger">{{msglogin}}</div>
-    </form>
+        <div class="alert alert-danger" *ngIf="msglogin">{{msglogin}}</div>
+      </form>
+    </div>
+    <div class="col-md-6">
+      <h2>Register</h2>
+      <form name="registerForm" class="register-form">
+        <div class="col-auto">
+          <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
+          <div class="input-group">
+            <div class="input-group-text">@</div>
+            <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Email"
+              [(ngModel)]="emailUsuario">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Password</label>
+          <input type="password" class="form-control" id="inputPassword" [(ngModel)]="passwordUsuario">
+        </div>
+        <div class="form-group">
+          <label for="registerNombre">Nombre</label>
+          <input type="text" class="form-control" name="registerNombre" [(ngModel)]="nombreUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerApellido">Apellido</label>
+          <input type="text" class="form-control" name="registerApellido" [(ngModel)]="apellidoUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerDni">Dni</label>
+          <input type="text" class="form-control" name="registerDni" [(ngModel)]="dniUsuario" />
+        </div>
+        <div class="form-group">
+          <label for="registerEdad">Edad</label>
+          <input type="number" class="form-control" name="registerEdad" [(ngModel)]="edadUsuario" />
+        </div>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" (click)="altaUsuarioCliente()">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
-
