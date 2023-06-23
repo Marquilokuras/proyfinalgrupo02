@@ -17,7 +17,9 @@ import { BebidaFormComponent } from './components/bebida-form/bebida-form.compon
 import { MesaComponent } from './components/mesa/mesa.component';
 import { MesaFormComponent } from './components/mesa-form/mesa-form.component';
 import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.component';
+import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
+
 
 @NgModule({
   declarations: [
@@ -32,9 +34,13 @@ import { PedidoComponent } from './components/pedido/pedido.component';
     MesaComponent,
     MesaFormComponent,
     MesaClienteComponent,
+
+    ComentarioUsuarioComponent
+
     PedidoComponent
+
   ],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule,
