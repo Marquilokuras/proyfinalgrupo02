@@ -8,6 +8,7 @@ import { MesaFormComponent } from './components/mesa-form/mesa-form.component';
 import { MesaComponent } from './components/mesa/mesa.component';
 import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
 
 
 const routes: Routes = [
@@ -18,9 +19,10 @@ const routes: Routes = [
   {path:'mesa-form/:id', component:MesaFormComponent},
   {path:'mesa', component:MesaComponent},
   {path:'mesa-cliente', component:MesaClienteComponent},
+  {path:'comentario-usuario', component:ComentarioUsuarioComponent},
   {path: 'menu', component:MenuComponent},
   {path: '**', pathMatch:'full',redirectTo:'home' },
-  
+
 ];
 
 @NgModule({

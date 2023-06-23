@@ -1,0 +1,83 @@
+
+<!-- GESTOR -->
+<div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
+
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{div.usuario}}</div>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Alto'" class="badge bg-success rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Medio'" class="badge bg-warning rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Bajo'" class="badge bg-danger rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+
+        <div class="fecha">{{div.fechaComentario}}</div>
+        {{div.descripcionComentario}}
+      </div>
+      <button type="submit" (click)="eliminarComentario(div)" class="btn btn-danger"><i
+          class="bi bi-trash3"></i></button>
+    </li>
+  </ol>
+
+</div>
+
+<!-- CLIENTE -->
+
+<div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
+
+   <div class="card-cliente">
+    <form class="p-4">
+      <div class="fw-bold"> <i class="bi bi-person-circle"></i>{{comentario.usuario}}</div>
+      <div class="mb-3">
+        <label for="exampleFormControlTextarea1" class="form-label">Comentario : </label>
+        <textarea class="form-control" name="descripcionComentario" [(ngModel)]="comentario.descripcionComentario"  placeholder="Escribe tu comentario" id="exampleFormControlTextarea1" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputCom" class="form-label">Puntaje:</label>
+        <div class="rating">
+          <span class="star" [ngClass]="{'color': comentario.puntajeComentario >= 1}"
+            (click)="setPuntaje(1)"><i class="bi bi-star-fill"></i></span>
+          <span class="star" [ngClass]="{'color': comentario.puntajeComentario >= 2}"
+            (click)="setPuntaje(2)"><i class="bi bi-star-fill"></i></span>
+          <span class="star" [ngClass]="{'color': comentario.puntajeComentario >= 3}"
+            (click)="setPuntaje(3)"><i class="bi bi-star-fill"></i></span>
+          <span class="star" [ngClass]="{'color': comentario.puntajeComentario >= 4}"
+            (click)="setPuntaje(4)"><i class="bi bi-star-fill"></i></span>
+          <span class="star" [ngClass]="{'color': comentario.puntajeComentario >= 5}"
+            (click)="setPuntaje(5)"><i class="bi bi-star-fill"></i></span>
+        </div>
+      </div>
+
+      <button type="submit" *ngIf="!comentario._id" (click)="guardarComentario()" class="btn btn-primary">Submit</button>
+      <button type="submit" *ngIf="comentario._id" (click)="modificarComentario()" class="btn btn-primary">Modificar</button>
+    </form>
+   </div>
+   <br>
+
+
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold">{{div.usuario}}</div>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Alto'" class="badge bg-success rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Medio'" class="badge bg-warning rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Bajo'" class="badge bg-danger rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+
+        <div class="fecha">{{div.fechaComentario}}</div>
+        {{div.descripcionComentario}}
+      </div>
+      <button *ngIf="div.usuario==usuario" type="submit" (click)="eliminarComentario(div)" class="btn btn-danger"><i
+          class="bi bi-x"></i></button>
+      <button *ngIf="div.usuario==usuario" type="submit" (click)="obtenerComentario(div._id)" class="btn btn-primary"><i
+          class="bi bi-pencil-fill"></i></button>
+    </li>
+  </ol>
+
+
+
+</div>

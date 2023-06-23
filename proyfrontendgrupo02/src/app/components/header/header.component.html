@@ -7,10 +7,12 @@
       <a class="navbar-link" [routerLink]="['bebida']">Bebidas</a>
       <a [routerLink]="['mesa']">Mesas</a>
       <a [routerLink]="['mesa-form']">Gestionar Mesa</a>
+      <a [routerLink]="['comentario-usuario']">Comentario</a>
   </div>
   <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
       <!-- CLIENTE -->
       <a [routerLink]="['mesa-cliente']">Reservar Mesa</a>
+      <a [routerLink]="['comentario-usuario']">Comentario</a>
   </div>
 
   <div class="navbar-item">
