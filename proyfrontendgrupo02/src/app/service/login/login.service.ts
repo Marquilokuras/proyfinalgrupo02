@@ -84,13 +84,6 @@ export class LoginService {
       'tipoUsuario' : tipoUsuario
 
     };
-    console.log(email,
-      password,
-      nombreUsuario, 
-      apellidoUsuario, 
-      dniUsuario, 
-      edadUsuario, 
-      tipoUsuario)
 
     return this._http.post('http://localhost:3000/api/usuario', body, httpOption);
   }
