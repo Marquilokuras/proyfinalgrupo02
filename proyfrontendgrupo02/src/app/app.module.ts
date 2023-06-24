@@ -34,9 +34,7 @@ import { PedidoComponent } from './components/pedido/pedido.component';
     MesaComponent,
     MesaFormComponent,
     MesaClienteComponent,
-
-    ComentarioUsuarioComponent
-
+    ComentarioUsuarioComponent,
     PedidoComponent
 
   ],

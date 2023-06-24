@@ -54,6 +54,7 @@ export class LoginComponent implements OnInit {
   }
 
   altaUsuarioCliente() {
+    console.log(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente)
     this.loginService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
       (result) => {
         var user = result;
