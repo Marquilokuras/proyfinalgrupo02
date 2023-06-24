@@ -82,7 +82,6 @@ export class LoginService {
       'dniUsuario' : dniUsuario, 
       'edadUsuario' : edadUsuario, 
       'tipoUsuario' : tipoUsuario
-
     };
 
     return this._http.post('http://localhost:3000/api/usuario', body, httpOption);
