@@ -59,7 +59,26 @@ export class LoginComponent implements OnInit {
       (result) => {
         var user = result;
         console.log(user)
-
+        this.loginService.login(this.emailUsuario, this.passwordUsuario).subscribe(
+          (result) => {
+            var user = result;
+            if (user.status == 1) {
+              //guardamos el user en cookies en el cliente
+              sessionStorage.setItem("user", user.email);
+              sessionStorage.setItem("userid", user.userid);
+              sessionStorage.setItem("tipoUsuario", user.tipoUsuario);
+              //redirigimos a home
+              this.router.navigateByUrl(this.returnUrl);
+            } else {
+              //usuario no encontrado muestro mensaje en la vista
+              this.msglogin = "Credencial Incorrecta";
+            }
+          },
+          error => {
+            alert("Error de conexion");
+            console.log("error en conexion");
+            console.log(error);
+          });
       },
       error => {
         alert("Error de conexion");
