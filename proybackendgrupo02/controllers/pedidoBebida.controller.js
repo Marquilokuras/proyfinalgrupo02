@@ -18,13 +18,13 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
 
         for (let i = 0; i < arrayBebida.length; i++) {
             cantidadBebidas = arrayBebida[i].cantidadBebidas;
-          //  precioDetalle = arrayBebida[i].precioDetalle
+            precioDetalle = arrayBebida[i].precioDetalle
             bebidaId = arrayBebida[i].bebida
-             pedido.bebidasPedido.push({cantidadBebidas, precioDetalle, bebida:bebidaId })
-          //  precioPedido = precioPedido + precioDetalle * cantidadBebidas; */
+            pedido.bebidasPedido.push({cantidadBebidas, precioDetalle, bebida:bebidaId })
+            precioPedido = precioPedido + precioDetalle * cantidadBebidas; 
         }
 
-        //pedido.totalPedido = precioPedido
+        pedido.totalPedido = precioPedido
         pedido.save();
         res.json({
             'status': '1',

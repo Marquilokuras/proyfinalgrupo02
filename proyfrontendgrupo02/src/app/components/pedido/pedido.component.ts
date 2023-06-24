@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Bebida } from 'src/app/models/bebida';
+import { BebidaService } from 'src/app/service/bebida.service';
+import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 
 @Component({
@@ -10,38 +12,48 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
 export class PedidoComponent implements OnInit {
   cantidadBebidas !: number;
   idBebida !: string;
-  precioDetalle !: number;
   arrayPedido = new Array();
   bebidas !: Bebida
+  pedidoSolicitado : boolean = false
+  carta = new Array();
 
-  constructor(private pedidoService: PedidoService) { }
-
-  ngOnInit(): void {
+  constructor(private pedidoService: PedidoService,public loginService: LoginService, public bebidaService: BebidaService) {
+    
   }
 
-  public crearPedido() {
+  ngOnInit(): void {
+    this.obtenerBebidas();
+  }
+
+  obtenerBebidas() {
+    this.bebidaService.obtenerBebidas().subscribe(
+      result => {
+        console.log(result)
+        this.carta = result;
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  public crearPedido(identificador:string,precioDetalle:number) {
 
     const bebidaPedido = {
       cantidadBebidas: this.cantidadBebidas,
-    //  precioDetalle: this.precioDetalle,
-      bebida: this.idBebida,
+      precioDetalle: precioDetalle,
+      bebida: identificador,
     };
-
-    console.log(bebidaPedido)
-
+ 
     this.arrayPedido.push(bebidaPedido)
-    
-    for(let i = 0; i < this.arrayPedido.length;i++){
-      console.log(this.arrayPedido[i].cantidadBebidas)
-     // console.log(this.arrayPedido[i].precioDetalle)
-      console.log(this.arrayPedido[i].bebida)
-    }
+    this.pedidoSolicitado = true;
+
   }
 
   public generarPedido(){
     this.pedidoService.generarPedido(this.arrayPedido).subscribe(
       result => {
-
+        this.arrayPedido = []
       },
 
       error => {
