@@ -20,19 +20,10 @@
         </div>
 
         <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" required
-            pattern="[A-Z][a-zA-Z0-9._%+-]*" #password="ngModel" />
-          <div *ngIf="password.invalid && (password.dirty || password.touched)" class="alert alert-danger">
-            <div *ngIf="password.errors?.['required']">
-              La contraseña es requerida
-            </div>
-            <div *ngIf="password.errors?.['pattern']">
-              La contraseña debe comenzar con una letra mayúscula y puede contener caracteres alfanuméricos, puntos,
-              guiones bajos, porcentajes y signos más/menos.
-            </div>
-          </div>
+          <label for="password">Contraseña</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" required/>
         </div>
+        
 
         <div class="form-group">
           <button class="btn btn-primary btn-block" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
@@ -57,7 +48,7 @@
           <label for="registerNombre">Passaword</label>
           <input type="password" class="form-control" name="registerNombre" placeholder="Ingrese Password"
             [(ngModel)]="passwordUsuario" required />
-            
+
         </div>
 
         <div class="form-group">
