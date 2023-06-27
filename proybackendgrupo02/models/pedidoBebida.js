@@ -4,7 +4,7 @@ const Bebida = require('./bebida');
 const Promocion = require('./promocion');
 const PedidoSchema = new Schema({
    // promocion: { type: Schema.Types.ObjectId, ref: Promocion },
-    totalPedido: { type: Number /* required: true  */},
+    totalPedido: { type: Number , required: true },
     bebidasPedido: [
         {
             cantidadBebidas: { type: Number, required: true },
@@ -12,6 +12,5 @@ const PedidoSchema = new Schema({
             bebida: {type: Schema.Types.ObjectId, ref: 'Bebida', required: true }
         },
     ],
-    //detallePedido: {type: Schema.Types.ObjectId, ref: DetallePedido, required: true  },
 })
 module.exports = mongoose.models.Pedido || mongoose.model('Pedido', PedidoSchema)

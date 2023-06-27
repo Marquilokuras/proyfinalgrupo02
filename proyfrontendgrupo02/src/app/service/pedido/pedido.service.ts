@@ -28,7 +28,7 @@ export class PedidoService {
     return this._http.post('http://localhost:3000/api/pedido/', body, httpOption);
   }
 
-  public mostrarPedidos(): Observable<any> {
+  public mostrarPedido(): Observable<any> {
 
     const httpOption = {
       headers: new HttpHeaders({
@@ -36,7 +36,20 @@ export class PedidoService {
       })
     }
 
-    return this._http.get('http://localhost:3000/api/pedido/', httpOption);
+    return this._http.get('http://localhost:3000/api/pedido/pedidos', httpOption);
+  }
+
+  public eliminarPedido(id : string): Observable<any> {
+
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    const url = 'http://localhost:3000/api/pedido/'+id
+    console.log(url)
+    return this._http.delete(url, httpOption);
   }
 
 }

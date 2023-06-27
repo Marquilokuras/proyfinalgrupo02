@@ -14,12 +14,12 @@ export class PedidoComponent implements OnInit {
   idBebida !: string;
   arrayPedido = new Array();
   bebidas !: Bebida
-  pedidoSolicitado : boolean = false
+  pedidoSolicitado: boolean = false
   carta = new Array();
-  total : number = 0;
+  total: number = 0;
 
-  constructor(private pedidoService: PedidoService,public loginService: LoginService, public bebidaService: BebidaService) {
-    
+  constructor(private pedidoService: PedidoService, public loginService: LoginService, public bebidaService: BebidaService) {
+
   }
 
   ngOnInit(): void {
@@ -38,22 +38,22 @@ export class PedidoComponent implements OnInit {
     )
   }
 
-  public crearPedido(identificador:string,precioDetalle:number) {
+  public crearPedido(identificador: string, precioDetalle: number) {
 
     const bebidaPedido = {
       cantidadBebidas: this.cantidadBebidas,
       precioDetalle: precioDetalle,
       bebida: identificador,
     };
-    
+
     this.total = this.total + this.cantidadBebidas * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
 
   }
 
-  public generarPedido(){
-    this.total =0;
+  public generarPedido() {
+    this.total = 0;
     this.pedidoService.generarPedido(this.arrayPedido).subscribe(
       result => {
         this.arrayPedido = []
@@ -65,15 +65,5 @@ export class PedidoComponent implements OnInit {
     )
   }
 
-  public mostrarPedidos(){
-    this.pedidoService.mostrarPedidos().subscribe(
-      result => {
-        console.log(result)
-      },
-
-      error => {
-        console.log(error)
-      }
-    )
-  }
+ 
 }

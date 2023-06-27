@@ -1,34 +1,36 @@
 <header class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <div *ngIf="tipoLogged()  == ('administrador')" class="navbar-item">
-      <!-- ADMINISTRADOR -->
-  </div>
-  <div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
-      <!-- GESTOR -->
-      <a class="navbar-link" [routerLink]="['bebida']">Bebidas</a>
-      <a [routerLink]="['mesa']">Mesas</a>
-      <a [routerLink]="['mesa-form']">Gestion Mesa</a>
-<!--       <a [routerLink]="['pedido-form']">Gestion Pedidos</a>
- -->      <a [routerLink]="['comentario-usuario']">Comentario</a>
-  </div>
-  <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
-      <!-- CLIENTE -->
-      <a [routerLink]="['mesa-cliente']">Reservar Mesa</a>
+    <div *ngIf="tipoLogged()  == ('administrador')" class="navbar-item">
+        <!-- ADMINISTRADOR -->
+    </div>
+    <div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
+        <!-- GESTOR -->
+        <a class="navbar-link" [routerLink]="['bebida']">Gestion de Bebidas</a>
+        <a [routerLink]="['mesa-form']">Gestion de Mesas</a>
+        <a [routerLink]="['pedido-form']">Gestion de Pedidos</a>
+        <a [routerLink]="['comentario-usuario']">Gestion de Comentarios</a>
+        <a [routerLink]="['pedido']">Registrar Pedido</a>
+        <a [routerLink]="['mesa']">Reservar Mesa</a>
+    </div>
+    <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
+        <!-- CLIENTE -->
+        <a [routerLink]="['mesa-cliente']">Reservar Mesa</a>
 
-      <a [routerLink]="['comentario-usuario']">Comentario</a>
+        <a [routerLink]="['comentario-usuario']">Realizar Comentario</a>
 
-      <a [routerLink]="['pedido']">Registrar Pedido</a>
+        <a [routerLink]="['pedido']">Registrar Pedido</a>
 
-  </div>
+    </div>
 
-  <div class="navbar-item">
-      <!-- USUARIOS NO REGISTRADOS -->
-      <a class="navbar-link active" [routerLink]="['home']"><i class="fa-solid fa-house"></i> Home</a>
-      <a class="navbar-link" [routerLink]="['about']"><i class="fa-sharp fa-solid fa-circle-info"></i> Acerca de</a>
-      <a class="navbar-link" [routerLink]="['menu']"><i class="fa-solid fa-martini-glass-citrus"></i> Carta</a>
-          <a *ngIf="!loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']"><i class="fa-solid fa-user"></i> Login</a>
-          <a *ngIf="loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']" (click)="logout()">
-              {{loginService.userLogged()}}<i class="fa-solid fa-right-from-bracket"></i> Logout
-          </a>
-  </div>
+    <div class="navbar-item">
+        <!-- USUARIOS NO REGISTRADOS -->
+        <a class="navbar-link active" [routerLink]="['home']"><i class="fa-solid fa-house"></i> Home</a>
+        <a class="navbar-link" [routerLink]="['about']"><i class="fa-sharp fa-solid fa-circle-info"></i> Acerca de</a>
+        <a class="navbar-link" [routerLink]="['menu']"><i class="fa-solid fa-martini-glass-citrus"></i> Carta</a>
+        <a *ngIf="!loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']"><i
+                class="fa-solid fa-user"></i> Login</a>
+        <a *ngIf="loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']" (click)="logout()">
+            {{loginService.userLogged()}}<i class="fa-solid fa-right-from-bracket"></i> Logout
+        </a>
+    </div>
 
 </header>
