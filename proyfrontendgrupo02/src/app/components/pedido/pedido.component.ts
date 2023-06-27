@@ -16,6 +16,7 @@ export class PedidoComponent implements OnInit {
   bebidas !: Bebida
   pedidoSolicitado : boolean = false
   carta = new Array();
+  total : number = 0;
 
   constructor(private pedidoService: PedidoService,public loginService: LoginService, public bebidaService: BebidaService) {
     
@@ -44,16 +45,30 @@ export class PedidoComponent implements OnInit {
       precioDetalle: precioDetalle,
       bebida: identificador,
     };
- 
+    
+    this.total = this.total + this.cantidadBebidas * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
 
   }
 
   public generarPedido(){
+    this.total =0;
     this.pedidoService.generarPedido(this.arrayPedido).subscribe(
       result => {
         this.arrayPedido = []
+      },
+
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  public mostrarPedidos(){
+    this.pedidoService.mostrarPedidos().subscribe(
+      result => {
+        console.log(result)
       },
 
       error => {

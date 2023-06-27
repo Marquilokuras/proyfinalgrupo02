@@ -20,7 +20,6 @@ import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.com
 import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -35,7 +34,7 @@ import { PedidoComponent } from './components/pedido/pedido.component';
     MesaFormComponent,
     MesaClienteComponent,
     ComentarioUsuarioComponent,
-    PedidoComponent
+    PedidoComponent,
 
   ],
 
