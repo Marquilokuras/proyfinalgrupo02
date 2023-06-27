@@ -10,8 +10,7 @@ import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.com
 import { MenuComponent } from './components/menu/menu.component';
 import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
-
-
+import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
@@ -24,8 +23,8 @@ const routes: Routes = [
   {path:'comentario-usuario', component:ComentarioUsuarioComponent},
   {path: 'menu', component:MenuComponent},
   {path: 'pedido', component:PedidoComponent},
+  {path: 'pedido-form', component:PedidoFormComponent},
   {path: '**', pathMatch:'full',redirectTo:'home' },
-
 ];
 
 @NgModule({

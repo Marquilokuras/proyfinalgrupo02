@@ -2,8 +2,8 @@ const Pedido = require('../models/pedidoBebida');
 const Bebida = require('../models/bebida');
 const pedidoCtrl = {}
 
-pedidoCtrl.getPedidoBebida = async (req, res) => { //se define una funcion asincrona
-    var pedidos = await Pedido.find();
+pedidoCtrl.getPedidoBebida = async (req, res) => { 
+    var pedidos = await Pedido.find().populate('bebidasPedido.bebida');
     res.json(pedidos);
 }
 
