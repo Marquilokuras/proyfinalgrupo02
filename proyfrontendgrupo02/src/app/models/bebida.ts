@@ -4,6 +4,11 @@ export class Bebida {
     nombreBebida !: String
     precioBebida! : Number
     tipoVasoBebida! : String
+    disponibilidadBebida! : Boolean
+    imagenBebida! : String
+    
 
     constructor (){}
+
+    
 }

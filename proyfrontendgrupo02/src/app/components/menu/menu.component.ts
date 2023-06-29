@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Bebida } from 'src/app/models/bebida';
 import { BebidaService } from 'src/app/service/bebida.service';
 import { LoginService } from 'src/app/service/login/login.service';
 
@@ -11,7 +12,7 @@ import { LoginService } from 'src/app/service/login/login.service';
 export class MenuComponent implements OnInit {
   router: any;
   carta = new Array();
-
+  
   constructor(public loginService: LoginService, public bebidaService: BebidaService) {
     
   }
@@ -23,7 +24,19 @@ export class MenuComponent implements OnInit {
   obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result => {
-        this.carta = result;
+
+        console.log(result)
+        let unaBebida = new Bebida();
+        result.forEach((element: any )=> {
+          Object.assign(unaBebida,element)
+          if(unaBebida.disponibilidadBebida==true){
+            this.carta.push(unaBebida)
+          }
+          unaBebida = new Bebida();
+        });
+
+        this.carta = result; //corroborar carta
+
       },
 
       error => {

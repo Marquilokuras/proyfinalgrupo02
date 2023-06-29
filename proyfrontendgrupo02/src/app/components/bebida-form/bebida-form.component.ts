@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Bebida } from 'src/app/models/bebida';
 import { BebidaService } from 'src/app/service/bebida.service';
+
 
 @Component({
   selector: 'app-bebida-form',
@@ -11,10 +13,14 @@ import { BebidaService } from 'src/app/service/bebida.service';
 export class BebidaFormComponent {
   bebida:Bebida;
   accion:string="";
+  file: { base64: string, safeurl: SafeUrl | null }
   constructor(private activatedRoute: ActivatedRoute,
               private bebidaService: BebidaService,
-              private router:Router){
+              private router:Router,
+              private domSanitizer: DomSanitizer){
     this.bebida = new Bebida();
+    this.file = { base64: '', safeurl: null };
+
   }
 
 ngOnInit():void{
@@ -40,12 +46,17 @@ ngOnInit():void{
   }
 
   public guardarBebida(){
+    console.log(this.bebida.disponibilidadBebida)
+    if(this.bebida.disponibilidadBebida==null){
+      this.bebida.disponibilidadBebida=false
+    }
     this.bebidaService.guardarBebida(this.bebida).subscribe(
       result=>{
         if(result.status==1){
           alert(result.msg)
           this.router.navigate(["bebida"])
         }
+        console.log("La bebida guardadaaaa"+this.bebida.nombreBebida+" "+this.bebida.imagenBebida);
         console.log(result);
       },
       error=>{
@@ -72,4 +83,23 @@ ngOnInit():void{
     }
    )
   }
+
+  onFileSelected(event: any) {
+    const file = event.target.files[0]; // Obtener solo el primer archivo seleccionado
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        let base64 = reader.result as string
+        this.bebida.imagenBebida = base64;
+        let safeurl: SafeUrl = this.domSanitizer.bypassSecurityTrustUrl(base64);
+        //this.files.push({ 'base64': base64, 'safeurl': safeurl });
+        this.file.base64=base64;
+        this.file.safeurl=safeurl;
+       //console.log(this.bebida.imagenBebida)
+      };
+      reader.readAsDataURL(file);
+    }
+    
+  }
+
 }
