@@ -8,12 +8,12 @@ const express = require('express');
 const router = express.Router();
 
 //definimos las rutas para la gestion de bebida
-router.get('/', bebidaCtrl.getBebidas); // http://localhost:3000/api/producto/
-router.post('/', bebidaCtrl.crearBebida); // http://localhost:3000/api/agente/
-router.get('/:id', bebidaCtrl.getBebida);  // http://localhost:3000/api/agente/
+router.get('/', bebidaCtrl.getBebidas); 
+router.post('/', bebidaCtrl.crearBebida); 
+router.get('/:id', bebidaCtrl.getBebida); 
 router.put('/:id', bebidaCtrl.editarBebida);
 router.delete('/:id', bebidaCtrl.eliminarBebida);
-//router.get('/:destacado',productoCtrl.getProductosDestacados);
+router.get('/disponibles',bebidaCtrl.mostrarBebidasDisponibles);
 
 //exportamos el modulo de rutas 
 

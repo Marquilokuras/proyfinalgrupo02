@@ -1,4 +1,6 @@
 const Usuario = require('../models/usuario');
+const jwt = require('jsonwebtoken');
+
 const usuarioCtrl = {}
 
 usuarioCtrl.getUsuario = async (req, res) => { //se define una funcion asincrona
@@ -10,7 +12,7 @@ usuarioCtrl.createUsuario = async (req, res) => {
     var usuario = new Usuario(req.body);
     try {
         await usuario.save();
-        console.log("eror")
+        
         res.json({
             'status': '1',
             'msg': 'Usuario guardado.'
@@ -34,16 +36,17 @@ usuarioCtrl.loginUsuario = async (req, res) => {
                     msg: "not found"
                 })
             } else {
+                const unToken = jwt.sign({id: user._id}, "secretkey");
                 res.json({
                     status: 1,
                     msg: "success",
                     email: user.email, //retorno información útil para el frontend
                     tipoUsuario: user.tipoUsuario, //retorno información útil para el frontend
-                    userid: user._id //retorno información útil para el frontend
+                    userid: user._id, //retorno información útil para el frontend
+                    token : unToken
                 })
             }
-        })
-        .catch(err => {
+        }) .catch(err => {
             if (err) {
                 res.json({
                     status: 0,

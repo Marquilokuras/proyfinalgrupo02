@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
@@ -17,6 +17,11 @@ import { BebidaFormComponent } from './components/bebida-form/bebida-form.compon
 import { MesaComponent } from './components/mesa/mesa.component';
 import { MesaFormComponent } from './components/mesa-form/mesa-form.component';
 import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.component';
+import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
+import { PedidoComponent } from './components/pedido/pedido.component';
+import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
+import { TokenInterceptorService } from './service/token-interceptor/token-interceptor.service';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 @NgModule({
   declarations: [
@@ -30,16 +35,27 @@ import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.com
     BebidaFormComponent,
     MesaComponent,
     MesaFormComponent,
-    MesaClienteComponent
+    MesaClienteComponent,
+    ComentarioUsuarioComponent,
+    PedidoComponent,
+    PedidoFormComponent,
+    UsuarioComponent,
+
   ],
-  
+
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+   }
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

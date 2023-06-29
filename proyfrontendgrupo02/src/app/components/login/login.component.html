@@ -1,57 +1,151 @@
 <div class="container">
   <div class="row justify-content-center">
+
     <div class="col-md-6">
       <h2>Login</h2>
-      <form name="form" class="login-form">
+      <form name="form" class="login-form" #loginForm="ngForm">
+
         <div class="form-group">
           <label for="email">Email</label>
-          <input type="text" class="form-control" name="email" [(ngModel)]="userform.email" />
-        </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" (click)="login()">Login</button>
-        </div>
-        <div class="alert alert-danger" *ngIf="msglogin">{{msglogin}}</div>
-      </form>
-    </div>
-    <div class="col-md-6">
-      <h2>Register</h2>
-      <form name="registerForm" class="register-form">
-        <div class="col-auto">
-          <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
-          <div class="input-group">
-            <div class="input-group-text">@</div>
-            <input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Email"
-              [(ngModel)]="emailUsuario">
+          <input type="text" class="form-control" name="email" [(ngModel)]="userform.email" required
+            pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.com" #email="ngModel" />
+          <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
+            <div *ngIf="email.errors?.['required']">
+              El Email es requerido
+            </div>
+            <div *ngIf="email.errors?.['pattern']">
+              El Email ingresado debe seguir el formato: ___@___.com
+            </div>
           </div>
         </div>
-        <div class="col-md-6">
-          <label for="inputPassword4" class="form-label">Password</label>
-          <input type="password" class="form-control" id="inputPassword" [(ngModel)]="passwordUsuario">
-        </div>
+
         <div class="form-group">
-          <label for="registerNombre">Nombre</label>
-          <input type="text" class="form-control" name="registerNombre" [(ngModel)]="nombreUsuario" />
+          <label for="password">Contraseña</label>
+          <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" required />
         </div>
+
+
         <div class="form-group">
-          <label for="registerApellido">Apellido</label>
-          <input type="text" class="form-control" name="registerApellido" [(ngModel)]="apellidoUsuario" />
+          <button class="btn btn-primary btn-block" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
         </div>
-        <div class="form-group">
-          <label for="registerDni">Dni</label>
-          <input type="text" class="form-control" name="registerDni" [(ngModel)]="dniUsuario" />
-        </div>
-        <div class="form-group">
-          <label for="registerEdad">Edad</label>
-          <input type="number" class="form-control" name="registerEdad" [(ngModel)]="edadUsuario" />
-        </div>
-        <div class="form-group">
-          <button class="btn btn-primary btn-block" (click)="altaUsuarioCliente()">Registrar</button>
+        <div>
+          <button type="submit" class="btn btn-primary" (click)="inscribirse()">Inscribirse</button>
+          <button type="submit" class="btn btn-primary"  (click)="recuperar()">Recuperar Contraseña</button>
         </div>
       </form>
     </div>
+
+    <div class="col-md-6" *ngIf="nuevoUsuario===true">
+      <h2>Registrar</h2>
+      <form name="registerForm" class="register-form" #registrarForm="ngForm">
+        <div class="form-group">
+          <label  for="email">Email</label>
+          <div class="input-group">
+            <div class="input-group-text">@</div>
+            <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
+              [(ngModel)]="emailUsuario" required />
+
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="registerNombre">Passaword</label>
+          <input type="password" class="form-control" name="registerNombre" placeholder="Ingrese Password"
+            [(ngModel)]="passwordUsuario" required />
+
+        </div>
+
+        <div class="form-group">
+          <label for="registerNombre">Nombre</label>
+          <input type="text" class="form-control" name="registerNombre" placeholder="Ingrese Nombre Completo"
+            [(ngModel)]="nombreUsuario" required />
+
+        </div>
+
+        <div class="form-group">
+          <label for="registerApellido">Apellido</label>
+          <input type="text" class="form-control" name="registerApellido" placeholder="Ingrese Apellido Completo"
+            [(ngModel)]="apellidoUsuario" required pattern="[A-Za-záéíóúÁÉÍÓÚñÑ\s]+" #apellido="ngModel" />
+          <div *ngIf="apellido.invalid && (apellido.dirty || apellido.touched)" class="alert alert-danger">
+            <div *ngIf="apellido.errors?.['required']">
+              El apellido es requerido
+            </div>
+            <div *ngIf="apellido.errors?.['pattern']">
+              El apellido solo puede contener letras y espacios.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="registerDni">DNI</label>
+          <input type="text" class="form-control" name="registerDni" placeholder="Ingrese DNI" [(ngModel)]="dniUsuario"
+            required pattern="[0-9]+" #dni="ngModel" />
+          <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
+            <div *ngIf="dni.errors?.['required']">
+              El DNI es requerido
+            </div>
+            <div *ngIf="dni.errors?.['pattern']">
+              El DNI debe ser un número válido.
+            </div>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+          <label for="registerEdad">Edad</label>
+          <input type="number" class="form-control" name="registerEdad" placeholder="Ingrese Edad"
+            [(ngModel)]="edadUsuario" required min="16" max="110" #edad="ngModel" />
+          <div *ngIf="edad.invalid && (edad.dirty || edad.touched)" class="alert alert-danger">
+            <div *ngIf="edad.errors?.['required']">
+              La edad es requerida
+            </div>
+            <div *ngIf="edad.errors?.['min'] || edad.errors?.['max']">
+              La edad debe estar entre 16 y 110 años
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" (click)="altaUsuarioCliente()"
+            [disabled]="!registrarForm.form.valid">Registrar</button>
+          <button class="btn btn-danger btn-block" (click)="cancelar()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-md-6" *ngIf="recuperarUsuario===true">
+      <h2>Recuperar Contraseña</h2>
+      <form name="registerForm" class="register-form" #registrarForm="ngForm">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <div class="input-group">
+            <div class="input-group-text">@</div>
+            <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
+              [(ngModel)]="emailUsuario" required />
+
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="registerDni">DNI</label>
+          <input type="text" class="form-control" name="registerDni" placeholder="Ingrese DNI" [(ngModel)]="dniUsuario"
+            required pattern="[0-9]+" #dni="ngModel" />
+          <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
+            <div *ngIf="dni.errors?.['required']">
+              El DNI es requerido
+            </div>
+            <div *ngIf="dni.errors?.['pattern']">
+              El DNI debe ser un número válido.
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="form-group">
+          <button class="btn btn-primary btn-block" (click)="altaUsuarioCliente()"
+            [disabled]="!registrarForm.form.valid">Recuperar</button>
+          <button class="btn btn-danger btn-block" (click)="cancelar()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+    
   </div>
 </div>

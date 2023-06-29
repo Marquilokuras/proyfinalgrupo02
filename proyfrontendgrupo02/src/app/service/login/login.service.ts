@@ -37,6 +37,7 @@ export class LoginService {
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("tipoUsuario");
     sessionStorage.removeItem("userid");
+    sessionStorage.removeItem("token");
   }
 
   //sessionStorage para ver cliente
@@ -61,6 +62,14 @@ export class LoginService {
     return id;
   }
 
+  
+  getToken(): string {
+    if (sessionStorage.getItem("token") != null) {
+      return sessionStorage.getItem("token")!;
+    } else {
+      return "";
+    }
+  }
 
   // FIN LOGIN
 
@@ -82,17 +91,19 @@ export class LoginService {
       'dniUsuario' : dniUsuario, 
       'edadUsuario' : edadUsuario, 
       'tipoUsuario' : tipoUsuario
-
     };
-    console.log(email,
-      password,
-      nombreUsuario, 
-      apellidoUsuario, 
-      dniUsuario, 
-      edadUsuario, 
-      tipoUsuario)
 
     return this._http.post('http://localhost:3000/api/usuario', body, httpOption);
+  }
+
+  public mostrarUsuario(): Observable<any>{
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this._http.get('http://localhost:3000/api/usuario/', httpOption);
   }
 
 }

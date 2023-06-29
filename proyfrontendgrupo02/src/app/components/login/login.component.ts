@@ -13,15 +13,16 @@ export class LoginComponent implements OnInit {
 
   userform: Usuario = new Usuario(); //usuario mapeado al formulario
   returnUrl!: string;
-  msglogin!: string; // mensaje que indica si no paso el loguin
 
+  nuevoUsuario : boolean = false;
+  recuperarUsuario : boolean = false;
   emailUsuario !: string;
   passwordUsuario !: string;
   nombreUsuario !: string;
   apellidoUsuario !: string;
   dniUsuario !: string;
   edadUsuario !: number;
-  tipoUsuarioCliente : string = "cliente"
+  tipoUsuarioCliente: string = "cliente"
 
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
   }
@@ -36,14 +37,14 @@ export class LoginComponent implements OnInit {
         var user = result;
         if (user.status == 1) {
           //guardamos el user en cookies en el cliente
+          sessionStorage.setItem("token", user.token);
           sessionStorage.setItem("user", user.email);
           sessionStorage.setItem("userid", user.userid);
           sessionStorage.setItem("tipoUsuario", user.tipoUsuario);
           //redirigimos a home
           this.router.navigateByUrl(this.returnUrl);
         } else {
-          //usuario no encontrado muestro mensaje en la vista
-          this.msglogin = "Credencial Incorrecta";
+
         }
       },
       error => {
@@ -54,11 +55,28 @@ export class LoginComponent implements OnInit {
   }
 
   altaUsuarioCliente() {
+    console.log(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente)
     this.loginService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
       (result) => {
         var user = result;
         console.log(user)
-
+        this.loginService.login(this.emailUsuario, this.passwordUsuario).subscribe(
+          (result) => {
+            var user = result;
+            if (user.status == 1) {
+              //guardamos el user en cookies en el cliente
+              sessionStorage.setItem("user", user.email);
+              sessionStorage.setItem("userid", user.userid);
+              sessionStorage.setItem("tipoUsuario", user.tipoUsuario);
+              //redirigimos a home
+              this.router.navigateByUrl(this.returnUrl);
+            }
+          },
+          error => {
+            alert("Error de conexion");
+            console.log("error en conexion");
+            console.log(error);
+          });
       },
       error => {
         alert("Error de conexion");
@@ -68,4 +86,18 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  inscribirse(){
+    this.nuevoUsuario = true;
+    this.recuperarUsuario = false;
+  }
+
+  cancelar(){
+    this.nuevoUsuario = false;
+    this.recuperarUsuario = false;
+  }
+
+  recuperar(){
+    this.nuevoUsuario = false;
+    this.recuperarUsuario = true;
+  }
 }

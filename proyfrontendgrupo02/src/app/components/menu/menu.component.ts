@@ -24,6 +24,7 @@ export class MenuComponent implements OnInit {
   obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result => {
+
         console.log(result)
         let unaBebida = new Bebida();
         result.forEach((element: any )=> {
@@ -33,6 +34,9 @@ export class MenuComponent implements OnInit {
           }
           unaBebida = new Bebida();
         });
+
+        this.carta = result; //corroborar carta
+
       },
 
       error => {
