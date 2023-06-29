@@ -30,7 +30,7 @@
         </div>
         <div>
           <button type="submit" class="btn btn-primary" (click)="inscribirse()">Inscribirse</button>
-          <button type="submit" class="btn btn-primary"  (click)="recuperar()">Recuperar Contraseña</button>
+          <button type="submit" class="btn btn-primary" (click)="recuperar()">Recuperar Contraseña</button>
         </div>
       </form>
     </div>
@@ -39,7 +39,7 @@
       <h2>Registrar</h2>
       <form name="registerForm" class="register-form" #registrarForm="ngForm">
         <div class="form-group">
-          <label  for="email">Email</label>
+          <label for="email">Email</label>
           <div class="input-group">
             <div class="input-group-text">@</div>
             <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
@@ -120,15 +120,15 @@
           <div class="input-group">
             <div class="input-group-text">@</div>
             <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
-              [(ngModel)]="emailUsuario" required />
+              [(ngModel)]="emailRecuperado" required />
 
           </div>
         </div>
 
         <div class="form-group">
           <label for="registerDni">DNI</label>
-          <input type="text" class="form-control" name="registerDni" placeholder="Ingrese DNI" [(ngModel)]="dniUsuario"
-            required pattern="[0-9]+" #dni="ngModel" />
+          <input type="text" class="form-control" name="registerDni" placeholder="Ingrese DNI"
+            [(ngModel)]="dniRecuperado" required pattern="[0-9]+" #dni="ngModel" />
           <div *ngIf="dni.invalid && (dni.dirty || dni.touched)" class="alert alert-danger">
             <div *ngIf="dni.errors?.['required']">
               El DNI es requerido
@@ -140,12 +140,14 @@
         </div>
         <br>
         <div class="form-group">
-          <button class="btn btn-primary btn-block" (click)="altaUsuarioCliente()"
+          <button class="btn btn-primary btn-block" (click)="recuperarContrasena()"
             [disabled]="!registrarForm.form.valid">Recuperar</button>
           <button class="btn btn-danger btn-block" (click)="cancelar()">Cancelar</button>
         </div>
+        <div *ngIf="constrasenaRecuperada != null">
+          <h3>Tu contraseña es: {{constrasenaRecuperada}}</h3>
+        </div>
       </form>
     </div>
-    
   </div>
 </div>

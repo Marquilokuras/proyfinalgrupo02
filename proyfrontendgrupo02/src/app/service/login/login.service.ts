@@ -106,6 +106,38 @@ export class LoginService {
     return this._http.get('http://localhost:3000/api/usuario/', httpOption);
   }
 
+  public eliminarUsuario(_id :string): Observable<any>{
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this._http.delete('http://localhost:3000/api/usuario/'+_id, httpOption);
+  }
+
+  public modificarUsuario(_id :string): Observable<any>{
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    return this._http.put('http://localhost:3000/api/usuario/'+_id, httpOption);
+  }
+
+  public recuperarContrasena(email:string,dniUsuario:string): Observable<any>{
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+    const url = `http://localhost:3000/api/usuario/recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
+    console.log(url)
+    return this._http.get(url, httpOption);
+  }
+
 }
 
 

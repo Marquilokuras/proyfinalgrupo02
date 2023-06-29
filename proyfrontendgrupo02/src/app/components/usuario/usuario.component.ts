@@ -22,7 +22,7 @@ export class UsuarioComponent implements OnInit {
       result => {
         this.listUsuario = result;
         console.log(result)
-        
+
       },
       error => {
         console.log(error)
@@ -30,4 +30,29 @@ export class UsuarioComponent implements OnInit {
     )
   }
 
+  eliminarUsuario(id: string) {
+    this.loginService.eliminarUsuario(id).subscribe(
+      result => {
+
+        console.log(result)
+
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
+
+  modificarUsuario(id: string) {
+    this.loginService.modificarUsuario(id).subscribe(
+      result => {
+
+        console.log(result)
+
+      },
+      error => {
+        console.log(error)
+      }
+    )
+  }
 }

@@ -36,6 +36,7 @@ export class PedidoFormComponent implements OnInit {
       result => {
         this.pedidos = result;
         this.bebidaPedido = result.bebidasPedido
+        location.reload();
       },
       error => {
       }
@@ -43,6 +44,6 @@ export class PedidoFormComponent implements OnInit {
   }
 
   agregarPedido() {
-    this.router.navigate(["pedido", 0])
+    this.router.navigate(["pedido"])
   }
 }
