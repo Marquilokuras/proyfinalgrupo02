@@ -23,7 +23,6 @@ export class MenuComponent implements OnInit {
   obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result => {
-        console.log(result)
         this.carta = result;
       },
 

@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
@@ -20,6 +20,8 @@ import { MesaClienteComponent } from './components/mesa-cliente/mesa-cliente.com
 import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
+import { TokenInterceptorService } from './service/token-interceptor/token-interceptor.service';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { PedidoFormComponent } from './components/pedido-form/pedido-form.compon
     ComentarioUsuarioComponent,
     PedidoComponent,
     PedidoFormComponent,
+    UsuarioComponent,
 
   ],
 
@@ -46,7 +49,13 @@ import { PedidoFormComponent } from './components/pedido-form/pedido-form.compon
     FormsModule,
     HttpClientModule
   ],
-  providers: [LoginService],
+  providers: [LoginService,
+    {
+    provide: HTTP_INTERCEPTORS,
+    useClass: TokenInterceptorService,
+    multi: true
+   }
+   ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
