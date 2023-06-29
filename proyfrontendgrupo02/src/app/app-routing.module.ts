@@ -11,9 +11,11 @@ import { MenuComponent } from './components/menu/menu.component';
 import { ComentarioUsuarioComponent } from './components/comentario-usuario/comentario-usuario.component';
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
+import { UsuarioComponent } from './components/usuario/usuario.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
+  {path: 'usuario', component: UsuarioComponent },
   {path: 'login', component: LoginComponent },
   {path: 'bebida',component:BebidaComponent},
   {path:'bebida-form/:id', component:BebidaFormComponent},

@@ -4,13 +4,68 @@
     </div>
     <div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
         <!-- GESTOR -->
-        <a class="navbar-link" [routerLink]="['bebida']">Gestion de Bebidas</a>
-        <a [routerLink]="['mesa-form']">Gestion de Mesas</a>
-        <a [routerLink]="['pedido-form']">Gestion de Pedidos</a>
-        <a [routerLink]="['comentario-usuario']">Gestion de Comentarios</a>
-        <a [routerLink]="['pedido']">Registrar Pedido</a>
-        <a [routerLink]="['mesa']">Reservar Mesa</a>
+        <div class="container">
+            <ul class="nav">
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Pedido
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" [routerLink]="['pedido']">Registrar
+                                Pedido</button>
+                        </li>
+                        <li><button class="dropdown-item" type="button" [routerLink]="['pedido-form']">Gestion de
+                                Pedidos</button></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Mesa
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" [routerLink]="['mesa']">Reservar Mesa</button>
+                        </li>
+                        <li><button class="dropdown-item" type="button" [routerLink]="['mesa-form']">Gestion de
+                                Mesas</button></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Bebida
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" [routerLink]="['bebida']">Gestion de
+                                Bebidas</button></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Usuario
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" [routerLink]="['usuario']">Gestion de
+                                Usuarios</button></li>
+                    </ul>
+                </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Comentario
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" [routerLink]="['comentario-usuario']">Gestion de
+                                Comentarios</button></li>
+                    </ul>
+                </div>
+            </ul>
+        </div>
+
     </div>
+
     <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
         <!-- CLIENTE -->
         <a [routerLink]="['mesa-cliente']">Reservar Mesa</a>

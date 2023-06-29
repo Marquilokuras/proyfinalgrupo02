@@ -1,0 +1,36 @@
+<div class="container">
+    <h2>Gestion de Usuarios</h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Email</th>
+            <th scope="col">DNI</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Tipo de Usuario</th>
+            <th scope="col">Opciones</th>
+          </tr>
+        </thead>
+        <tbody>
+           <tr *ngFor="let usuario of listUsuario">
+            <td>{{usuario.nombre}}</td>
+            <td>{{usuario.apellido}}</td>
+            <td>{{usuario.email}}</td>
+            <td>{{usuario.dniUsuario}}</td>
+            <td>{{usuario.edadUsuario}}</td>
+            <td>{{usuario.tipoUsuario}}</td>
+            <td>   
+                <button type="button" class="btn btn-primary" style="margin-right: 10px;" >Modificar</button>
+                <button type="button" class="btn btn-danger" >Eliminar</button>
+            </td>
+          </tr> 
+        </tbody>
+      </table>
+    </div>
+    <button type="button" class="btn btn-primary">Agregar Usuario</button>
+</div>
+
+<br>
+  
