@@ -61,6 +61,7 @@ export class BebidaComponent {
       result=>{
         if(result.status==1){
           alert(result.msg)
+          this.listaBebida = new Array<Bebida>();
           this.obtenerBebidas();
         }
         console.log(result)
