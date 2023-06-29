@@ -14,8 +14,8 @@ export class LoginComponent implements OnInit {
   userform: Usuario = new Usuario(); //usuario mapeado al formulario
   returnUrl!: string;
 
-  nuevoUsuario : boolean = false;
-  recuperarUsuario : boolean = false;
+  nuevoUsuario: boolean = false;
+  recuperarUsuario: boolean = false;
   emailUsuario !: string;
   passwordUsuario !: string;
   nombreUsuario !: string;
@@ -23,6 +23,10 @@ export class LoginComponent implements OnInit {
   dniUsuario !: string;
   edadUsuario !: number;
   tipoUsuarioCliente: string = "cliente"
+
+  emailRecuperado !: string;
+  dniRecuperado !: string;
+  constrasenaRecuperada !: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
   }
@@ -55,7 +59,6 @@ export class LoginComponent implements OnInit {
   }
 
   altaUsuarioCliente() {
-    console.log(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente)
     this.loginService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
       (result) => {
         var user = result;
@@ -86,18 +89,28 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  inscribirse(){
+  inscribirse() {
     this.nuevoUsuario = true;
     this.recuperarUsuario = false;
   }
 
-  cancelar(){
+  cancelar() {
     this.nuevoUsuario = false;
     this.recuperarUsuario = false;
   }
 
-  recuperar(){
+  recuperar() {
     this.nuevoUsuario = false;
     this.recuperarUsuario = true;
+  }
+
+  recuperarContrasena() {
+    this.loginService.recuperarContrasena(this.emailRecuperado, this.dniRecuperado).subscribe(
+      result => {
+        this.constrasenaRecuperada = result.password
+      },
+      error => {
+      }
+    )
   }
 }

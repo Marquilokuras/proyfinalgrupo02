@@ -36,9 +36,8 @@
                     </td>
                     <td>${{ pedido.totalPedido }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" style="margin-right: 10px;">Modificar</button>
-                        <button type="button" class="btn btn-danger"
-                            (click)="eliminarPedido(pedido._id)">Eliminar</button>
+                        <button type="button" class="btn btn-primary" style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-danger"  (click)="eliminarPedido(pedido._id)"><i class="fa-sharp fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
             </tbody>
@@ -47,7 +46,3 @@
     <br>
     <button type="button" class="btn btn-primary" (click)="agregarPedido()">Agregar Pedido</button>
 </div>
-
-<!-- <div >
-    <h3>NO SE ENCUENTRAN PEDIDOS REGISTRADOS</h3>
-</div> -->

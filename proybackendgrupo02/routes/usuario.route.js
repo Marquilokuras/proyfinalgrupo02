@@ -10,6 +10,7 @@ router.post('/', usuarioCtrl.createUsuario); //Dar de alta un Usuario
 router.get('/', usuarioCtrl.getUsuario); //Obtener todas los Usuario
 router.delete('/:id', usuarioCtrl.deleteUsuario); //Eliminar un Usuario
 router.put('/:id',autCtrl.verifyToken ,usuarioCtrl.editUsuario); //Modificar un Usuario
+router.get('/recuperarContrasena', usuarioCtrl.recuperarContrasena);
 
 //Login
 router.post('/login', usuarioCtrl.loginUsuario); 
