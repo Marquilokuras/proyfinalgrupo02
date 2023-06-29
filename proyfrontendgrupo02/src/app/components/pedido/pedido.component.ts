@@ -65,5 +65,8 @@ export class PedidoComponent implements OnInit {
     )
   }
 
- 
+  cancelarPedido(){
+    this.arrayPedido = [];
+    this.total = 0;
+  }
 }
