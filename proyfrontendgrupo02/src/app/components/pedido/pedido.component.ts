@@ -29,24 +29,27 @@ export class PedidoComponent implements OnInit {
   obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result => {
-        console.log(result)
-        this.carta = result;
+        console.log(result);
+        this.carta = result.map((any: any) => ({
+          ...any,
+          cantidad: ""  // Agregar la propiedad cantidad con valor inicial de ""
+        }));
       },
       error => {
-        console.log(error)
+        console.log(error);
       }
-    )
+    );
   }
 
-  public crearPedido(identificador: string, precioDetalle: number) {
+  public crearPedido(identificador: string, precioDetalle: number,cantidad:number) {
 
     const bebidaPedido = {
-      cantidadBebidas: this.cantidadBebidas,
+      cantidadBebidas: cantidad,
       precioDetalle: precioDetalle,
       bebida: identificador,
     };
 
-    this.total = this.total + this.cantidadBebidas * precioDetalle
+    this.total = this.total + cantidad * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
 

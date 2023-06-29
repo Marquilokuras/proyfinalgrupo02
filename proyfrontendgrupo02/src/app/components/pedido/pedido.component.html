@@ -15,9 +15,9 @@
             </div>
             <div class="form-group">
               <label for="cantidad">Cantidad:</label>
-              <input type="number" id="cantidad" [(ngModel)]="cantidadBebidas" name="cantidadBebida" class="form-control" />
+              <input type="number" id="cantidad" [(ngModel)]="bebida.cantidad" name="cantidadBebida" class="form-control" />
             </div>
-            <button class="btn btn-primary" (click)="crearPedido(bebida._id,bebida.precioBebida)">Registrar</button>
+            <button class="btn btn-primary" (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad)">Registrar</button>
           </div>
         </div>
       </div>
