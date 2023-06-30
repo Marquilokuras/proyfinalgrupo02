@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const usuarioCtrl = {}
 
 usuarioCtrl.getUsuario = async (req, res) => { //se define una funcion asincrona
-    var usuarios = await Usuario.find();
+    const usuarios = await Usuario.find({ tipoUsuario: { $in: ['cliente', 'gestor'] } });
     res.json(usuarios);
 }
 
