@@ -73,4 +73,24 @@ export class BebidaComponent {
       }
     )
   }
+
+  public cambiarEstadoBebida(bebida:Bebida){
+    bebida.disponibilidadBebida = !bebida.disponibilidadBebida;
+    this.bebidaService.actualizarBebida(bebida).subscribe(
+      result=>{
+        if(result.status==1){
+          alert(result.msg)
+          this.listaBebida = new Array<Bebida>();
+          this.obtenerBebidas();
+        }
+        console.log(result);
+      },
+      error=>{
+        console.log(error);
+        alert(error.msg)
+      }
+     )
+    
+  }
+
 }

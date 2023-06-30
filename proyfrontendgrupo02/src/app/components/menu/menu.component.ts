@@ -34,9 +34,6 @@ export class MenuComponent implements OnInit {
           }
           unaBebida = new Bebida();
         });
-
-        this.carta = result; //corroborar carta
-
       },
 
       error => {
