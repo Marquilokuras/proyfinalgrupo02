@@ -7,13 +7,22 @@
       <thead>
         <tr>
           <th scope="col">Numero de mesa</th>
+          <th scope="col">Cantidad de mesas</th>
+          <th scope="col">Cantidad de sillas</th>
           <th scope="col">Estado</th>
+          <th scope="col"></th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let m of mesasDisponibles">
-          <td>{{m.numeroMesa}}</td>
+          <td># {{m.numeroMesa}}</td>
+          <td>{{m.cantidadMesa}}</td>
+          <td>{{m.cantidadSilla}}</td>
           <td *ngIf="m.disponibilidadReserva === true">Disponible</td>
+          <td> <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalReserva" (click)="abrirModalReservar(m)" > 
+            Reservar <i class="fa-regular fa-circle-right"></i>
+          </button>
+        </td>
         </tr>
       </tbody>
     </table>
@@ -23,7 +32,7 @@
 
 
   <div class="col-6 bg-body-secondary">
-<h2>Reserva</h2>
+<!-- <h2>Reserva</h2>
   <form >
         <div class="row">
           <div class="col-md-6">
@@ -63,7 +72,81 @@
         </div>
        
         <button  type="submit" class="btn btn-primary" >Guardar</button>
-      </form>
+      </form> -->
+      <div class="col-12">
+        <h2>Mis reservas</h2>
+        
+          <div class="table-responsive" >
+            <table class="table table-striped" >
+              <thead>
+                <tr>
+                  <th scope="col">Numero de mesa</th>
+                  <th scope="col">Cantidad de mesas</th>
+                  <th scope="col">Cantidad de sillas</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let mu of mesasUsuario">
+                  <td>{{mu.numeroMesa}}</td>
+                  <td>{{mu.cantidadMesa}}</td>
+                  <td>{{mu.cantidadSilla}}</td>
+                  <td>
+                    <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="abrirModalEliminar(mu)">
+                      Eliminar <i class="fa-regular fa-trash-can"></i>
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        
+          </div>
+        
+        
+  </div>
+  
+</div>
 
+<!-- Button trigger modal
+<button type="button" class="btn btn-primary"  data-bs-target="#exampleModal">
+  Launch demo modal
+  (click)="eliminarReserva(mu)"
+</button> -->
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Estas seguro que quieres eliminar la reserva?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="eliminarReserva(reservaEliminar)">Eliminar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Reservar</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Estas seguro que quieres reservar la mesa?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="reservar(modalReserva)">Reservar</button>
+      </div>
+    </div>
   </div>
 </div>

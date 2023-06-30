@@ -4,4 +4,5 @@ export class Mesa {
     disponibilidadReserva!: boolean
     cantidadMesa!: number
     cantidadSilla!: number
+    usuario!:string
 }
