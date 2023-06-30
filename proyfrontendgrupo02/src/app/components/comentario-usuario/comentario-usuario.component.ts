@@ -49,7 +49,6 @@ export class ComentarioUsuarioComponent implements OnInit {
   guardarComentario(){
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result=>{
-        this.comentario.usuario=this.usuario
         if(result.status == 1){
          window.location.href = window.location.href
         }
@@ -61,17 +60,15 @@ export class ComentarioUsuarioComponent implements OnInit {
   modificarComentario(){
 
     console.log(this.comentario);
-    const fechaComentario = this.comentario.fechaComentario; // Almacena la fecha actual en una variable temporal
+     this.fechaComentario();
      this.comentarioService.modificarComentario(this.comentario).subscribe(
       result=>{
         if(result.status == 1){
           this.obtenerComentarios();// Vuelve a cargar la lista de comentarios
           this.comentario = new Comentario();  // se asigna un nuevo objeto vacío a la variable comentario
-          this.comentario.fechaComentario = fechaComentario; // Restaura la fecha en el nuevo objeto de comentario
           this.comentario.usuario=this.usuario
-
+          this.fechaComentario();
         }
-
       },
       error=>{ alert(error.msg); }
     )
@@ -117,7 +114,7 @@ export class ComentarioUsuarioComponent implements OnInit {
 
   fechaComentario(){
     const fecha = new Date();
-    this.comentario.fechaComentario = fecha.toLocaleDateString();
+    this.comentario.fechaComentario = fecha.toLocaleString();
   }
 
   setPuntaje(puntaje: number) {
