@@ -3,7 +3,7 @@ const { Schema } = mongoose;
 const Bebida = require('./bebida');
 const Promocion = require('./promocion');
 const PedidoSchema = new Schema({
-   // promocion: { type: Schema.Types.ObjectId, ref: Promocion },
+    promocion: { type: Schema.Types.ObjectId, ref: Promocion },
     totalPedido: { type: Number , required: true },
     bebidasPedido: [
         {

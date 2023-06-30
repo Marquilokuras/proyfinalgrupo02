@@ -123,7 +123,9 @@ export class LoginService {
       })
     }
 
-    return this._http.put('http://localhost:3000/api/usuario/'+_id, httpOption);
+    var url = 'http://localhost:3000/api/usuario/'+_id
+    
+    return this._http.put(url, httpOption);
   }
 
   public recuperarContrasena(email:string,dniUsuario:string): Observable<any>{

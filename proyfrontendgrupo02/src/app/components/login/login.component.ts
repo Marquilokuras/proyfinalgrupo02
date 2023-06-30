@@ -11,7 +11,7 @@ import { LoginService } from 'src/app/service/login/login.service';
 
 export class LoginComponent implements OnInit {
 
-  userform: Usuario = new Usuario(); //usuario mapeado al formulario
+  userform: Usuario = new Usuario(); 
   returnUrl!: string;
 
   nuevoUsuario: boolean = false;
