@@ -1,27 +1,40 @@
      <div class="container">
-    <h2>abm </h2>
-    <div class="table-responsive" style="max-width: 500px;">
+    <h2>Gestion de Mesas </h2>
+    <button type="button" class="btn btn-primary" (click)="nuevaMesa()">Agregar Mesa</button>
+    <div class="table-responsive" style="max-width: 1000px;">
       <table class="table table-striped" style="max-width: 100%;">
         <thead>
           <tr>
             <th scope="col">Numero de mesa</th>
+            <th scope="col">Cantidad de mesas</th>
+            <th scope="col">Cantidad de sillas</th>
+            <th scope="col">Usuario</th>
             <th scope="col">Estado</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let mesa of mesas">
             <td>#{{mesa.numeroMesa}}</td>
+            <td>{{mesa.cantidadMesa}}</td>
+          <td>{{mesa.cantidadSilla}}</td>
+          <td>{{mesa.usuario}}</td>
             <td *ngIf="mesa.disponibilidadReserva === true">Disponible</td>
             <td *ngIf="mesa.disponibilidadReserva === false">No disponible</td>
             <td>   
-        <button type="button" class="btn btn-primary" (click)="modificarMesa(mesa)" >Modificar</button>
-         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)" >Eliminar</button>
+        <button type="button" class="btn btn-secondary me-2" (click)="modificarMesa(mesa)" >
+          <i class="fa-solid fa-pencil"></i>
+        </button>
+        
+         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)" >
+
+         <i class="fa-sharp fa-solid fa-trash"></i>
+         </button>
             </td>
           </tr>
         </tbody>
       </table>
     </div>
-    <button type="button" class="btn btn-primary" (click)="nuevaMesa()">Agregar Mesa</button>
+   
   </div>
 
   

@@ -11,6 +11,11 @@ mesaCtrl.getMesasDisponibles = async (req, res) => {
     res.json(mesas);
 }
 
+mesaCtrl.getMesasNoDisponibles = async (req, res) => { 
+    var mesas = await Mesa.find({ disponibilidadReserva: false });
+    res.json(mesas);
+}
+
 mesaCtrl.createMesa = async (req, res) => {
     var mesa = new Mesa(req.body);
     try {

@@ -1,6 +1,14 @@
-
+<div class="container">
+  <h1 *ngIf="accion == 'new'">Añadir Mesa</h1>
+  <h1 *ngIf="accion == 'update'">Modificar Mesa</h1>
      <form>
         <div class="row">
+          <div class="col-md-6">
+            <div class="mb-3">
+                <label for="usuario" class="form-label">Usuario</label>
+                <input type="text" class="form-control" id="numero" name="usuario" [(ngModel)]="mesa.usuario">
+              </div>
+          </div>
           <div class="col-md-6">
             <div class="mb-3">
                 <label for="numero" class="form-label">Número de mesa</label>
@@ -35,3 +43,4 @@
         <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarMesa()">Guardar</button>
         <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarMesa()">Modificar</button> 
       </form>
+    </div>
