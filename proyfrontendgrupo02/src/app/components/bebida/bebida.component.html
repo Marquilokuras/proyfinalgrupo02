@@ -19,8 +19,12 @@
             <td class="col-2">{{bebida.ingredientesBebida}}</td>
             <td class="col-2">{{bebida.tipoVasoBebida}}</td>
             <td class="col-2">
-              <p *ngIf="bebida.disponibilidadBebida==true">Disponible</p>
-              <p *ngIf="bebida.disponibilidadBebida==false">NO Disponible</p>
+              <button *ngIf="bebida.disponibilidadBebida==true" (click)="cambiarEstadoBebida(bebida)" class="btn btn-success btn-sm rounded-pill">
+                Disponible
+              </button>
+              <button *ngIf="bebida.disponibilidadBebida==false" (click)="cambiarEstadoBebida(bebida)" class="btn btn-danger btn-sm rounded-pill">
+                No Disponible
+              </button>
             </td>
             <td class="col-2">$ {{bebida.precioBebida}}</td>
             <td class="col-2"> 
