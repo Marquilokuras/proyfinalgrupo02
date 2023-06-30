@@ -83,7 +83,16 @@ export class MesaService {
       return this._http.get(this.urlBase + "disponible",httpOptions);
     }
 
-
+    obtenerMesasNoDisponibles():Observable<any>{
+      const httpOptions={
+        headers : new HttpHeaders({
+  
+        }),
+        params : new HttpParams()
+      }
+    
+      return this._http.get(this.urlBase + "noDisponible",httpOptions);
+    }
   }
 
 
