@@ -12,10 +12,13 @@ import { ComentarioUsuarioComponent } from './components/comentario-usuario/come
 import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'usuario', component: UsuarioComponent },
+  {path: 'usuario/:id', component: UsuarioComponent },
+  {path: 'usuario-form', component: UsuarioFormComponent },
   {path: 'login', component: LoginComponent },
   {path: 'bebida',component:BebidaComponent},
   {path:'bebida-form/:id', component:BebidaFormComponent},

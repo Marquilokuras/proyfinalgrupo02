@@ -22,6 +22,7 @@ import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
 import { TokenInterceptorService } from './service/token-interceptor/token-interceptor.service';
 import { UsuarioComponent } from './components/usuario/usuario.component';
+import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
     PedidoComponent,
     PedidoFormComponent,
     UsuarioComponent,
+    UsuarioFormComponent,
 
   ],
 
