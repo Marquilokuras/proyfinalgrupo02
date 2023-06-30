@@ -100,6 +100,9 @@ export class LoginComponent implements OnInit {
   }
 
   recuperar() {
+    this.emailRecuperado = ""
+    this.dniRecuperado = ""
+    this.constrasenaRecuperada = ""
     this.nuevoUsuario = false;
     this.recuperarUsuario = true;
   }
@@ -107,6 +110,7 @@ export class LoginComponent implements OnInit {
   recuperarContrasena() {
     this.loginService.recuperarContrasena(this.emailRecuperado, this.dniRecuperado).subscribe(
       result => {
+        console.log(result)
         this.constrasenaRecuperada = result.password
       },
       error => {
