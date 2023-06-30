@@ -8,7 +8,8 @@ import { LoginService } from 'src/app/service/login/login.service';
   styleUrls: ['./usuario-form.component.css']
 })
 export class UsuarioFormComponent implements OnInit {
-   nuevoUsuario: boolean = false;
+  
+  nuevoUsuario: boolean = false;
   recuperarUsuario: boolean = false;
   emailUsuario !: string;
   passwordUsuario !: string;
@@ -48,10 +49,13 @@ export class UsuarioFormComponent implements OnInit {
         this.usuario.some(id => id === idUser);
         const array = this.usuario.find(item => item._id === idUser);
         console.log(array)
-       /*  this.precioTicket = array.precioTicket
-        this.categoria  = array.categoriaEspectador;
-        this.fechaTicket = array.fechaCompra;
-        this.idEspectador = array.espectador._id; */
+        this.apellidoUsuario = array.apellido;
+        this.nombreUsuario  = array.nombre;
+        this.emailUsuario = array.email;
+        this.passwordUsuario = array.password; 
+        this.dniUsuario = array.dniUsuario;
+        this.edadUsuario = array.edadUsuario;
+        this.tipoUsuarioCliente = array.tipoUsuario;
       },
       error => {
         console.log(error);
@@ -63,23 +67,23 @@ export class UsuarioFormComponent implements OnInit {
     this.usuarioService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
       (result) => {
 
-      },
-      error => {
-        alert("Error de conexion");
-        console.log("error en conexion");
-        console.log(error);
       }
     );
   }
-
-
 
   cancelar() {
     
   }
 
   modificarUsuario(){
-
+    this.usuarioService.modificarUsuario(this.idUsuario,this.apellidoUsuario,this.nombreUsuario,this.emailUsuario,this.passwordUsuario,this.dniUsuario,this.edadUsuario,this.tipoUsuarioCliente).subscribe(
+      result => {
+        console.log(result);
+      },
+      error => {
+        console.log(error);
+      }
+    )
   }
 
 

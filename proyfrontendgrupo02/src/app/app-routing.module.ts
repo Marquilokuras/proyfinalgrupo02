@@ -17,7 +17,7 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'usuario', component: UsuarioComponent },
-  {path: 'usuario/:id', component: UsuarioComponent },
+  {path: 'usuario-form/:id', component: UsuarioFormComponent },
   {path: 'usuario-form', component: UsuarioFormComponent },
   {path: 'login', component: LoginComponent },
   {path: 'bebida',component:BebidaComponent},
