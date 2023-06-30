@@ -25,12 +25,10 @@ export class UsuarioComponent implements OnInit {
     this.router.navigate(['usuario-form'],);
   }
 
-
   mostrarUsuario() {
     this.loginService.mostrarUsuario().subscribe(
       result => {
         this.listUsuario = result;
-
       },
     )
   }
@@ -46,9 +44,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   modificarUsuario(id: string) {
-
     this.router.navigate(['usuario-form', id],);
-
   }
 
 }

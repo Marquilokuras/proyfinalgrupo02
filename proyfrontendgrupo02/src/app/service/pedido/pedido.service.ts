@@ -48,8 +48,25 @@ export class PedidoService {
     }
 
     const url = 'http://localhost:3000/api/pedido/'+id
-    console.log(url)
+
     return this._http.delete(url, httpOption);
+  }
+
+  public modificarPedido(_id:string,arrayModificado:Array<any>): Observable<any> {
+    const httpOption = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }
+
+     const data = {
+      'bebidasPedido' : arrayModificado
+    };
+ 
+
+    var url = 'http://localhost:3000/api/pedido/' + _id
+
+    return this._http.put(url, data, httpOption);
   }
 
 }
