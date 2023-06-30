@@ -1,7 +1,6 @@
 <div class="container">
   <div class="row">
     <div class="col-lg-6">
-
       <h1 class="mt-4">Menú de bebidas</h1>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-sm-12" *ngFor="let bebida of carta">
@@ -15,9 +14,11 @@
             </div>
             <div class="form-group">
               <label for="cantidad">Cantidad:</label>
-              <input type="number" id="cantidad" [(ngModel)]="bebida.cantidad" name="cantidadBebida" class="form-control" />
+              <input type="number" id="cantidad" [(ngModel)]="bebida.cantidad" name="cantidadBebida"
+                class="form-control" />
             </div>
-            <button class="btn btn-primary" (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad)">Registrar</button>
+            <button class="btn btn-primary"
+              (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad,bebida.nombreBebida)">Agregar al Pedido</button>
           </div>
         </div>
       </div>
@@ -25,22 +26,24 @@
 
     <div class="col-lg-6">
       <h1 class="mt-4">Pedido</h1>
-      <button class="btn btn-secondary" *ngIf="pedidoSolicitado===true" (click)="generarPedido()">Generar Pedido</button>
+      <button type="button" class="btn btn-primary"  *ngIf=" cambios == 'new'"
+        routerLink="/pedido" (click)="generarPedido()">Generar Pedido</button>
+      <button type="button" class="btn btn-primary"  *ngIf=" cambios == 'modificar'"
+        routerLink="/pedido" (click)="generarPedido()">Modificar Pedido</button>
+
       <button class="btn btn-danger" *ngIf="pedidoSolicitado===true" (click)="cancelarPedido()">Cancelar Pedido</button>
       <h3>Precio Total: {{total}}</h3>
+
       <div *ngFor="let pedido of arrayPedido">
         <div class="card">
           <div class="card-body">
             <p>Cantidad de bebidas: {{ pedido.cantidadBebidas }}</p>
             <p>Precio de detalle: {{ pedido.precioDetalle }}</p>
-            <p>Bebida: {{ pedido.bebida }}</p> 
+            <p>Bebida: {{ pedido.nombreBebida }}</p>
           </div>
         </div>
       </div>
+
     </div>
-    
   </div>
 </div>
-
-
-

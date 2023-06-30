@@ -31,7 +31,6 @@ export class PedidoFormComponent implements OnInit {
   }
 
   public eliminarPedido(idPedido: string) {
-    console.log(idPedido)
     this.pedidoService.eliminarPedido(idPedido).subscribe(
       result => {
         this.pedidos = result;
@@ -46,4 +45,9 @@ export class PedidoFormComponent implements OnInit {
   agregarPedido() {
     this.router.navigate(["pedido"])
   }
+
+  modificarPedido(idPedido: string){
+    this.router.navigate(['pedido', idPedido],);
+  }
+  
 }
