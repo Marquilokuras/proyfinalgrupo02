@@ -62,7 +62,7 @@ export class LoginService {
     return id;
   }
 
-  
+
   getToken(): string {
     if (sessionStorage.getItem("token") != null) {
       return sessionStorage.getItem("token")!;
@@ -84,19 +84,19 @@ export class LoginService {
     }
 
     const body = {
-      'nombre' :  nombreUsuario,
+      'nombre': nombreUsuario,
       'apellido': apellidoUsuario,
-      'email':email,
-      'password' : password,
-      'dniUsuario' : dniUsuario, 
-      'edadUsuario' : edadUsuario, 
-      'tipoUsuario' : tipoUsuario
+      'email': email,
+      'password': password,
+      'dniUsuario': dniUsuario,
+      'edadUsuario': edadUsuario,
+      'tipoUsuario': tipoUsuario
     };
 
     return this._http.post('http://localhost:3000/api/usuario', body, httpOption);
   }
 
-  public mostrarUsuario(): Observable<any>{
+  public mostrarUsuario(): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -106,29 +106,39 @@ export class LoginService {
     return this._http.get('http://localhost:3000/api/usuario/', httpOption);
   }
 
-  public eliminarUsuario(_id :string): Observable<any>{
+  public eliminarUsuario(_id: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
 
-    return this._http.delete('http://localhost:3000/api/usuario/'+_id, httpOption);
+    return this._http.delete('http://localhost:3000/api/usuario/' + _id, httpOption);
   }
 
-  public modificarUsuario(_id :string): Observable<any>{
+  public modificarUsuario(_id:string,emailUsuario: string, passwordUsuario: string, nombreUsuario: string, apellidoUsuario: string, dniUsuario: string, edadUsuario: number, tipoUsuarioCliente: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
     }
+    const data = {
+      'nombre': nombreUsuario,
+      'apellido': apellidoUsuario,
+      'email' : emailUsuario,
+      'password': passwordUsuario,
+      'dniUsuario' : dniUsuario,
+      'edadUsuario' : edadUsuario,
+      'tipoUsuario' : tipoUsuarioCliente
+    };
 
-    var url = 'http://localhost:3000/api/usuario/'+_id
-    
-    return this._http.put(url, httpOption);
+
+    var url = 'http://localhost:3000/api/usuario/' + _id
+
+    return this._http.put(url, data, httpOption);
   }
 
-  public recuperarContrasena(email:string,dniUsuario:string): Observable<any>{
+  public recuperarContrasena(email: string, dniUsuario: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
