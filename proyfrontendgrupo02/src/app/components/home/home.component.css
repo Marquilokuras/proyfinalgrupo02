@@ -1,0 +1,45 @@
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
+.container-fluid {
+  background-color: #f5e7aa; /* Reemplaza con el color de fondo deseado */
+  padding-left: 5%; /* Ajusta el padding izquierdo según tus preferencias */
+  padding-right: 5%;
+  padding-bottom: 5%;
+  padding-top: 2%;
+  font-family: 'Lato', sans-serif;
+}
+.carousel-inner {
+  height: 100%;
+  width: auto; /* Ajusta la altura deseada */
+}
+
+.container h1{
+  font-size: 6vw;
+}
+
+.carousel-item img {
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+  width: 5%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: invert(100%);
+}
+
+@media (max-width: 576px) {
+  .carousel-inner {
+    height: 200px; /* Ajusta la altura deseada para dispositivos móviles */
+  }
+}

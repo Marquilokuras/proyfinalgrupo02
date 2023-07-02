@@ -1,14 +1,15 @@
-
 /* Estilos para el formulario de inicio de sesión */
-.container {
+.container-fluid {
   background-color: #251a21; /* Reemplaza con el color de fondo deseado */
   padding: 20px; /* Ajusta el espaciado interno según tus preferencias */
   font-family: 'Lato', sans-serif;
-  color:#251a21;
+  color: #251a21;
 }
-.card-body{
-  background-color: #f5e7aa ;
+
+.card-body {
+  background-color: #f5e7aa;
 }
+
 .login-form {
   margin-top: 30px;
 }
@@ -23,18 +24,37 @@
 
 .login-form .btn-primary {
   width: 100%;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
+.login-form .btn-primary:hover {
+  background-color: #494144; /* Cambia el color de fondo en hover */
+  border-color: #494144; /* Cambia el color del borde en hover */
 }
 
 .login-form .alert-danger {
   margin-top: 20px;
 }
 
-.btn-primary{
+.btn-primary {
   background-color: #251a21;
   border-color: #251a21;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
-.btn-danger{
-  background-color: #fa6816 ;
+.btn-danger {
+  background-color: #fa6816;
   border-color: #fa6816;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #fd8037; /* Cambia el color de fondo en hover */
+  border-color: #fd8037; /* Cambia el color del borde en hover */
 }
