@@ -20,15 +20,13 @@ export class ComentarioUsuarioComponent implements OnInit {
   constructor(private comentarioService:ComentarioService,public loginService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
-
     this.obtenerComentarios()
   }
 
   ngOnInit(): void {
     this.obtenerComentarios()
     this.fechaComentario()
-    this.usuario = sessionStorage.getItem("user");  console.log(this.usuario);
-    this.comentario.usuario=this.usuario
+    this.usuarioRegistrado()
   }
 
   public tipoLogged() {
@@ -60,25 +58,33 @@ export class ComentarioUsuarioComponent implements OnInit {
   modificarComentario(){
 
     console.log(this.comentario);
-     this.fechaComentario();
+    this.fechaComentario();
      this.comentarioService.modificarComentario(this.comentario).subscribe(
       result=>{
+        this.fechaComentario();
         if(result.status == 1){
           this.obtenerComentarios();// Vuelve a cargar la lista de comentarios
           this.comentario = new Comentario();  // se asigna un nuevo objeto vacío a la variable comentario
-          this.comentario.usuario=this.usuario
           this.fechaComentario();
+          this.usuarioRegistrado();
         }
       },
       error=>{ alert(error.msg); }
     )
   }
 
+
+  cancelarComentario(){
+    this.comentario = new Comentario()
+    this.usuarioRegistrado();
+    this.fechaComentario();
+  }
+
   public eliminarComentario(comentario: Comentario) {
     this.comentarioService.eliminarComentario(comentario._id).subscribe(
       result => {
         if (result.status == 1) {
-          // eliminar comentario de la lista de comentarios
+
           const index = this.listaComentarios.indexOf(comentario);
           if (index !== -1) {
             this.listaComentarios.splice(index, 1);
@@ -95,7 +101,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       result=>{
         console.log(result);
         this.comentario=result
-        this.comentario.usuario=this.usuario
+        this.usuarioRegistrado();
       })
   }
 
@@ -111,13 +117,18 @@ export class ComentarioUsuarioComponent implements OnInit {
       return 'Sin evaluar';
     }
   }
+  setPuntaje(puntaje: number) {
+    this.comentario.puntajeComentario = puntaje;
+  }
 
   fechaComentario(){
     const fecha = new Date();
     this.comentario.fechaComentario = fecha.toLocaleString();
   }
 
-  setPuntaje(puntaje: number) {
-    this.comentario.puntajeComentario = puntaje;
+  usuarioRegistrado(){
+    this.usuario = sessionStorage.getItem("user");
+    this.comentario.usuario=this.usuario
   }
+
 }

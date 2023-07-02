@@ -1,7 +1,7 @@
 
 <!-- GESTOR -->
 <div *ngIf="tipoLogged()  == ('gestor')" class="navbar-item">
-
+  <div class="text-center">COMENTARIO</div>
   <ol class="list-group list-group-numbered">
     <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
       <div class="ms-2 me-auto">
@@ -67,7 +67,8 @@
       class="btn btn-primary">Comentar</button>
     <button type="submit" *ngIf="comentario._id" (click)="modificarComentario()"
       class="btn btn-primary">Modificar</button>
-
+      <button type="submit" *ngIf="comentario._id" (click)="cancelarComentario()"
+      class="btn btn-primary">Cancelar</button>
     </form>
    </div>
    <br>
@@ -93,7 +94,25 @@
           class="bi bi-pencil-fill"></i></button>
     </li>
   </ol>
+</div>
 
 
-
+<!--NO REGISTRADO-->
+<div  *ngIf="!loginService.userLoggedIn()" >
+  <h2 class="text-center">Foro de Comentarios</h2>
+  <ol class="list-group list-group-numbered">
+    <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
+      <div class="ms-2 me-auto">
+        <div class="fw-bold text-info-emphasis font-monospace">{{div.usuario}}</div>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Alto'" class="badge bg-success rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Medio'" class="badge bg-warning rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Bajo'" class="badge bg-danger rounded-pill"><i
+            class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
+        <div>{{div.fechaComentario}}</div>
+        <div class="font-monospace">{{div.descripcionComentario}}</div>
+      </div>
+    </li>
+  </ol>
 </div>
