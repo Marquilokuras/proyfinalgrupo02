@@ -1,13 +1,78 @@
-.aspect-ratio {
-    position: relative;
-    width: 100%;
-    padding-bottom: 100%; /* Ajusta este valor para controlar la altura de las imágenes */
+.container {
+  background-color: #251a21; /* Reemplaza con el color de fondo deseado */
+  padding: 20px; /* Ajusta el espaciado interno según tus preferencias */
+  font-family: 'Lato', sans-serif;
+}
+
+.card-color {
+  background-color: #f5e7aa;
+}
+
+.title-color {
+  color: #251a21;
+  -webkit-text-stroke: 0.5px #251a21; /* borde para navegadores basados en WebKit (Safari, Chrome) *//* color del texto */ /* color de fondo */
+}
+
+.ingredients-color {
+  color: #7fa38c;
+}
+
+.cup-color {
+  color: #494144;
+}
+
+.titulo {
+  color: #f5e7aa;
+  font-size: 36px; /* Tamaño de fuente */
+  text-transform: uppercase; /* Convertir texto a mayúsculas */
+  letter-spacing: 2px; /* Espaciado entre letras */
+  margin-bottom: 20px; /* Espaciado inferior */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+  animation-name: bounceIn; /* Animación de entrada */
+  animation-duration: 1s; /* Duración de la animación */
+}
+
+.price-color {
+  color: #251a21;
+}
+
+.card-img-top {
+  object-fit: cover;
+  height: 300px; /* Ajusta esta altura según tus preferencias */
+}
+
+.card-body {
+  animation-name: fadeInUp; /* Animación de entrada y desplazamiento hacia arriba */
+  animation-duration: 1s; /* Duración de la animación */
+}
+
+@keyframes bounceIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
   }
-  
-  .aspect-ratio img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+  to {
+    transform: scale(1);
+    opacity: 1;
   }
-  
-  
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

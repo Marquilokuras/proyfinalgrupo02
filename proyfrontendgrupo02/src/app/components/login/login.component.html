@@ -41,7 +41,7 @@
     </div>
 
 
-    <div class="col-md-6" *ngIf="nuevoUsuario===true">
+    <div class="col-md-6 card card-body" *ngIf="nuevoUsuario===true">
       <h2>Registrar</h2>
       <form name="registerForm" class="register-form" #registrarForm="ngForm">
         <div class="form-group">
@@ -81,7 +81,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group ">
           <label for="registerDni">DNI</label>
           <input type="text" class="form-control" name="registerDni" placeholder="Ingrese DNI" [(ngModel)]="dniUsuario"
             required pattern="[0-9]+" #dni="ngModel" />
@@ -118,9 +118,9 @@
       </form>
     </div>
 
-    <div class="col-md-6" *ngIf="recuperarUsuario===true">
+    <div class="col-md-6 " *ngIf="recuperarUsuario===true">
       <h2>Recuperar Contraseña</h2>
-      <form name="registerForm" class="register-form" #registrarForm="ngForm">
+      <form name="registerForm" class="register-form card card-body" #registrarForm="ngForm">
         <div class="form-group">
           <label for="email">Email</label>
           <div class="input-group">
@@ -152,7 +152,7 @@
         </div>
         <div *ngIf="mostrarContrasenia">
         <div *ngIf="constrasenaRecuperada != null">
-          <h3>Su contraseña es: {{constrasenaRecuperada}}</h3>
+          <h3 class="mt-4">Su contraseña es: {{constrasenaRecuperada}}</h3>
         </div>
         </div>
       </form>

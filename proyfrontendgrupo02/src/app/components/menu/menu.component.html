@@ -1,18 +1,15 @@
 <div class="container">
-    <h1 class="mt-4">Menú de bebidas</h1>
-    <div class="row">
-      <div class="col-lg-4 col-md-6" *ngFor="let bebida of carta">
-        <div class="card h-100 " >
-          <div class="aspect-ratio">
-            <img [src]="bebida.imagenBebida" class="card-img-top custom-img" alt="Imagen bebida">
-          </div>
-          <div class="card-body">
-            <h5 class="card-title">{{bebida.nombreBebida}}</h5>
-            <p class="card-text"><strong>Ingredientes:</strong> {{bebida.ingredientesBebida}}</p>
-            <p class="card-text"><strong>Tipo de Vaso:</strong> {{bebida.tipoVasoBebida}}</p>
-            <p class="card-text"><strong>Precio:</strong> $ {{bebida.precioBebida}}</p>
-          </div>
+  <h1 class="mt-4 titulo text-center">Menú de bebidas</h1>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+    <div class="col mb-4" *ngFor="let bebida of carta">
+      <div class="card h-100 card-color">
+        <img [src]="bebida.imagenBebida" class="card-img-top img-fluid" alt="Imagen bebida">
+        <div class="card-body">
+          <h5 class="card-title title-color">{{bebida.nombreBebida}}</h5>
+          <p class="card-text ingredients-color"><strong>Ingredientes:</strong> {{bebida.ingredientesBebida}}</p>
+          <p class="card-text price-color"><strong>Precio:</strong> $ {{bebida.precioBebida}}</p>
         </div>
       </div>
     </div>
   </div>
+</div>
