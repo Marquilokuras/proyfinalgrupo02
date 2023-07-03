@@ -42,7 +42,7 @@ export class UsuarioComponent implements OnInit {
     this.loginService.mostrarUsuario().subscribe(
       result => {
         this.listUsuario = result;
-          this.dtTrigger.next(this.listUsuario);
+        this.dtTrigger.next(this.listUsuario);
         },
     )
   }
