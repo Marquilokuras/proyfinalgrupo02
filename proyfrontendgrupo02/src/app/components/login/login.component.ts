@@ -50,7 +50,7 @@ export class LoginComponent implements OnInit {
           this.router.navigateByUrl(this.returnUrl);
           this.toastrService.success(`¡Bienvenido de nuevo ${user.email}!`);
         } else {
-          this.toastrService.warning("¡Usuaario o contraseña Incorrecta!");
+          this.toastrService.warning("¡Usuario o contraseña Incorrecta!");
         }
       },
       error => {
