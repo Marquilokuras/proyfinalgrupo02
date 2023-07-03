@@ -23,6 +23,7 @@ const routes: Routes = [
   {path: 'bebida',component:BebidaComponent},
   {path: 'bebida-form/:id', component:BebidaFormComponent},
   {path: 'mesa-form/:id', component:MesaFormComponent},
+  {path: 'mesa-form/0', component:MesaFormComponent},
   {path: 'mesa', component:MesaComponent},
   {path: 'mesa-cliente', component:MesaClienteComponent},
   {path: 'comentario-usuario', component:ComentarioUsuarioComponent},
