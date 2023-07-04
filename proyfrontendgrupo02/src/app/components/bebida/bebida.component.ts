@@ -13,8 +13,8 @@ import { LoginService } from 'src/app/service/login/login.service';
 export class BebidaComponent {
 
   dtOptions : DataTables.Settings = {};
-  dtTrigger : Subject<any> = new Subject <any>(); 
-  
+  dtTrigger : Subject<any> = new Subject <any>();
+
   listaBebida: Array<Bebida>
 
   public constructor (private loginService:LoginService,private bebidaService:BebidaService, private router:Router){
@@ -27,19 +27,19 @@ export class BebidaComponent {
       this.router.navigate(['login']);
     }
   }
-  
+
   ngOnInit(){
      this.dtOptions = {
       pagingType : 'full_pages',
       pageLength : 5,
-    }, 
+    },
     this.obtenerBebidas();
-    
+
   }
 
   ngOnDestroy():void{
     this.dtTrigger.unsubscribe();
-  } 
+  }
 
  public obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
@@ -51,11 +51,11 @@ export class BebidaComponent {
           Object.assign(unaBebida,element)
           this.listaBebida.push(unaBebida)
           unaBebida = new Bebida();
-          
-           this.ngOnDestroy() 
+
+           this.ngOnDestroy()
         });
       },
-  
+
       error=>{
         console.log(error)
       }
@@ -81,7 +81,7 @@ export class BebidaComponent {
         }
         console.log(result)
       },
-  
+
       error=>{
         console.log(error)
         alert(error.msg)
@@ -105,7 +105,7 @@ export class BebidaComponent {
         alert(error.msg)
       }
      )
-    
+
   }
 
 }
