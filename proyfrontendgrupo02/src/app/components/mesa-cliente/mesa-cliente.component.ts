@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Mesa } from 'src/app/models/mesa';
+import { Reserva } from 'src/app/models/reserva/reserva';
 import { MesaService } from 'src/app/service/mesa.service';
+import { ReservaService } from 'src/app/service/reserva/reserva.service';
 
 @Component({
   selector: 'app-mesa-cliente',
@@ -14,24 +16,28 @@ export class MesaClienteComponent implements OnInit {
   cantidadPersonas!:number;
   usuario!:any;
   mesasUsuario!:Array<Mesa>;
-  mesasNoDisponibles!:Array<Mesa>;
+  mesasReservadas!:Array<Reserva>;
   reservaEliminar: any;
   modalReserva:any;
-  constructor(private servicio:MesaService,private router:Router) {
+  reserva!:Reserva;
+  constructor(private servicio:MesaService,private router:Router, private servicioReserva:ReservaService) {
     this.mesasDisponibles = new Array<Mesa>();
-    this.mesasNoDisponibles = new Array<Mesa>();
+    this.mesasReservadas = new Array<Reserva>();
     this.mesasUsuario = new Array<Mesa>();
     this.mesa = new Mesa();
     this.reservaEliminar = new Mesa();
     this.modalReserva = new Mesa();
+    this.reserva = new Reserva();
+    
 
    }
 
   ngOnInit(): void {
+    this.usuario = sessionStorage.getItem("user");  
     this.obtenerMesasDisp();
-    this.obtenerMesasUsuario();
+    this.obtenerMesasReservadas();
     this.mesa.cantidadMesa=this.cantidadPersonas;
-    this.usuario = sessionStorage.getItem("user");  console.log(this.usuario);
+    
   }
   obtenerMesasDisp(){
     this.servicio.obtenerMesasDisponibles().subscribe(
@@ -51,62 +57,18 @@ export class MesaClienteComponent implements OnInit {
     )
   }
 
-
-  actualizarCantidadMesa() {
-    this.mesa.cantidadMesa = 0;
-for (let i = this.cantidadPersonas; i > 0; i -= 4) {
-  this.mesa.cantidadMesa++;
-}
-this.mesa.cantidadSilla=this.cantidadPersonas;
-}
-
-obtenerMesasUsuario(){
-  this.servicio.obtenerMesasNoDisponibles().subscribe(
-    result=>{
-      console.log(result)
-      let unaMesa = new Mesa();
-      result.forEach((element: any )=> {
-        if (element.usuario == this.usuario){
-        Object.assign(unaMesa,element)
-        this.mesasUsuario.push(unaMesa)
-        unaMesa = new Mesa();}
-      });
+async actualizarMesa(){
+   this.servicio.editarMesa(this.mesa).subscribe(
+    (result:any)=>{
+     
     },
-
     error=>{
-      console.log(error)
+      alert(error.msg)
     }
   )
 }
 
-// actualizarMesa(){
-//   this.servicio.editarMesa(this.mesa).subscribe(
-//     (result:any)=>{
-     
-//     },
-//     error=>{
-//       alert(error.msg)
-//     }
-//   )
-// }
-async actualizarMesa() {
-  try {
-    await this.servicio.editarMesa(this.mesa).toPromise();
-  } catch (error) {
-    console.error("Ocurrió un error al actualizar la mesa:", error);
-  }
-}
 
-// eliminarReserva(mu:Mesa){
-//   mu.usuario = "no tiene"; 
-//   mu.disponibilidadReserva = true;
-//   this.mesa = mu;  // deja la mesa lista para actualizar
-// this.actualizarMesa();
-// this.mesasUsuario = new Array<Mesa>();
-// this.obtenerMesasUsuario();
-// this.mesasDisponibles = new Array<Mesa>();
-// this.obtenerMesasDisp();
-// }
 async eliminarReserva(mu:Mesa) {
   try {
     mu.usuario = "no tiene";
@@ -115,7 +77,7 @@ async eliminarReserva(mu:Mesa) {
     await this.actualizarMesa();
   
     this.mesasUsuario = new Array<Mesa>();
-    this.obtenerMesasUsuario();
+    this.obtenerMesasReservadas();
 
     this.mesasDisponibles = new Array<Mesa>();
     this.obtenerMesasDisp();
@@ -136,41 +98,22 @@ async eliminarReserva(mu:Mesa) {
 // this.mesasDisponibles = new Array<Mesa>();
 // this.obtenerMesasDisp();
 // }
-async reservar(mesaR:Mesa) {
-  try {
-    mesaR.usuario = this.usuario;
-    mesaR.disponibilidadReserva = false;
-    this.mesa = mesaR;
-    await this.actualizarMesa();
+// async reservar(mesaR:Mesa) {
+//   try {
+//     mesaR.usuario = this.usuario;
+//     mesaR.disponibilidadReserva = false;
+//     this.mesa = mesaR;
+//     await this.actualizarMesa();
   
-    this.mesasUsuario = new Array<Mesa>();
-    await this.obtenerMesasUsuario();
+//     this.mesasUsuario = new Array<Mesa>();
+//     await this.obtenerMesasUsuario();
 
-    this.mesasDisponibles = new Array<Mesa>();
-    await this.obtenerMesasDisp();
-  } catch (error) {
-    console.error("Ocurrió un error al reservar la mesa:", error);
-  }
-}
-
-obtenerMesasNoDisp(){
-  this.servicio.obtenerMesasNoDisponibles().subscribe(
-    result=>{
-      console.log(result)
-      let unaMesa = new Mesa();
-      result.forEach((element: any )=> {
-        Object.assign(unaMesa,element)
-        this.mesasNoDisponibles.push(unaMesa)
-        unaMesa = new Mesa();
-      });
-    },
-
-    error=>{
-      console.log(error)
-    }
-  )
-}
-
+//     this.mesasDisponibles = new Array<Mesa>();
+//     await this.obtenerMesasDisp();
+//   } catch (error) {
+//     console.error("Ocurrió un error al reservar la mesa:", error);
+//   }
+// }
 
  abrirModalEliminar(reserva: any) {
   this.reservaEliminar = reserva;
@@ -179,4 +122,46 @@ obtenerMesasNoDisp(){
 abrirModalReservar(reserva: any) {
   this.modalReserva = reserva;
 }
+
+  async guardarReserva(mesaR:Mesa){
+
+    mesaR.usuario = this.usuario;
+    mesaR.disponibilidadReserva = false;
+    this.mesa = mesaR;
+    await this.actualizarMesa();
+
+  this.reserva.mesa = this.mesa;
+  this.reserva.usuario = this.usuario;
+this.servicioReserva.crearReserva(this.reserva).subscribe(
+  result=>{
+   
+    alert("se guardo")
+  },
+  error=>{
+    
+console.log(error)
+  }
+)
+}
+
+
+obtenerMesasReservadas(){
+console.log(this.usuario)
+this.servicioReserva.obtenerReservas(this.usuario).subscribe(
+  result=>{
+    console.log(result)
+    let unaReserva = new Reserva();
+    result.forEach((element: any )=> {
+      Object.assign(unaReserva,element)
+      this.mesasReservadas.push(unaReserva)
+      unaReserva = new Reserva();
+    });
+  },
+  error=>{
+
+  }
+)
+}
+
+
 }
