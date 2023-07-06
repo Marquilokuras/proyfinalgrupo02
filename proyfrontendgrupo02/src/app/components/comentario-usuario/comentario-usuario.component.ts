@@ -13,22 +13,16 @@ export class ComentarioUsuarioComponent implements OnInit {
   listaComentarios: Array<Comentario>;
   comentario!:Comentario;
   usuario!:any;
-  cantidad!:LoginService
 
-
-
-  constructor(private comentarioService:ComentarioService,public loginService: LoginService) {
+  constructor(private comentarioService:ComentarioService,public usuarioService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
-
-    this.obtenerComentarios()
   }
 
   ngOnInit(): void {
     this.obtenerComentarios()
     this.fechaComentario()
-    this.usuario = sessionStorage.getItem("user");  console.log(this.usuario);
-    this.comentario.usuario=this.usuario
+    this.usuarioRegistrado()
   }
 
   public tipoLogged() {
@@ -41,7 +35,6 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentarioService.obtenerComentarios().subscribe(
       result => {
         console.log(result);
-
           this.listaComentarios=result;
       })
   }
@@ -49,9 +42,8 @@ export class ComentarioUsuarioComponent implements OnInit {
   guardarComentario(){
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result=>{
-        this.comentario.usuario=this.usuario
         if(result.status == 1){
-         window.location.href = window.location.href
+          location.reload();
         }
       },
       error=>{ alert(error.msg); }
@@ -61,32 +53,31 @@ export class ComentarioUsuarioComponent implements OnInit {
   modificarComentario(){
 
     console.log(this.comentario);
-    const fechaComentario = this.comentario.fechaComentario; // Almacena la fecha actual en una variable temporal
      this.comentarioService.modificarComentario(this.comentario).subscribe(
       result=>{
         if(result.status == 1){
-          this.obtenerComentarios();// Vuelve a cargar la lista de comentarios
-          this.comentario = new Comentario();  // se asigna un nuevo objeto vacío a la variable comentario
-          this.comentario.fechaComentario = fechaComentario; // Restaura la fecha en el nuevo objeto de comentario
-          this.comentario.usuario=this.usuario
-
+          this.obtenerComentarios();
+          this.comentario = new Comentario();
+          this.usuarioRegistrado();
+          this.fechaComentario();
         }
-
       },
       error=>{ alert(error.msg); }
     )
   }
 
-  public eliminarComentario(comentario: Comentario) {
+
+  cancelarComentario(){
+    this.comentario = new Comentario()
+    this.usuarioRegistrado();
+    this.fechaComentario();
+  }
+
+   eliminarComentario(comentario: Comentario) {
     this.comentarioService.eliminarComentario(comentario._id).subscribe(
       result => {
         if (result.status == 1) {
-          // eliminar comentario de la lista de comentarios
-          const index = this.listaComentarios.indexOf(comentario);
-          if (index !== -1) {
-            this.listaComentarios.splice(index, 1);
-          }
-          console.log(result)
+          location.reload();
         }
       },
       error => {  alert(error.msg) }
@@ -98,7 +89,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       result=>{
         console.log(result);
         this.comentario=result
-        this.comentario.usuario=this.usuario
+        this.fechaComentario()
       })
   }
 
@@ -114,13 +105,18 @@ export class ComentarioUsuarioComponent implements OnInit {
       return 'Sin evaluar';
     }
   }
-
-  fechaComentario(){
-    const fecha = new Date();
-    this.comentario.fechaComentario = fecha.toLocaleDateString();
-  }
-
   setPuntaje(puntaje: number) {
     this.comentario.puntajeComentario = puntaje;
   }
+
+  fechaComentario(){
+    const fecha = new Date();
+    this.comentario.fechaComentario = fecha.toLocaleString();
+  }
+
+  usuarioRegistrado(){
+    this.usuario = sessionStorage.getItem("user");
+    this.comentario.usuario=this.usuario
+  }
+
 }

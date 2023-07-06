@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 
@@ -10,13 +11,24 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
 })
 export class PedidoFormComponent implements OnInit {
 
+  dtOptions : DataTables.Settings = {};
+  dtTrigger : Subject<any> = new Subject <any>();
   pedidos = new Array();
   bebidaPedido = new Array()
 
   constructor(private pedidoService: PedidoService, public loginService: LoginService, private router:Router) { }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType : 'full_pages',
+      pageLength : 5,
+    },
+
     this.mostrarPedidos();
+  }
+
+  ngOnDestroy():void{
+    this.dtTrigger.unsubscribe();
   }
 
   public mostrarPedidos() {
@@ -24,6 +36,7 @@ export class PedidoFormComponent implements OnInit {
       result => {
         this.pedidos = result;
         this.bebidaPedido = result.bebidasPedido
+        this.dtTrigger.next(this.pedidos);
       },
       error => {
       }
@@ -31,7 +44,6 @@ export class PedidoFormComponent implements OnInit {
   }
 
   public eliminarPedido(idPedido: string) {
-    console.log(idPedido)
     this.pedidoService.eliminarPedido(idPedido).subscribe(
       result => {
         this.pedidos = result;
@@ -46,4 +58,9 @@ export class PedidoFormComponent implements OnInit {
   agregarPedido() {
     this.router.navigate(["pedido"])
   }
+
+  modificarPedido(idPedido: string){
+    this.router.navigate(['pedido', idPedido],);
+  }
+  
 }

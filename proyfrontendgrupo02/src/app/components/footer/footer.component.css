@@ -1,11 +1,14 @@
-body {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
 
 footer {
   margin-top: auto;
+  background-color: #7fa38c;
 }
 
 .footer-icon {

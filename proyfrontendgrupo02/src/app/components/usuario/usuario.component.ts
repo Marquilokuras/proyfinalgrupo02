@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { LoginService } from 'src/app/service/login/login.service';
 
@@ -8,30 +9,41 @@ import { LoginService } from 'src/app/service/login/login.service';
   templateUrl: './usuario.component.html',
   styleUrls: ['./usuario.component.css']
 })
+
 export class UsuarioComponent implements OnInit {
 
-  listUsuario = new Array();
+  dtOptions : DataTables.Settings = {};
+  dtTrigger : Subject<any> = new Subject <any>();
+
+  listUsuario: Usuario[] = [];
 
   constructor(public loginService: LoginService, private activatedRoute: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType : 'full_pages',
+      pageLength : 5,
+    },
 
     this.mostrarUsuario();
 
+  }
+
+  ngOnDestroy():void{
+    this.dtTrigger.unsubscribe();
   }
 
   agregarUsuario() {
     this.router.navigate(['usuario-form'],);
   }
 
-
   mostrarUsuario() {
     this.loginService.mostrarUsuario().subscribe(
       result => {
         this.listUsuario = result;
-
-      },
+        this.dtTrigger.next(this.listUsuario);
+        },
     )
   }
 
@@ -46,9 +58,7 @@ export class UsuarioComponent implements OnInit {
   }
 
   modificarUsuario(id: string) {
-
     this.router.navigate(['usuario-form', id],);
-
   }
 
 }

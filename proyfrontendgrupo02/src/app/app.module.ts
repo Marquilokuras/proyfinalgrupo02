@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
+import { DataTablesModule } from "angular-datatables";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { OAuthModule } from 'angular-oauth2-oidc';
+
 
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
@@ -23,7 +28,6 @@ import { PedidoFormComponent } from './components/pedido-form/pedido-form.compon
 import { TokenInterceptorService } from './service/token-interceptor/token-interceptor.service';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
-import { ReservaComponent } from './components/reserva/reserva.component';
 
 @NgModule({
   declarations: [
@@ -43,15 +47,18 @@ import { ReservaComponent } from './components/reserva/reserva.component';
     PedidoFormComponent,
     UsuarioComponent,
     UsuarioFormComponent,
-    ReservaComponent,
-
   ],
 
   imports: [
+    CommonModule,
+    BrowserAnimationsModule, // required animations module
+    ToastrModule.forRoot(), // ToastrModule added
+    OAuthModule.forRoot(), //google
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    DataTablesModule,
+    HttpClientModule,
   ],
   providers: [LoginService,
     {

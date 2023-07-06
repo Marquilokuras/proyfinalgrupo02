@@ -2,7 +2,7 @@
     <h2>Gestion de Mesas </h2>
     <button type="button" class="btn btn-primary" (click)="nuevaMesa()">Agregar Mesa</button>
     <div class="table-responsive" style="max-width: 1000px;">
-      <table class="table table-striped" style="max-width: 100%;">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
         <thead>
           <tr>
             <th scope="col">Numero de mesa</th>

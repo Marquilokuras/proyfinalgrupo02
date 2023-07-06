@@ -1,3 +1,4 @@
+import { ToastrService } from 'ngx-toastr';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Usuario } from 'src/app/models/usuario/usuario';
@@ -10,8 +11,8 @@ import { LoginService } from 'src/app/service/login/login.service';
 })
 
 export class LoginComponent implements OnInit {
-
-  userform: Usuario = new Usuario(); 
+  mostrarContrasenia: boolean = false;
+  userform: Usuario = new Usuario();
   returnUrl!: string;
 
   nuevoUsuario: boolean = false;
@@ -28,7 +29,7 @@ export class LoginComponent implements OnInit {
   dniRecuperado !: string;
   constrasenaRecuperada !: string;
 
-  constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService) {
+  constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private toastrService:ToastrService) {
   }
 
   ngOnInit() {
@@ -47,16 +48,19 @@ export class LoginComponent implements OnInit {
           sessionStorage.setItem("tipoUsuario", user.tipoUsuario);
           //redirigimos a home
           this.router.navigateByUrl(this.returnUrl);
+          this.toastrService.success(`¡Bienvenido de nuevo ${user.email}!`);
         } else {
-
+          this.toastrService.warning("¡Usuario o contraseña Incorrecta!");
         }
       },
       error => {
         alert("Error de conexion");
         console.log("error en conexion");
         console.log(error);
+        this.toastrService.warning("Error al Iniciar Sesion");
       });
   }
+
 
   altaUsuarioCliente() {
     this.loginService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
@@ -97,6 +101,7 @@ export class LoginComponent implements OnInit {
   cancelar() {
     this.nuevoUsuario = false;
     this.recuperarUsuario = false;
+    this.mostrarContrasenia = false;
   }
 
   recuperar() {
@@ -105,6 +110,7 @@ export class LoginComponent implements OnInit {
     this.constrasenaRecuperada = ""
     this.nuevoUsuario = false;
     this.recuperarUsuario = true;
+    this.mostrarContrasenia = false;
   }
 
   recuperarContrasena() {
@@ -112,6 +118,7 @@ export class LoginComponent implements OnInit {
       result => {
         console.log(result)
         this.constrasenaRecuperada = result.password
+        this.mostrarContrasenia = true;
       },
       error => {
       }
