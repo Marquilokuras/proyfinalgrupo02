@@ -2,8 +2,9 @@
     <h2>Gestion de Bebidas</h2>
     <br>
     <button type="button" class="btn btn-primary" (click)="nuevoBebida()">Agregar Bebida</button>
+
     <div class="table-responsive ">
-      <table class="table table-striped">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
         <thead>
           <tr>
             <th scope="col-2">Nombre</th>
@@ -16,43 +17,40 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let bebida of listaBebida" class="">
-            <td class="col-2">{{bebida.nombreBebida}}</td>
-            <td class="col-2">{{bebida.ingredientesBebida}}</td>
-            <td class="col-2">{{bebida.tipoVasoBebida}}</td>
-            <td class="col-2">
-              <button *ngIf="bebida.disponibilidadBebida==true" (click)="cambiarEstadoBebida(bebida)" class="btn btn-success btn-sm rounded-pill">
+          <tr *ngFor="let bebida of listaBebida" class="bebida">
+            <td class="col-2 ">{{bebida.nombreBebida}}</td>
+            <td class="col-2 ">{{bebida.ingredientesBebida}}</td>
+            <td class="col-2 ">{{bebida.tipoVasoBebida}}</td>
+            <td class="col-2 ">
+              <button *ngIf="bebida.disponibilidadBebida==true" (click)="cambiarEstadoBebida(bebida)" class="btn btn-success btn-lg rounded-pill btn-block me-2 mt-5">
                 Disponible
               </button>
-              <button *ngIf="bebida.disponibilidadBebida==false" (click)="cambiarEstadoBebida(bebida)" class="btn btn-danger btn-sm rounded-pill">
+              <button *ngIf="bebida.disponibilidadBebida==false" (click)="cambiarEstadoBebida(bebida)" class="btn btn-danger btn-lg rounded-pill btn-block me-2 mt-5">
                 No Disponible
               </button>
             </td>
             <td class="col-2">$ {{bebida.precioBebida}}</td>
-            <td class="col-2"> 
-              <img 
-                [src]="bebida.imagenBebida" 
-                class="img-thumbnail" 
+            <td class="col-2">
+              <img
+                [src]="bebida.imagenBebida"
+                class="img-thumbnail"
                 style="max-width: 150px"
                 alt="Aca una imagen"
               />
             </td>
-            <td class="col-1">   
+            <td class="col-1">
               <div class="d-flex">
-                <button type="button" class="btn btn-primary me-2" (click)="actualizarBebida(bebida)">
-                  <i class="fa-solid fa-pencil"></i>
+                <button type="button" class="btn btn-primary btn-lg btn-block me-2 mt-5" (click)="actualizarBebida(bebida)">
+                  <i class="fa-solid fa-pencil"></i> Actualizar
                 </button>
-                <button type="button" class="btn btn-danger" (click)="eliminarBebida(bebida)">
-                  <i class="fa-sharp fa-solid fa-trash"></i>
+                <button type="button" class="btn btn-danger btn-lg btn-block mt-5" (click)="eliminarBebida(bebida)">
+                  <i class="fa-sharp fa-solid fa-trash"></i> Eliminar
                 </button>
               </div>
             </td>
-            
+
           </tr>
         </tbody>
       </table>
     </div>
-    
   </div>
-  
-  

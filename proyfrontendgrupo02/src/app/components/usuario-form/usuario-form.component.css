@@ -1,0 +1,54 @@
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
+
+.container-fluid {
+  background-color: #251a21; /* Reemplaza con el color de fondo deseado */
+  font-family: 'Lato', sans-serif;
+  color: #251a21;
+  font-weight: bold;
+}
+
+.card-body {
+  background-color: #f5e7aa;
+}
+
+h2{
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.register-form {
+  margin-top: 30px;
+}
+
+.register-form .form-group {
+  margin: 15px;
+}
+
+.btn-primary {
+  background-color: #7fa38c;
+  border-color: #7fa38c;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #749981; /* Cambia el color de fondo en hover */
+  border-color: #749981; /* Cambia el color del borde en hover */
+}
+
+.btn-danger {
+  background-color: #fa6816;
+  border-color: #fa6816;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #fd8037; /* Cambia el color de fondo en hover */
+  border-color: #fd8037; /* Cambia el color del borde en hover */
+}
+

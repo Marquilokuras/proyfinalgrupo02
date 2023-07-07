@@ -1,9 +1,10 @@
+<div class="container-fluid">
 <div class="row">
   <div class="col-6">
-<h2>Mesas</h2>
+<h2 >Mesas Disponibles</h2>
 
   <div class="table-responsive" >
-    <table class="table table-striped" >
+    <table class="table-custom table-striped table table-dark table-hover" >
       <thead>
         <tr>
           <th scope="col">Numero de mesa</th>
@@ -16,8 +17,8 @@
       <tbody>
         <tr *ngFor="let m of mesasDisponibles">
           <td># {{m.numeroMesa}}</td>
-          <td>{{m.cantidadMesa}}</td>
-          <td>{{m.cantidadSilla}}</td>
+          <td>{{m.cantidadMesa}} mesas</td>
+          <td>Hasta {{m.cantidadSilla}} personas</td>
           <td *ngIf="m.disponibilidadReserva === true">Disponible</td>
           <td> <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalReserva" (click)="abrirModalReservar(m)" > 
             Reservar <i class="fa-regular fa-circle-right"></i>
@@ -31,69 +32,32 @@
   </div>
 
 
-  <div class="col-6 bg-body-secondary">
-<!-- <h2>Reserva</h2>
-  <form >
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="numero" class="form-label">Número de mesa</label>
-                <div>
-                  <select name="espectador" id="id" class="form-select">
-                  <option *ngFor=" let e of mesasDisponibles" [ngValue]="e">{{e.numeroMesa}}</option>
-                </select>
-                </div>
-                
-            
+  <div class="col-6 ">
 
-              </div>
-          </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="estado" class="form-label">Cantidad de personas</label>
-              <input type="number" class="form-control" id="cantP" name="personas" [(ngModel)]="cantidadPersonas" (ngModelChange)="actualizarCantidadMesa()">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="mesa" class="form-label">Cantidad de mesas</label>
-                <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="mesa.cantidadMesa" disabled>
-              </div>
-          </div>
-            <div class="col-md-6">
-            <div class="mb-3">
-              <label for="sillas" class="form-label">Cantidad de sillas</label>
-              <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="mesa.cantidadSilla" disabled>
-            </div>
-          </div>
 
-        </div>
-       
-        <button  type="submit" class="btn btn-primary" >Guardar</button>
-      </form> -->
       <div class="col-12">
-        <h2>Mis reservas</h2>
+        <h2>Mis reservas {{fechaDeHoy | date:'dd-MM-yyyy'}}</h2>
         
           <div class="table-responsive" >
-            <table class="table table-striped" >
+            <table class="table-custom table-striped table table-dark table-hover" >
               <thead>
                 <tr>
                   <th scope="col">Numero de mesa</th>
                   <th scope="col">Cantidad de mesas</th>
-                  <th scope="col">Cantidad de sillas</th>
+                  <th scope="col">Cantidad de Personas</th>
+                  <th scope="col">Horario de Reserva </th>
                   <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let mu of mesasUsuario">
-                  <td>{{mu.numeroMesa}}</td>
-                  <td>{{mu.cantidadMesa}}</td>
-                  <td>{{mu.cantidadSilla}}</td>
+                <tr *ngFor="let mu of mesasReservadas">
+                  <td>#{{mu.numeroMesa}}</td>
+                  <td>{{mu.cantidadMesa}} mesas</td>
+                  <td>{{mu.cantidadSilla}} personas</td>
+                  <td>{{mu.hora}}</td>
                   <td>
                     <button type="button" class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="abrirModalEliminar(mu)">
-                      Eliminar <i class="fa-regular fa-trash-can"></i>
+                      Cancelar <i class="fa-regular fa-trash-can"></i>
                     </button>
                   </td>
                 </tr>
@@ -108,30 +72,34 @@
   
 </div>
 
-<!-- Button trigger modal
-<button type="button" class="btn btn-primary"  data-bs-target="#exampleModal">
-  Launch demo modal
-  (click)="eliminarReserva(mu)"
-</button> -->
+</div>
 
-<!-- Modal -->
+
+
+
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">CANCELAR RESERVA</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Estas seguro que quieres eliminar la reserva?</p>
+        <p>Estas seguro que quieres cancelar la reserva de la mesa ?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="eliminarReserva(reservaEliminar)">Eliminar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="eliminarReserva(reservaEliminar)">Confirmar</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
 
 <div class="modal fade" id="modalReserva" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -141,11 +109,55 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <p>Estas seguro que quieres reservar la mesa?</p>
+        <p>Reserva de mesa {{modalReserva.numeroMesa}}</p>
+        <form #reservaForm="ngForm">
+        <div class="col-md-6">
+          <div class="mb-3">
+              <label for="mesa" class="form-label">Mesas disponibles : {{modalReserva.cantidadMesa}}</label>
+              <select class="form-select" id="mesa" name="mesa" [(ngModel)]="cantidadMesasElegida" required #cantidad="ngModel">
+                <option *ngFor="let i of getNumerosHastaCantidadMesas()" [value]="i">{{ i }}</option>
+              </select>
+              <div *ngIf="cantidad.invalid && (cantidad.dirty || cantidad.touched)"
+              class="alert alert-danger">
+             
+              <div *ngIf="cantidad.errors?.['required']">
+              cantidad es requerida
+              </div>
+              </div> 
+            </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="silla" class="form-label">Máximo de personas: {{ modalReserva.cantidadSilla }}</label>
+            <select class="form-select" id="silla" name="silla" [(ngModel)]="cantidadSillasElegida" required #cantidadS="ngModel">
+              <option *ngFor="let i of getNumerosHastaCantidadSillas()" [value]="i">{{ i }}</option>
+            </select>
+            <div *ngIf="cantidadS.invalid && (cantidadS.dirty || cantidadS.touched)" class="alert alert-danger">
+              <div *ngIf="cantidadS.errors?.['required']">
+                La cantidad de personas es requerida.
+              </div>
+            </div> 
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="hora" class="form-label">Horarios disponibles:</label>
+            <select class="form-select" id="hora" name="hora" [(ngModel)]="reserva.hora" required #hora="ngModel">
+              <option value="" selected>Seleccione un horario</option>
+              <option *ngFor="let hora of getHorariosDisponibles(modalReserva)" [value]="hora">{{ hora }}</option>
+            </select>
+            <div *ngIf="hora.invalid && (hora.dirty || hora.touched)" class="alert alert-danger">
+              <div *ngIf="hora.errors?.['required']">
+                El horario es requerido.
+              </div>
+            </div> 
+          </div>
+        </div>
+      </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="reservar(modalReserva)">Reservar</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="guardarReserva(modalReserva)" [disabled]="reservaForm.invalid">Reservar</button>
       </div>
     </div>
   </div>

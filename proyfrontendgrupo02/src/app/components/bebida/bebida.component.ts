@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component , OnInit, OnDestroy} from '@angular/core';
 import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { Bebida } from 'src/app/models/bebida';
 import { BebidaService } from 'src/app/service/bebida.service';
 import { LoginService } from 'src/app/service/login/login.service';
@@ -10,6 +11,9 @@ import { LoginService } from 'src/app/service/login/login.service';
   styleUrls: ['./bebida.component.css']
 })
 export class BebidaComponent {
+
+  dtOptions : DataTables.Settings = {};
+  dtTrigger : Subject<any> = new Subject <any>();
 
   listaBebida: Array<Bebida>
 
@@ -25,24 +29,35 @@ export class BebidaComponent {
       this.router.navigate(['login']);
     }
   }
-  
+
   ngOnInit(){
+     this.dtOptions = {
+      pagingType : 'full_pages',
+      pageLength : 5,
+    },
     this.obtenerBebidas();
+
   }
 
+  ngOnDestroy():void{
+    this.dtTrigger.unsubscribe();
+  }
 
  public obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result=>{
         console.log(result)
+        this.dtTrigger.next(this.listaBebida);
         let unaBebida = new Bebida();
         result.forEach((element: any )=> {
           Object.assign(unaBebida,element)
           this.listaBebida.push(unaBebida)
           unaBebida = new Bebida();
+
+           this.ngOnDestroy()
         });
       },
-  
+
       error=>{
         console.log(error)
       }
@@ -68,7 +83,7 @@ export class BebidaComponent {
         }
         console.log(result)
       },
-  
+
       error=>{
         console.log(error)
         alert(error.msg)
@@ -80,7 +95,5 @@ export class BebidaComponent {
     bebida.disponibilidadBebida = !bebida.disponibilidadBebida;
     this.bebidaService.actualizarBebida(bebida).subscribe()
      this.obtenerBebidas()
-    
   }
-
 }

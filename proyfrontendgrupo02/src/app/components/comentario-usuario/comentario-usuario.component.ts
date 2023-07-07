@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Comentario } from 'src/app/models/comentario/comentario';
 import { ComentarioService } from 'src/app/service/comentario/comentario.service';
 import { LoginService } from 'src/app/service/login/login.service';
@@ -10,23 +11,30 @@ import { LoginService } from 'src/app/service/login/login.service';
 })
 export class ComentarioUsuarioComponent implements OnInit {
 
+  dtOptions : DataTables.Settings = {};
+  dtTrigger : Subject<any> = new Subject <any>();
+
   listaComentarios: Array<Comentario>;
   comentario!:Comentario;
   usuario!:any;
-  cantidad!:LoginService
 
-
-
-  constructor(private comentarioService:ComentarioService,public loginService: LoginService) {
+  constructor(private comentarioService:ComentarioService,public usuarioService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
-    this.obtenerComentarios()
   }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType : 'full_pages',
+      pageLength : 5,
+    },
     this.obtenerComentarios()
     this.fechaComentario()
     this.usuarioRegistrado()
+  }
+
+  ngOnDestroy():void{
+    this.dtTrigger.unsubscribe();
   }
 
   public tipoLogged() {
@@ -39,8 +47,8 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentarioService.obtenerComentarios().subscribe(
       result => {
         console.log(result);
-
           this.listaComentarios=result;
+          this.dtTrigger.next(this.listaComentarios);
       })
   }
 
@@ -48,7 +56,7 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result=>{
         if(result.status == 1){
-         window.location.href = window.location.href
+          location.reload();
         }
       },
       error=>{ alert(error.msg); }
@@ -58,15 +66,13 @@ export class ComentarioUsuarioComponent implements OnInit {
   modificarComentario(){
 
     console.log(this.comentario);
-    this.fechaComentario();
      this.comentarioService.modificarComentario(this.comentario).subscribe(
       result=>{
-        this.fechaComentario();
         if(result.status == 1){
-          this.obtenerComentarios();// Vuelve a cargar la lista de comentarios
-          this.comentario = new Comentario();  // se asigna un nuevo objeto vacío a la variable comentario
-          this.fechaComentario();
+          this.obtenerComentarios();
+          this.comentario = new Comentario();
           this.usuarioRegistrado();
+          this.fechaComentario();
         }
       },
       error=>{ alert(error.msg); }
@@ -80,16 +86,11 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.fechaComentario();
   }
 
-  public eliminarComentario(comentario: Comentario) {
+   eliminarComentario(comentario: Comentario) {
     this.comentarioService.eliminarComentario(comentario._id).subscribe(
       result => {
         if (result.status == 1) {
-
-          const index = this.listaComentarios.indexOf(comentario);
-          if (index !== -1) {
-            this.listaComentarios.splice(index, 1);
-          }
-          console.log(result)
+          location.reload();
         }
       },
       error => {  alert(error.msg) }
@@ -101,7 +102,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       result=>{
         console.log(result);
         this.comentario=result
-        this.usuarioRegistrado();
+        this.fechaComentario()
       })
   }
 

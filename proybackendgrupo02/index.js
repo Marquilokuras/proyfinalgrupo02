@@ -7,7 +7,7 @@ var app = express();
 
 //middlewares
 //app.use(express.json());
-app.use(cors({ origin: 'http://localhost:4200' }));
+app.use(cors({ origin: 'https://proyfinalgrupo02.vercel.app' }));
 
 // Configuración del límite de tamaño de carga útil a 10MB
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -19,7 +19,12 @@ app.use('/api/mesa', require('./routes/mesa.route.js'));
 app.use('/api/bebida',require('./routes/bebida.route.js'));
 app.use('/api/pedido',require('./routes/pedidoBebida.route.js'));
 app.use('/api/comentario',require('./routes/comentario.route.js'));
+
 app.use('/api/promocion',require('./routes/promocion.route.js'));
+
+app.use('/api/reserva',require('./routes/reserva.route.js'));
+
+
 //setting
 app.set('port', process.env.PORT || 3000);
 

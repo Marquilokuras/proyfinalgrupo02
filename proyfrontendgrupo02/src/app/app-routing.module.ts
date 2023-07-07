@@ -15,6 +15,7 @@ import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
 import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
+import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
@@ -25,11 +26,13 @@ const routes: Routes = [
   {path: 'bebida',component:BebidaComponent},
   {path: 'bebida-form/:id', component:BebidaFormComponent},
   {path: 'mesa-form/:id', component:MesaFormComponent},
+  {path: 'mesa-form/0', component:MesaFormComponent},
   {path: 'mesa', component:MesaComponent},
   {path: 'mesa-cliente', component:MesaClienteComponent},
   {path: 'comentario-usuario', component:ComentarioUsuarioComponent},
   {path: 'menu', component:MenuComponent},
   {path: 'pedido', component:PedidoComponent},
+  {path: 'reserva', component:ReservaComponent},
   {path: 'pedido/:id', component:PedidoComponent},
   {path: 'pedido-form', component:PedidoFormComponent},
   {path: 'promocion',component:PromocionComponent},

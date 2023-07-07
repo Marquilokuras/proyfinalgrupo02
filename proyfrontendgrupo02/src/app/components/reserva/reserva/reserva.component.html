@@ -1,0 +1,39 @@
+<div class="container">
+    <h2>Gestion de reservas </h2>
+    <div class="table table-responsive" style="max-width: 1100px;">
+      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
+        <thead>
+          <tr>
+            <th scope="col">Numero de mesa</th>
+            <th scope="col">Usuario</th>
+            <th scope="col">Cantidad de mesas</th>
+            <th scope="col">Cantidad de sillas</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Hora </th>
+            <th scope="col">Acción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let reserva of reservas">
+            <td>#{{reserva.numeroMesa}}</td>
+            <td>{{reserva.usuario}}</td>
+            <td>{{reserva.cantidadMesa}}</td>
+            <td>{{reserva.cantidadSilla}}</td>
+            <td>{{reserva.fecha | date:'yyyy-MM-dd'}}</td>
+            <td>{{reserva.hora}}</td>
+            <td>   
+                <button type="button" class="btn btn-secondary me-2"  >
+                  <i class="fa-solid fa-pencil"></i>
+                </button>
+                
+                 <button type="button" class="btn btn-danger" (click)="eliminarReserva(reserva)" >
+        
+                 <i class="fa-sharp fa-solid fa-trash"></i>
+                 </button>
+                    </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+   
+  </div>
