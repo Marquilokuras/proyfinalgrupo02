@@ -10,7 +10,7 @@ export class PedidoService {
   hostBase: string;
  
   constructor(private _http: HttpClient) {
-    this.hostBase = "http://localhost:3000/api/pedido/";
+    this.hostBase = "http://proygrupo02.onrender.com/api/pedido/";
   }
 
   public generarPedido(bebidasPedido:Array<any>): Observable<any> {
@@ -25,7 +25,7 @@ export class PedidoService {
       'bebidasPedido' : bebidasPedido
     };
 
-    return this._http.post('http://localhost:3000/api/pedido/', body, httpOption);
+    return this._http.post('http://proygrupo02.onrender.com/api/pedido/', body, httpOption);
   }
 
   public mostrarPedido(): Observable<any> {
@@ -36,7 +36,7 @@ export class PedidoService {
       })
     }
 
-    return this._http.get('http://localhost:3000/api/pedido/pedidos', httpOption);
+    return this._http.get('http://proygrupo02.onrender.com/api/pedido/pedidos', httpOption);
   }
 
   public eliminarPedido(id : string): Observable<any> {
@@ -47,7 +47,7 @@ export class PedidoService {
       })
     }
 
-    const url = 'http://localhost:3000/api/pedido/'+id
+    const url = 'http://proygrupo02.onrender.com/api/pedido/'+id
 
     return this._http.delete(url, httpOption);
   }
@@ -64,7 +64,7 @@ export class PedidoService {
     };
  
 
-    var url = 'http://localhost:3000/api/pedido/' + _id
+    var url = 'http://proygrupo02.onrender.com/api/pedido/' + _id
 
     return this._http.put(url, data, httpOption);
   }
