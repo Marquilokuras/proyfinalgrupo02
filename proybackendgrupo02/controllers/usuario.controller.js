@@ -108,6 +108,4 @@ usuarioCtrl.recuperarContrasena = async (req, res) => {
     }
 };
 
-
-
 module.exports = usuarioCtrl;

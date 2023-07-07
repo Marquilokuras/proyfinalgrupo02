@@ -1,5 +1,6 @@
 const express = require('express'); //permite hacer manejo de rutas o direccionamiento
 const cors = require('cors'); //libreria que permite habilitar o no en referencias cruzadas en las aplicaciones
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const { mongoose } = require('./database');
 
@@ -13,6 +14,8 @@ app.use(cors({ origin: '*' }));
 // Configuración del límite de tamaño de carga útil a 10MB
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
+
+app.use(morgan('dev'))//muestra la petision del back - se verifica la petision del back
 
 //Cargamos el modulo de direccionamiento de rutas
 app.use('/api/usuario', require('./routes/usuario.route.js'));

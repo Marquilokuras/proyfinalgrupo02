@@ -30,7 +30,7 @@ export class LoginComponent implements OnInit {
   dniRecuperado !: string;
   constrasenaRecuperada !: string;
 
-  calendarioGoogle: any = null;
+  /* calendarioGoogle: any = null;
   idCalendario: string = "xxxx654654xxxxxxxxxxxx@group.calendar.google.com"; //reemplazar por el id de un calendario compartido en ppio como publico
 
 
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         dateTime: "2023-06-24T14:30:00-03:00",
         timeZone: "America/Argentina/Jujuy"
       }
-    }
+    } */
 
   constructor(private route: ActivatedRoute, private router: Router, private loginService: LoginService, private gooService: GooService, private toastrService: ToastrService) {
   }
@@ -164,7 +164,7 @@ export class LoginComponent implements OnInit {
   token() {
     console.log(this.gooService.getToken());
     alert(this.gooService.getToken())
-  }
+  }/* 
 
   verEventos() {
     idCalendario: String;
@@ -216,6 +216,6 @@ export class LoginComponent implements OnInit {
       dif + pad(Math.floor(Math.abs(tzo) / 60)) +
       ':' + pad(Math.abs(tzo) % 60);
   }
-
+ */
 
 }

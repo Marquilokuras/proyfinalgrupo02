@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Bebida } from 'src/app/models/bebida';
+import { Usuario } from 'src/app/models/usuario/usuario';
 import { BebidaService } from 'src/app/service/bebida.service';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
@@ -24,6 +25,7 @@ export class PedidoComponent implements OnInit {
   total: number = 0;
   cambios: string = 'new';
   idPedido!:string;
+  emailUsuario !: string | null;
 
   constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService) {
   }
@@ -93,7 +95,8 @@ export class PedidoComponent implements OnInit {
 
   public generarPedido() {
     this.total = 0;
-    this.pedidoService.generarPedido(this.arrayPedido).subscribe(
+    this.emailUsuario= this.loginService.userLogged();
+    this.pedidoService.generarPedido(this.arrayPedido,this.emailUsuario).subscribe(
       result => {
         this.arrayPedido = []
       },
