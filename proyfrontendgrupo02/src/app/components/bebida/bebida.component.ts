@@ -13,7 +13,9 @@ export class BebidaComponent {
 
   listaBebida: Array<Bebida>
 
-  public constructor (private loginService:LoginService,private bebidaService:BebidaService, private router:Router){
+  public constructor (private loginService:LoginService,
+                      private bebidaService:BebidaService, 
+                      private router:Router){
     this.listaBebida = new Array<Bebida>();
     if (this.loginService.userLoggedIn()) {
       //controlo si alguien esta logueado, ejecuto acciones normales
@@ -76,20 +78,8 @@ export class BebidaComponent {
 
   public cambiarEstadoBebida(bebida:Bebida){
     bebida.disponibilidadBebida = !bebida.disponibilidadBebida;
-    this.bebidaService.actualizarBebida(bebida).subscribe(
-      result=>{
-        if(result.status==1){
-          alert(result.msg)
-          this.listaBebida = new Array<Bebida>();
-          this.obtenerBebidas();
-        }
-        console.log(result);
-      },
-      error=>{
-        console.log(error);
-        alert(error.msg)
-      }
-     )
+    this.bebidaService.actualizarBebida(bebida).subscribe()
+     this.obtenerBebidas()
     
   }
 

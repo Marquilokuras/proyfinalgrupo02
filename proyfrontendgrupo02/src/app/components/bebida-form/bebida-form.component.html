@@ -9,7 +9,7 @@
     </div>
     
     <div class="col-12 col-sm-8">
-    <form >
+    <form #bebidaForm="ngForm">
       <div class="mb-3" hidden>
         <label for="_id" class="form-label">Id</label>
         <input type="text" class="form-control form-control-sm" id="_id" name="_id" [(ngModel)]="bebida._id">
@@ -17,25 +17,50 @@
 
       <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" class="form-control rounded-pill form-control-sm" id="nombre" name="nombre" [(ngModel)]="bebida.nombreBebida">
+        <input type="text" class="form-control rounded-pill form-control-sm" id="nombre" name="nombre" [(ngModel)]="bebida.nombreBebida" required #nombre="ngModel">
+        <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+          <div *ngIf="nombre.errors?.['required']">
+            Nombre es requerido 
+          </div>
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="ingredientes" class="form-label">Ingredientes</label>
-        <input type="text" class="form-control rounded-pill form-control-sm" id="ingredientes" name="ingredientes" [(ngModel)]="bebida.ingredientesBebida">
+        <input type="text" class="form-control rounded-pill form-control-sm" id="ingredientes" name="ingredientes" [(ngModel)]="bebida.ingredientesBebida" required #ingredientes="ngModel">
+        <div *ngIf="ingredientes.invalid && (ingredientes.dirty || ingredientes.touched)" class="alert alert-danger">
+          <div *ngIf="ingredientes.errors?.['required']">
+            Ingredientes es requerido 
+          </div>
+        </div>
       </div>
 
       <div class="mb-3">
         <label for="precio" class="form-label">Precio</label>
         <div class="input-group">
 
-          <input type="number" class="form-control form-control-sm rounded-pill " id="precio" name="precio" [(ngModel)]="bebida.precioBebida">
+          <input type="number" class="form-control form-control-sm rounded-pill " id="precio" name="precio" [(ngModel)]="bebida.precioBebida" required [min]="1" #precio="ngModel">
+        </div>
+        <div *ngIf="precio.invalid && (precio.dirty || precio.touched)" class="alert alert-danger">
+          <div *ngIf="precio.errors?.['required']">
+            Precio es requerido 
+          </div>
+
+          <div *ngIf="precio.errors?.['min']">
+            Precio debe ser mayor a 0
+        </div>
         </div>
       </div>
 
       <div class="mb-3">
         <label for="tipoVaso" class="form-label">Tipo de Vaso</label>
-        <input type="text" class="form-control rounded-pill form-control-sm" id="tipoVaso" name="tipoVaso" [(ngModel)]="bebida.tipoVasoBebida">
+        <input type="text" class="form-control rounded-pill form-control-sm" id="tipoVaso" name="tipoVaso" [(ngModel)]="bebida.tipoVasoBebida" required #vaso="ngModel">
+        <div *ngIf="vaso.invalid && (vaso.dirty || vaso.touched)" class="alert alert-danger">
+          <div *ngIf="vaso.errors?.['required']">
+            Tipo de vaso es requerido 
+          </div>
+        </div>
+      
       </div>
 
       <div class="mb-3">
@@ -49,12 +74,15 @@
       <div class="mb-3">
         <label for="fileInput" class="form-label">Imagen</label>
         <div class="input-group">
-          <input type="file" id="fileInput" accept="image/*"  class="form-control rounded-pill form-control-sm" (change)="onFileSelected($event)">
+          <input type="file" id="fileInput" accept="image/*"  class="form-control rounded-pill form-control-sm" (change)="onFileSelected($event)" required >
         </div>
+       
       </div>
 
-      <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary " (click)="guardarBebida()">Guardar</button>
-      <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary " (click)="actualizarBebida()">Modificar</button>
+      
+
+      <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary " (click)="guardarBebida()" [disabled]="!bebidaForm.form.valid" >Guardar</button>
+      <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary " (click)="actualizarBebida()" [disabled]="!bebidaForm.form.valid" >Modificar</button>
     </form>
   </div>
   </div>

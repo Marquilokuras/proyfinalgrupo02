@@ -8,4 +8,18 @@ const BebidaSchema = new Schema ({
     disponibilidadBebida : {type:Boolean, requiere:true},
     imagenBebida: {type:String,require:true},   
 })
+
+
+BebidaSchema.pre("deleteOne", async function(next){
+    const Promocion = require('./promocion')
+    const idBebida = this.getFilter()['_id'];
+
+    const promociones = await Promocion.find({bebidas: idBebida})
+    if(promociones.length>0){
+        return next(new Error("error al intentar elimnar bebida que esta siendo usada en una promocion"))
+
+    }
+})
+
+
 module.exports = mongoose.models.Bebida || mongoose.model('Bebida',BebidaSchema);

@@ -23,6 +23,16 @@ export class BebidaService {
     return this._http.get(this.urlBase,httpOptions);
   }
 
+  public obtenerBebidasDisponibles():Observable<any>{
+    const httpOptions={
+      headers : new HttpHeaders({
+
+      }),
+      params : new HttpParams()
+    }
+  
+    return this._http.get(this.urlBase+"disponibles",httpOptions);
+  }
 
   public obtenerBebida(id:string):Observable<any>{
     const httpOptions={

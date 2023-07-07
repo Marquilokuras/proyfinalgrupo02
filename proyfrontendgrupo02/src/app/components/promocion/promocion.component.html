@@ -1,0 +1,71 @@
+<div class="container">
+    <h2>Gestion de Promociones</h2>
+    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()">Agregar Promocion</button>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col-auto">Promocion</th>
+                    <th scope="col-auto">Bebidas incluidas</th>
+                    <!--<th scope="col-auto">Precio sin Descuento</th>
+                    <th scope="col-auto">Descuento</th>
+                    <th scope="col-auto">Fecha Promocion</th>
+                    <th scope="col-auto">Disponibilidad</th>
+                    <th scope="col-auto">Bebidas Incluidas</th>-->
+                    <th scope="col-auto">Opciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let promo of listaPromocion">
+                    <td class="col-auto">
+                        <p style="font-weight: bold; font-size: 16px;">Nombre: {{promo.nombrePromocion}}</p>
+                        <p style="color: #ff0000;">Precio de la promo: {{promo.totalPrecioPromocion}}</p>
+                        <p style="text-decoration: line-through;">Precio sin descuento: {{promo.totalPrecioBebidasSinDescuento}}</p>
+                        <p style="font-style: italic;">Descuento: {{promo.descuento}}</p>
+                        <p>Valido hasta: {{promo.fechaPromocion | date:'dd-MM-yyyy': 'utc' }}</p>
+                        <p style="font-weight: bold;">Disponibilidad: {{promo.disponibilidadPromocion}}</p>
+                        <button *ngIf="promo.disponibilidadPromocion==true" (click)="cambiarEstadoPromocion(promo)" class="btn btn-success btn-sm rounded-pill">
+                            Disponible
+                          </button>
+                          <button *ngIf="promo.disponibilidadPromocion==false" (click)="cambiarEstadoPromocion(promo)" class="btn btn-danger btn-sm rounded-pill">
+                            No Disponible
+                          </button>
+                      </td>
+                      
+                    <!--<td class="col-auto">{{promo.totalPrecioPromocion}}</td>
+                    <td class="col-auto">{{promo.totalPrecioBebidasSinDescuento}}</td>
+                    <td class="col-auto">{{promo.descuento}}</td>
+                    <td class="col-auto">{{promo.fechaPromocion}}</td>
+                    <td class="col-auto">{{promo.disponibilidadPromocion}}</td>-->
+                    
+                    <td class="col-auto">
+                        <div class="d-flex flex-wrap">
+                            <div class="mr-2" style="max-width: 150px;" *ngFor="let bebida of promo.bebidas">
+                            <div class="card h-100 card-color">
+                                <img [src]="bebida.imagenBebida" class="card-img-top img-fluid" alt="Imagen bebida">
+                                <div class="card-body">
+                                <h5 class="card-title title-color">{{bebida.nombreBebida}}</h5>
+                                <p class="card-text price-color"><strong>Precio:</strong> $ {{bebida.precioBebida}}</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </td>
+                      
+                      
+                    <td class="col-1">   
+                        <div class="d-flex">
+                          <button type="button" class="btn btn-primary me-2" (click)="actualizarPromocion(promo)">
+                            <i class="fa-solid fa-pencil"></i>
+                          </button>
+                          <button type="button" class="btn btn-danger" (click)="eliminarPromocion(promo)">
+                            <i class="fa-sharp fa-solid fa-trash"></i>
+                          </button>
+                        </div>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
