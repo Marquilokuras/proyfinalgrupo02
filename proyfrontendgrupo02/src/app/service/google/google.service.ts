@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 const oAuthConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
   strictDiscoveryDocumentValidation: false,
-  redirectUri: "http://proygrupo02.onrender.com/home",
+  redirectUri: "https://proygrupo02.onrender.com/home",
   clientId: '407408718192.apps.googleusercontent.com',
   scope: 'openid profile email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events'
 }

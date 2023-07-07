@@ -8,7 +8,7 @@ import { Bebida } from '../models/bebida';
 })
 export class BebidaService {
 
-  urlBase:string="http://proygrupo02.onrender.com/api/bebida/"
+  urlBase:string="https://proygrupo02.onrender.com/api/bebida/"
 
   constructor(private _http: HttpClient) { }
 
