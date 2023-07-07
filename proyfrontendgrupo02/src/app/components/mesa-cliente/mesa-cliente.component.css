@@ -1,0 +1,38 @@
+
+.container-fluid {
+    background-color: #251a21;
+    font-family: 'Lato', sans-serif;
+    background: linear-gradient(rgba(5,7,12,0.75),rgba(5,7,12,0.75)), url(https://i.blogs.es/155586/paradiso/1366_2000.jpg);
+  }
+  
+  .text-titulo {
+    color: #d3ccd1;
+    text-transform: uppercase;
+    font-size: 30px;
+    font-weight: bold;
+    text-align: center;
+    padding: 20px;
+  }
+  .table-custom {
+    background-color: #251a21;
+    color: #ffffff;
+  }
+  
+  .table-custom th,
+  .table-custom td {
+    color: #ffffff;
+  }
+  
+  .table-custom .table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .table-custom .table-striped tbody tr:nth-of-type(even) {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  h2{
+    color: #f5e7aa;
+    text-decoration: none;
+    margin-right: 10px;
+  }
