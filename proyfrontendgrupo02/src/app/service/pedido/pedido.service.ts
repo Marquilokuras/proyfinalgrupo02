@@ -11,8 +11,10 @@ export class PedidoService {
   
   constructor(private _http: HttpClient) {
     this.hostBase = "https://proygrupo02.onrender.com/api/pedido/";
+
 /*     this.hostBase = "http://localhost:3000/api/pedido/";
  */  }
+
 
   public generarPedido(bebidasPedido:Array<any>,email : string | null): Observable<any> {
 
