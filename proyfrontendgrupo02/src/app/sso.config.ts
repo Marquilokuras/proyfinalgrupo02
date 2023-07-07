@@ -9,13 +9,14 @@ export const authCodeFlowConfig: AuthConfig = {
 
   // The SPA's id. The SPA is registerd with this id at the auth-server
   // clientId: 'server.code',
-  clientId: '407408718192.apps.googleusercontent.com',
+     clientId: '392598141594-7qk2nrrgdpohcu597a8qopd259k7qbkg.apps.googleusercontent.com',
+   
 
   // Just needed if your auth server demands a secret. In general, this
   // is a sign that the auth server is not configured with SPAs in mind
   // and it might not enforce further best practices vital for security
   // such applications.
-  dummyClientSecret: 'GOCSPX-09sOknvnB_NRAKmS2-H-??????????',
+  dummyClientSecret: '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',
 
   responseType: 'code',
 
@@ -23,7 +24,7 @@ export const authCodeFlowConfig: AuthConfig = {
   // The first four are defined by OIDC.
   // Important: Request offline_access to get a refresh token
   // The api scope is a usecase specific one
-  scope: 'openid profile email https://www.googleapis.com/auth/cloud-platform https://www.googleapis.com/auth/cloud-platform.read-only', 
+  scope: 'openid profile email https://www.googleapis.com/auth/calendar https://www.googleapis.com/auth/calendar.events',
 
   showDebugInformation: true,
   strictDiscoveryDocumentValidation: false,

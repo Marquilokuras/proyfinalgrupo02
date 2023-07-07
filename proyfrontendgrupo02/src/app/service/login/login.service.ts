@@ -10,7 +10,7 @@ export class LoginService {
   hostBase: string;
 
   constructor(private _http: HttpClient) {
-    this.hostBase = "http://localhost:3000/api/usuario/";
+    this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
   }
 
   // LOGIN
@@ -28,7 +28,7 @@ export class LoginService {
       password
     };
 
-    return this._http.post('http://localhost:3000/api/usuario/login', body, httpOption);
+    return this._http.post('https://proygrupo02.onrender.com/api/usuario/login', body, httpOption);
   }
 
   //Se desloguea del sistema
@@ -93,7 +93,7 @@ export class LoginService {
       'tipoUsuario': tipoUsuario
     };
 
-    return this._http.post('http://localhost:3000/api/usuario', body, httpOption);
+    return this._http.post('https://proygrupo02.onrender.com/api/usuario', body, httpOption);
   }
 
   public mostrarUsuario(): Observable<any> {
@@ -103,7 +103,7 @@ export class LoginService {
       })
     }
 
-    return this._http.get('http://localhost:3000/api/usuario/', httpOption);
+    return this._http.get('https://proygrupo02.onrender.com/api/usuario/', httpOption);
   }
 
   public eliminarUsuario(_id: string): Observable<any> {
@@ -113,7 +113,7 @@ export class LoginService {
       })
     }
 
-    return this._http.delete('http://localhost:3000/api/usuario/' + _id, httpOption);
+    return this._http.delete('https://proygrupo02.onrender.com/api/usuario/' + _id, httpOption);
   }
 
   public modificarUsuario(_id:string,emailUsuario: string, passwordUsuario: string, nombreUsuario: string, apellidoUsuario: string, dniUsuario: string, edadUsuario: number, tipoUsuarioCliente: string): Observable<any> {
@@ -133,7 +133,7 @@ export class LoginService {
     };
 
 
-    var url = 'http://localhost:3000/api/usuario/' + _id
+    var url = 'https://proygrupo02.onrender.com/api/usuario/' + _id
 
     return this._http.put(url, data, httpOption);
   }
@@ -145,7 +145,7 @@ export class LoginService {
       })
     }
 
-    const url = `http://localhost:3000/api/usuario/recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
+    const url = `https://proygrupo02.onrender.com/api/usuario/recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
     console.log(url)
     return this._http.get(url, httpOption);
   }
