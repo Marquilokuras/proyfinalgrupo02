@@ -4,13 +4,11 @@ const comentarioCtrl = {}
 
 
 comentarioCtrl.getComentarios = async (req, res) =>{
-    console.log("get comentarios");
     const comentarios = await Comentario.find()
     res.json(comentarios);
 }
 
 comentarioCtrl.createComentario = async (req,res)=>{
-    console.log("create comentarios");
     var comentario = new Comentario(req.body);
     try{
         await comentario.save();
@@ -27,7 +25,6 @@ comentarioCtrl.createComentario = async (req,res)=>{
 }
 
 comentarioCtrl.editComentario = async (req,res) =>{
-    console.log("xddddd");
     const comentario = new Comentario(req.body);
     try{
         await Comentario.updateOne({_id: req.body._id },comentario);

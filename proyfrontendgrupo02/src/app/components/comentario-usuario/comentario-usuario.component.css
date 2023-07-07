@@ -1,18 +1,26 @@
-/*
-Naranja:  #fa6816
-Amarillo: #f5e7aa
-Verde: #7fa38c
-Marron Clarito:  #494144
-Marron: #251a21
-*/
+.container-comment{
+  padding: 40px;
+}
+.table-responsive{
+  color:#f5e7aa;
+}
+
+.table{
+  padding: 15px;
+}
+
 textarea{
   height: 70px;
 }
+.btn-danger {
+  background-color: #fa6816;
+  border-color: #fa6816;
+  transition: background-color 0.3s, border-color 0.3s;
+}
 
-.fechacom1{
-  font-size: 14px;
-  padding-left: 30px;
-  color: whitesmoke;
+.btn-danger:hover {
+  background-color: #fd8037; /* Cambia el color de fondo en hover */
+  border-color: #fd8037; /*Cambia el color del borde en hover */
 }
 
 .rating {
@@ -77,28 +85,31 @@ textarea{
   overflow-wrap: break-word;
   word-wrap: break-word;
   word-break: break-word;
-  max-width: 500px; /* Ajusta el valor según tus necesidades */
+  max-width: 600px;  /*Ajusta el valor según tus necesidades*/
 }
+
+
 
 /*--------------------------------------*/
 
 .container-fluid{
-  background-color: #251a21;
   font-family: 'Lato', sans-serif;
   background: linear-gradient(rgba(5,7,12,0.75),rgba(5,7,12,0.75)),url(https://i.blogs.es/155586/paradiso/1366_2000.jpg) ;
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 
-.text-titulo {
+h2 {
   color: #d3ccd1;
-  text-transform: uppercase;
   font-size: 30px;
   font-weight: bold;
   text-align: center;
   padding: 20px;
-}
-
-.list-group, .card-cliente{
-  padding: 40px;
+  text-transform: uppercase; /* Convertir texto a mayúsculas */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+  animation-name: bounceIn; /* Animación de entrada */
+  animation-duration: 1s; /* Duración de la animación */
 }
 
 .list-group-item{
