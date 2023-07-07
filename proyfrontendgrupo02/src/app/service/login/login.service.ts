@@ -10,9 +10,9 @@ export class LoginService {
   hostBase: string;
 
   constructor(private _http: HttpClient) {
-    // this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
-    this.hostBase = "http://localhost:3000/api/usuario/";
-  }
+     this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
+/*     this.hostBase = "http://localhost:3000/api/usuario/";
+ */  }
 
   // LOGIN
 

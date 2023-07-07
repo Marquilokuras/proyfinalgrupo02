@@ -9,9 +9,9 @@ import { Promocion } from 'src/app/models/promocion/promocion';
 })
 export class PromocionService {
 
-  //urlBase:string="https://proygrupo02.onrender.com/api/promocion/"
-  urlBase:string="http://localhost:3000/api/promocion/"
-
+  urlBase:string="https://proygrupo02.onrender.com/api/promocion/"
+/*   urlBase:string="http://localhost:3000/api/promocion/"
+ */
   constructor(private _http: HttpClient) { }
 
   public obtenerPromociones():Observable<any>{
