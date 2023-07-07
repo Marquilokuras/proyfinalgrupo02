@@ -15,6 +15,7 @@ export class PedidoComponent implements OnInit {
   pedido = new Array();
   arrayPedido = new Array();
   arrayModificar = new Array();
+  numeros: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
 
   cantidadBebidas !: number;
   idBebida !: string;
@@ -33,7 +34,7 @@ export class PedidoComponent implements OnInit {
         console.log(params['id']);
 
         this.cambios = "new";
-        
+
       } else {
 
         this.cambios = "modificar";
@@ -112,6 +113,6 @@ export class PedidoComponent implements OnInit {
       },
       error => {
       }
-    ) 
-  } 
+    )
+  }
 }

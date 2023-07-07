@@ -1,2 +1,30 @@
+.container-fluid {
+  background-color: #f5e7aa;
+  padding: 20px;
+  font-family: 'Lato', sans-serif;
+}
 
-  
+.menu {
+  color: #251a21;
+  font-size: 36px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  animation-name: bounceIn;
+  animation-duration: 1s;
+}
+
+.btn-primary {
+  background-color: #7fa38c;
+  border-color: #7fa38c;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-primary:hover {
+  background-color: #749981;
+  border-color: #749981;
+}
+
+.btn-lg {
+  padding: 12px 24px;
+  font-size: 20px;
+}
