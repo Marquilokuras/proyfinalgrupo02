@@ -8,7 +8,7 @@ import { Mesa } from '../models/mesa';
 })
 export class MesaService {
 
-  urlBase:string="http://proygrupo02.onrender.com/api/mesa/"
+  urlBase:string="https://proygrupo02.onrender.com/api/mesa/"
 
   constructor(private _http: HttpClient) { }
 

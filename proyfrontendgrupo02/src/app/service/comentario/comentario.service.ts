@@ -8,7 +8,7 @@ import { Comentario } from 'src/app/models/comentario/comentario';
   providedIn: 'root'
 })
 export class ComentarioService {
-  url="http://proygrupo02.onrender.com/api/comentario/";
+  url="https://proygrupo02.onrender.com/api/comentario/";
 
   constructor(private _http : HttpClient) { }
 
