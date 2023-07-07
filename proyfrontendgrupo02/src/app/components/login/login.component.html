@@ -8,7 +8,9 @@
             <div class="form-group">
               <label for="email">Email</label>
               <i class="fa-regular fa-envelope"></i>
-              <input placeholder="ejemplo@gmail.com" type="text" class="form-control" name="email" [(ngModel)]="userform.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" #email="ngModel" />
+              <input placeholder="ejemplo@gmail.com" type="text" class="form-control" name="email"
+                [(ngModel)]="userform.email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                #email="ngModel" />
               <div *ngIf="email.invalid && (email.dirty || email.touched)" class="alert alert-danger">
                 <div *ngIf="email.errors?.['required']">
                   El Email es requerido
@@ -25,11 +27,19 @@
             </div>
 
             <div class="form-group">
-              <button class="btn btn-primary btn-block" (click)="login()" [disabled]="!loginForm.form.valid">Login</button>
+              <button class="btn btn-primary btn-block" (click)="login()"
+                [disabled]="!loginForm.form.valid">Login</button>
+            </div>
+
+            <br>
+
+            <div>
+              <button type="button" (click)="loginGoogle()">01 login</button>
+              <button type="button" (click)="logout()">05 logout</button>
             </div>
 
             <div class="form-group text-center">
-              <label  for="">¿No tienes cuenta todavía?¿Te olvidate la contraseña?</label>
+              <label for="">¿No tienes cuenta todavía?¿Te olvidate la contraseña?</label>
               <div class="d-flex justify-content-center">
                 <button type="submit" class="btn btn-primary mt-2 mr-2" (click)="inscribirse()">Registrarse</button>
                 <button type="submit" class="btn btn-primary mt-2" (click)="recuperar()">Recuperar Contraseña</button>
@@ -151,9 +161,9 @@
           <button class="btn btn-danger btn-block" (click)="cancelar()">Cancelar</button>
         </div>
         <div *ngIf="mostrarContrasenia">
-        <div *ngIf="constrasenaRecuperada != null">
-          <h3 class="mt-4">Su contraseña es: {{constrasenaRecuperada}}</h3>
-        </div>
+          <div *ngIf="constrasenaRecuperada != null">
+            <h3 class="mt-4">Su contraseña es: {{constrasenaRecuperada}}</h3>
+          </div>
         </div>
       </form>
     </div>
