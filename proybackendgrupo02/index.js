@@ -7,7 +7,7 @@ var app = express();
 
 //middlewares
 //app.use(express.json());
-app.use(cors({ origin: 'https://proyfinalgrupo02.vercel.app/home' }));
+app.use(cors({ origin: 'https://proyfinalgrupo02.vercel.app' }));
 
 // Configuración del límite de tamaño de carga útil a 10MB
 app.use(bodyParser.json({ limit: '10mb' }));
