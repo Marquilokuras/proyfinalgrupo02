@@ -3,17 +3,25 @@ import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/c
 import { Observable } from 'rxjs';
 import { LoginService } from '../login/login.service';
 @Injectable({
- providedIn: 'root'
+    providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
- constructor(private loginService:LoginService) { }
- intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>>
-{
- const tokenizeReq = req.clone({
- setHeaders:{
- Authorization: `Bearer ${this.loginService.getToken()}`
- }
- });
- return next.handle(tokenizeReq);
- }
+    constructor(private loginService: LoginService) { }
+    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+        if (req.url.indexOf("localhost", 0) >= 0) {
+            const tokenizeReq = req.clone({
+                setHeaders: {
+                    Authorization: `Bearer ${this.loginService.getToken()}`
+                }
+            });
+            return next.handle(tokenizeReq);
+        } else {
+            const tokenizeReq = req.clone({
+                setHeaders: {
+                    //Authorization: `Bearer ${this.loginService.getToken()}`
+                }
+            });
+            return next.handle(tokenizeReq);
+        }
+    }
 }
