@@ -24,6 +24,27 @@ export class ReservaService {
     return this._http.get(this.urlBase,httpOptions);
   }
 
+  obtenerTodasLasReservas():Observable<any>{
+    const httpOptions={
+      headers : new HttpHeaders({
+
+      }),
+      params : new HttpParams()
+    }
+  
+    return this._http.get(this.urlBase + "todas",httpOptions);
+  }
+
+  obtenerPorNumeroDeMesa(numero:number):Observable<any>{
+    const httpOptions={
+      headers : new HttpHeaders({
+
+      }),
+      params : new HttpParams().append("numeroMesa",numero)
+    }
+  
+    return this._http.get(this.urlBase + "mesa",httpOptions);
+  }
   
   crearReserva(reserva: Reserva):Observable<any>{
     const httpOptions={
@@ -34,7 +55,6 @@ export class ReservaService {
 
     }
     let body = JSON.stringify(reserva)
-    console.log(reserva)
     return this._http.post(this.urlBase,body,httpOptions);
   }
 

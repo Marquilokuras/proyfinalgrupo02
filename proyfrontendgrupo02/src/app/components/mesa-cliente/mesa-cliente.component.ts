@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Mesa } from 'src/app/models/mesa';
 import { Reserva } from 'src/app/models/reserva/reserva';
 import { MesaService } from 'src/app/service/mesa.service';
@@ -17,26 +18,39 @@ export class MesaClienteComponent implements OnInit {
   usuario!:any;
   mesasUsuario!:Array<Mesa>;
   mesasReservadas!:Array<Reserva>;
+  todasLasReservas!:Array<Reserva>;
   reservaEliminar: any;
-  modalReserva:any;
+  modalReserva:Mesa; // para mandar la reserva al modal
   reserva!:Reserva;
-  constructor(private servicio:MesaService,private router:Router, private servicioReserva:ReservaService) {
+  cantidadMesasElegida!:number;
+  cantidadSillasElegida!:number;
+  porMesa!:Array<Reserva>;
+  horariosDisponibles!:Array<string>;
+  fechaDeHoy!:Date;
+
+  constructor(private servicio:MesaService,private router:Router, private servicioReserva:ReservaService,private toastrService:ToastrService) {
     this.mesasDisponibles = new Array<Mesa>();
     this.mesasReservadas = new Array<Reserva>();
     this.mesasUsuario = new Array<Mesa>();
+    this.todasLasReservas = new Array<Reserva>();
+    this.porMesa = new Array<Reserva>();
     this.mesa = new Mesa();
     this.reservaEliminar = new Mesa();
     this.modalReserva = new Mesa();
     this.reserva = new Reserva();
+    this.horariosDisponibles = new Array<string>();
     
 
    }
 
   ngOnInit(): void {
-    this.usuario = sessionStorage.getItem("user");  
+    this.usuario = sessionStorage.getItem("user"); 
+    
     this.obtenerMesasDisp();
     this.obtenerMesasReservadas();
-    this.mesa.cantidadMesa=this.cantidadPersonas;
+    this.fechaDeHoy = new Date();
+    // this.obtenerTodasLasReservas();
+   
     
   }
   obtenerMesasDisp(){
@@ -57,85 +71,41 @@ export class MesaClienteComponent implements OnInit {
     )
   }
 
-async actualizarMesa(){
-   this.servicio.editarMesa(this.mesa).subscribe(
-    (result:any)=>{
-     
-    },
-    error=>{
-      alert(error.msg)
-    }
-  )
-}
 
 
-async eliminarReserva(mu:Mesa) {
+async eliminarReserva(reserva : Reserva) {
   try {
-    mu.usuario = "no tiene";
-    mu.disponibilidadReserva = true;
-    this.mesa = mu; // deja la mesa lista para actualizar
-    await this.actualizarMesa();
-  
-    this.mesasUsuario = new Array<Mesa>();
-    this.obtenerMesasReservadas();
+    this.servicioReserva.borrarReserva(reserva._id).subscribe(
+      result=>{
+        this.toastrService.error("Eliminando...");
+      }
+    )
+    setTimeout(() => {
+      location.reload();
+    }, 500);
 
-    this.mesasDisponibles = new Array<Mesa>();
-    this.obtenerMesasDisp();
+   
   } catch (error) {
-    // Manejar el error aquí
     console.error("Ocurrió un error al eliminar la reserva:", error);
   }
 }
 
-// reservar(mesaR:Mesa){
-//   mesaR.usuario = this.usuario; 
-//   mesaR.disponibilidadReserva = false;
-//   this.mesa = mesaR;
-//   this.actualizarMesa();
-  
-// this.mesasUsuario = new Array<Mesa>();
-// this.obtenerMesasUsuario();
-// this.mesasDisponibles = new Array<Mesa>();
-// this.obtenerMesasDisp();
-// }
-// async reservar(mesaR:Mesa) {
-//   try {
-//     mesaR.usuario = this.usuario;
-//     mesaR.disponibilidadReserva = false;
-//     this.mesa = mesaR;
-//     await this.actualizarMesa();
-  
-//     this.mesasUsuario = new Array<Mesa>();
-//     await this.obtenerMesasUsuario();
+  async guardarReserva(res:Mesa){
 
-//     this.mesasDisponibles = new Array<Mesa>();
-//     await this.obtenerMesasDisp();
-//   } catch (error) {
-//     console.error("Ocurrió un error al reservar la mesa:", error);
-//   }
-// }
-
- abrirModalEliminar(reserva: any) {
-  this.reservaEliminar = reserva;
-}
-
-abrirModalReservar(reserva: any) {
-  this.modalReserva = reserva;
-}
-
-  async guardarReserva(mesaR:Mesa){
-
-    mesaR.usuario = this.usuario;
-    mesaR.disponibilidadReserva = false;
-    this.mesa = mesaR;
-    await this.actualizarMesa();
-
-  this.reserva.mesa = this.mesa;
+   
+    this.reserva.numeroMesa = res.numeroMesa;
   this.reserva.usuario = this.usuario;
+  this.reserva.cantidadMesa = this.cantidadMesasElegida
+  this.reserva.cantidadSilla = this.cantidadSillasElegida
+  this.reserva.fecha = new Date()
+  console.log(this.reserva)
 this.servicioReserva.crearReserva(this.reserva).subscribe(
   result=>{
-   
-    alert("se guardo")
+    this.toastrService.success("Mesa Reservada");
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+    
   },
   error=>{
     
@@ -156,6 +126,7 @@ this.servicioReserva.obtenerReservas(this.usuario).subscribe(
       this.mesasReservadas.push(unaReserva)
       unaReserva = new Reserva();
     });
+    console.log(this.mesasReservadas)
   },
   error=>{
 
@@ -163,5 +134,97 @@ this.servicioReserva.obtenerReservas(this.usuario).subscribe(
 )
 }
 
+obtenerPorNumeroDeMesa(numero:number){
+  this.servicioReserva.obtenerPorNumeroDeMesa(numero).subscribe(
+    result=>{
+      let unaReserva = new Reserva();
+      result.forEach((element: any )=> {
+        Object.assign(unaReserva,element)
+        this.porMesa.push(unaReserva)
+        unaReserva = new Reserva();
+        
+        
+      });
+      
+      
+    },
+    error=>{
+      alert("err")
+    }
+  )
+ 
+}
+
+
+
+
+abrirModalEliminar(reserva: any) {
+  this.reservaEliminar = reserva;
+}
+
+abrirModalReservar(reserva: any) {
+  this.modalReserva = reserva;
+  this.obtenerPorNumeroDeMesa(this.modalReserva.numeroMesa);
+  this.cantidadSillasElegida = this.modalReserva.cantidadSilla;
+  this.cantidadMesasElegida = this.modalReserva.cantidadMesa;
+  // this.horariosDisponibles = this.getHorariosDisponibles(this.modalReserva);
+  // console.log(this.horariosDisponibles.length)
+}
+
+
+getNumerosHastaCantidadSillas(): number[] {
+  let numeros :Array<number>;
+  numeros = new Array<number>();
+  for (let i = 1; i <= this.modalReserva.cantidadSilla ; i++) {
+    numeros.push(i);
+  }
+  return numeros;
 
 }
+getNumerosHastaCantidadMesas(): number[] {
+  let numeros :Array<number>;
+  numeros = new Array<number>();
+  for (let i = 1; i <= this.modalReserva.cantidadMesa ; i++) {
+    numeros.push(i);
+  }
+  return numeros;
+
+}
+
+
+
+
+getHorariosDisponibles(mesa:Mesa): string[] {
+  const horarios: string[] = [];
+  let horaActual = new Date().getHours();
+  const horaLimite = 25; // Hora límite para poder reservar
+ if(horaActual >=2 && horaActual <=18){
+  horaActual = 17; // sirve para poder seleccionar solo horarios despues de las 6
+ }
+ 
+  for (let i = horaActual +1; i <= horaLimite; i++) {
+    
+    if (i === 24){
+      horarios.push("24:00 a 02:00");
+    }
+    if (i !== 25 && i !== 24){
+    horarios.push(`${i}:00 a ${i+2}:00`); 
+    }
+    i++;
+  }
+  const horariosFiltrados = horarios.filter((horario) => {
+    return !this.porMesa.some((reserva) => reserva.hora === horario);
+  });
+  
+  // if (horariosFiltrados.length === 1  ){
+
+  // }
+
+  return horariosFiltrados;
+}
+
+
+  
+}
+
+

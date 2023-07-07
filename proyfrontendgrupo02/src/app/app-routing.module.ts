@@ -13,6 +13,8 @@ import { PedidoComponent } from './components/pedido/pedido.component';
 import { PedidoFormComponent } from './components/pedido-form/pedido-form.component';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { ReservaComponent } from './components/reserva/reserva/reserva.component';
+
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
@@ -29,6 +31,7 @@ const routes: Routes = [
   {path: 'comentario-usuario', component:ComentarioUsuarioComponent},
   {path: 'menu', component:MenuComponent},
   {path: 'pedido', component:PedidoComponent},
+  {path: 'reserva', component:ReservaComponent},
   {path: 'pedido/:id', component:PedidoComponent},
   {path: 'pedido-form', component:PedidoFormComponent},
   {path: '**', pathMatch:'full',redirectTo:'home' },

@@ -4,9 +4,28 @@ const reservaCtrl = {}
 reservaCtrl.getReserva = async (req, res) => { 
     let criteria = {}
      criteria.usuario = req.query.usuario
-    var reservas = await Reserva.find({usuario : criteria.usuario}).populate('mesa');
+    var reservas = await Reserva.find({usuario : criteria.usuario});
     res.json(reservas);
 }
+
+reservaCtrl.getReservas = async (req, res) => { 
+   
+    var reservas = await Reserva.find();
+    res.json(reservas);
+}
+
+// reservaCtrl.getReservasPorMesa = async (req, res) => { 
+//     let criteria = {}
+//     criteria.mesa.numeroMesa = req.query.mesa
+//     var reservas = await Reserva.find({'mesa.numeroMesa' : criteria.mesa.numeroMesa});
+//     res.json(reservas);
+// }
+reservaCtrl.getReservasPorMesa = async (req, res) => { 
+    let criteria = {}
+    criteria.numeroMesa = req.query.numeroMesa;
+    var reservas = await Reserva.find({ numeroMesa : criteria.numeroMesa});
+    res.json(reservas);
+};
 
 reservaCtrl.createReserva = async (req, res) => {
     var reserva = new Reserva(req.body);

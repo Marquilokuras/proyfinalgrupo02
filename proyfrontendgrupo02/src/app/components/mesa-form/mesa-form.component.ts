@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Mesa } from 'src/app/models/mesa';
+import { LoginService } from 'src/app/service/login/login.service';
 import { MesaService } from 'src/app/service/mesa.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class MesaFormComponent {
   mesa!:Mesa;
   accion:string="";
 
-  constructor(private servicio:MesaService,private router:Router,private activatedRoute:ActivatedRoute){
+  constructor(private servicio:MesaService,private router:Router,private activatedRoute:ActivatedRoute,public usuarioService: LoginService){
     this.mesa= new Mesa();
 
   }
@@ -29,6 +30,10 @@ export class MesaFormComponent {
     });
   }
 
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
+  }
   cargarMesa(id : string){
     this.servicio.obtenerMesa(id).subscribe(
       result=>{

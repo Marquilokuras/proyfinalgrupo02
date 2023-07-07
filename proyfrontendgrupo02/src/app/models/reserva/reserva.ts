@@ -1,10 +1,11 @@
 import { Mesa } from "../mesa"
-import { Usuario } from "../usuario/usuario"
 
 export class Reserva {
     _id!:string
     hora!: string
-    fecha!: string
-    mesa!: Mesa
+    fecha!: Date
+    cantidadMesa!: number
+    cantidadSilla!: number
+    numeroMesa!: number
     usuario!: string
 }
