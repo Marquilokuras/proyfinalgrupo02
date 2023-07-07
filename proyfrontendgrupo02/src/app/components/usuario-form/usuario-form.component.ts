@@ -8,7 +8,7 @@ import { LoginService } from 'src/app/service/login/login.service';
   styleUrls: ['./usuario-form.component.css']
 })
 export class UsuarioFormComponent implements OnInit {
-  
+
   nuevoUsuario: boolean = false;
   recuperarUsuario: boolean = false;
   emailUsuario !: string;
@@ -17,9 +17,9 @@ export class UsuarioFormComponent implements OnInit {
   apellidoUsuario !: string;
   dniUsuario !: string;
   edadUsuario !: number;
-  tipoUsuarioCliente !: string; 
+  tipoUsuarioCliente !: string;
   idUsuario!:string;
-  
+
   usuario = new Array();
   usuarioNuevo : boolean = false;
   cambios: string = 'new';
@@ -52,7 +52,7 @@ export class UsuarioFormComponent implements OnInit {
         this.apellidoUsuario = array.apellido;
         this.nombreUsuario  = array.nombre;
         this.emailUsuario = array.email;
-        this.passwordUsuario = array.password; 
+        this.passwordUsuario = array.password;
         this.dniUsuario = array.dniUsuario;
         this.edadUsuario = array.edadUsuario;
         this.tipoUsuarioCliente = array.tipoUsuario;
@@ -72,7 +72,7 @@ export class UsuarioFormComponent implements OnInit {
   }
 
   cancelar() {
-    
+    location.reload();
   }
 
   modificarUsuario(){

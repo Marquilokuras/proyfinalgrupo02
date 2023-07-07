@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Comentario } from 'src/app/models/comentario/comentario';
 import { ComentarioService } from 'src/app/service/comentario/comentario.service';
 import { LoginService } from 'src/app/service/login/login.service';
@@ -10,6 +11,9 @@ import { LoginService } from 'src/app/service/login/login.service';
 })
 export class ComentarioUsuarioComponent implements OnInit {
 
+  dtOptions : DataTables.Settings = {};
+  dtTrigger : Subject<any> = new Subject <any>();
+
   listaComentarios: Array<Comentario>;
   comentario!:Comentario;
   usuario!:any;
@@ -20,9 +24,17 @@ export class ComentarioUsuarioComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.dtOptions = {
+      pagingType : 'full_pages',
+      pageLength : 5,
+    },
     this.obtenerComentarios()
     this.fechaComentario()
     this.usuarioRegistrado()
+  }
+
+  ngOnDestroy():void{
+    this.dtTrigger.unsubscribe();
   }
 
   public tipoLogged() {
@@ -36,6 +48,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       result => {
         console.log(result);
           this.listaComentarios=result;
+          this.dtTrigger.next(this.listaComentarios);
       })
   }
 
