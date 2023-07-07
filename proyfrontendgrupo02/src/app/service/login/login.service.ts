@@ -10,7 +10,8 @@ export class LoginService {
   hostBase: string;
 
   constructor(private _http: HttpClient) {
-    this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
+    // this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
+    this.hostBase = "http://localhost:3000/api/usuario/";
   }
 
   // LOGIN
@@ -28,7 +29,9 @@ export class LoginService {
       password
     };
 
-    return this._http.post('https://proygrupo02.onrender.com/api/usuario/login', body, httpOption);
+    var url = this.hostBase + 'login';
+
+    return this._http.post(url, body, httpOption);
   }
 
   //Se desloguea del sistema
@@ -93,7 +96,7 @@ export class LoginService {
       'tipoUsuario': tipoUsuario
     };
 
-    return this._http.post('https://proygrupo02.onrender.com/api/usuario', body, httpOption);
+    return this._http.post(this.hostBase, body, httpOption);
   }
 
   public mostrarUsuario(): Observable<any> {
@@ -103,7 +106,7 @@ export class LoginService {
       })
     }
 
-    return this._http.get('https://proygrupo02.onrender.com/api/usuario/', httpOption);
+    return this._http.get(this.hostBase, httpOption);
   }
 
   public eliminarUsuario(_id: string): Observable<any> {
@@ -113,10 +116,10 @@ export class LoginService {
       })
     }
 
-    return this._http.delete('https://proygrupo02.onrender.com/api/usuario/' + _id, httpOption);
+    return this._http.delete(this.hostBase + _id, httpOption);
   }
 
-  public modificarUsuario(_id:string,emailUsuario: string, passwordUsuario: string, nombreUsuario: string, apellidoUsuario: string, dniUsuario: string, edadUsuario: number, tipoUsuarioCliente: string): Observable<any> {
+  public modificarUsuario(_id: string, emailUsuario: string, passwordUsuario: string, nombreUsuario: string, apellidoUsuario: string, dniUsuario: string, edadUsuario: number, tipoUsuarioCliente: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -125,15 +128,15 @@ export class LoginService {
     const data = {
       'nombre': nombreUsuario,
       'apellido': apellidoUsuario,
-      'email' : emailUsuario,
+      'email': emailUsuario,
       'password': passwordUsuario,
-      'dniUsuario' : dniUsuario,
-      'edadUsuario' : edadUsuario,
-      'tipoUsuario' : tipoUsuarioCliente
+      'dniUsuario': dniUsuario,
+      'edadUsuario': edadUsuario,
+      'tipoUsuario': tipoUsuarioCliente
     };
 
 
-    var url = 'https://proygrupo02.onrender.com/api/usuario/' + _id
+    var url = this.hostBase + _id
 
     return this._http.put(url, data, httpOption);
   }
@@ -145,7 +148,7 @@ export class LoginService {
       })
     }
 
-    const url = `https://proygrupo02.onrender.com/api/usuario/recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
+    const url = this.hostBase+`recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
     console.log(url)
     return this._http.get(url, httpOption);
   }

@@ -8,6 +8,7 @@ import { Reserva } from 'src/app/models/reserva/reserva';
 })
 export class ReservaService {
 
+  //urlBase:string="proygrupo02.onrender.com/api/reserva/"
   urlBase:string="http://localhost:3000/api/reserva/"
 
   constructor(private _http: HttpClient) { }
