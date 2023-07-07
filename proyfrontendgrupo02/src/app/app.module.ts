@@ -28,6 +28,8 @@ import { PedidoFormComponent } from './components/pedido-form/pedido-form.compon
 import { TokenInterceptorService } from './service/token-interceptor/token-interceptor.service';
 import { UsuarioComponent } from './components/usuario/usuario.component';
 import { UsuarioFormComponent } from './components/usuario-form/usuario-form.component';
+import { PromocionComponent } from './components/promocion/promocion.component';
+import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 
 @NgModule({
@@ -48,7 +50,10 @@ import { ReservaComponent } from './components/reserva/reserva/reserva.component
     PedidoFormComponent,
     UsuarioComponent,
     UsuarioFormComponent,
+    PromocionComponent,
+    PromocionFormComponent,
     ReservaComponent,
+
   ],
 
   imports: [

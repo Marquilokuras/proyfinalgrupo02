@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Bebida } from 'src/app/models/bebida';
 import { BebidaService } from 'src/app/service/bebida.service';
 
@@ -17,7 +18,8 @@ export class BebidaFormComponent {
   constructor(private activatedRoute: ActivatedRoute,
               private bebidaService: BebidaService,
               private router:Router,
-              private domSanitizer: DomSanitizer){
+              private domSanitizer: DomSanitizer,
+              private toastrService:ToastrService){
     this.bebida = new Bebida();
     this.file = { base64: '', safeurl: null };
 
@@ -27,6 +29,7 @@ ngOnInit():void{
   this.activatedRoute.params.subscribe(params =>{
     if (params['id']=="0"){
       this.accion = "new";
+      this.bebida.disponibilidadBebida=true;
     }else{
       this.accion = "update";
       this.cargarBebida(params['id']);
@@ -50,20 +53,26 @@ ngOnInit():void{
     if(this.bebida.disponibilidadBebida==null){
       this.bebida.disponibilidadBebida=false
     }
-    this.bebidaService.guardarBebida(this.bebida).subscribe(
-      result=>{
-        if(result.status==1){
-          alert(result.msg)
-          this.router.navigate(["bebida"])
+    if(this.bebida.imagenBebida!=null){
+      this.bebidaService.guardarBebida(this.bebida).subscribe(
+        result=>{
+          if(result.status==1){
+            alert(result.msg)
+            this.router.navigate(["bebida"])
+          }
+          console.log("La bebida guardadaaaa"+this.bebida.nombreBebida+" "+this.bebida.imagenBebida);
+          console.log(result);
+        },
+        error=>{
+          console.log(error);
+          alert(error.msg)
         }
-        console.log("La bebida guardadaaaa"+this.bebida.nombreBebida+" "+this.bebida.imagenBebida);
-        console.log(result);
-      },
-      error=>{
-        console.log(error);
-        alert(error.msg)
-      }
-    )
+      )
+
+    }else {
+      this.toastrService.warning("Debe ingresar una imagen");
+    }
+   
   }
 
   public actualizarBebida(){
@@ -101,5 +110,7 @@ ngOnInit():void{
     }
     
   }
+
+  
 
 }

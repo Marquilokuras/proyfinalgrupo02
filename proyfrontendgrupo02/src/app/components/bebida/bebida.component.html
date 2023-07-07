@@ -1,5 +1,8 @@
-<div class="container-fluid">
-    <h2 class="menu text-center mt-2">Gestion de Bebidas</h2>
+<div class="container">
+    <h2>Gestion de Bebidas</h2>
+    <br>
+    <button type="button" class="btn btn-primary" (click)="nuevoBebida()">Agregar Bebida</button>
+
     <div class="table-responsive ">
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
         <thead>
@@ -50,8 +53,4 @@
         </tbody>
       </table>
     </div>
-    <div class="d-flex justify-content-center">
-      <button type="button" class="btn btn-info btn-lg btn-block mb-4" (click)="nuevoBebida()">Agregar Bebida</button>
-    </div>
   </div>
-

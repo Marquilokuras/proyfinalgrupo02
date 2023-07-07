@@ -8,12 +8,13 @@ const express = require('express');
 const router = express.Router();
 
 //definimos las rutas para la gestion de bebida
+router.get('/disponibles',bebidaCtrl.mostrarBebidasDisponibles);
 router.get('/', bebidaCtrl.getBebidas); 
 router.post('/', bebidaCtrl.crearBebida); 
 router.get('/:id', bebidaCtrl.getBebida); 
 router.put('/:id', bebidaCtrl.editarBebida);
 router.delete('/:id', bebidaCtrl.eliminarBebida);
-router.get('/disponibles',bebidaCtrl.mostrarBebidasDisponibles);
+
 
 //exportamos el modulo de rutas 
 

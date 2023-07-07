@@ -1,8 +1,8 @@
 export class Bebida {
-    _id!:String
+    _id!:string
     ingredientesBebida !: String
     nombreBebida !: String
-    precioBebida! : Number
+    precioBebida! : number
     tipoVasoBebida! : String
     disponibilidadBebida! : Boolean
     imagenBebida! : String
