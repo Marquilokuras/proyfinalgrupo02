@@ -9,8 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OAuthModule } from 'angular-oauth2-oidc';
 
-
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
@@ -31,6 +30,7 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
+import { FacebookModule } from 'ngx-facebook';
 
 @NgModule({
   declarations: [
@@ -58,22 +58,23 @@ import { ReservaComponent } from './components/reserva/reserva/reserva.component
 
   imports: [
     CommonModule,
+    FormsModule, // Asegúrate de que FormsModule esté antes que cualquier otro módulo que pueda depender de él
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     OAuthModule.forRoot(), //google
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     DataTablesModule,
     HttpClientModule,
+    FacebookModule.forRoot(),
   ],
   providers: [LoginService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-   }
-   ],
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
