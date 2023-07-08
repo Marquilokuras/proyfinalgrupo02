@@ -1,5 +1,5 @@
 <div>
-    <title>Bar - Página de inicio</title>
+  <title>Bar - Página de inicio</title>
 </div>
 <div class="container-fluid ">
   <div class="container text-center">
@@ -8,63 +8,71 @@
     </div>
   </div>
 
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-      <div class="carousel-inner">
-        <div class="carousel-item active">
-          <img src="https://media.cnn.com/api/v1/images/stellar/prod/221004165915-06-world-best-bars-2022.jpg?c=original&q=w_1280,c_fill" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://hips.hearstapps.com/hmg-prod/images/harrison1933-1663317313.jpg?crop=1xw:1xh;center,top&resize=980:*" class="d-block w-100" alt="...">
-        </div>
-        <div class="carousel-item">
-          <img src="https://hips.hearstapps.com/hmg-prod/images/dilek-s-elle-gourmet-641d55b1626b8.jpg?crop=1xw:1xh;center,top&resize=980:*" class="d-block w-100" alt="...">
+  <!-- CLIENTE -->
+
+  <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
+    <div class="row">
+      <div class="col-lg-4 col-md-6">
+        <div class="card mb-4">
+          <button (click)="reserva()">
+            <img [src]="" class="card-img-top" alt="Imagen bebida">
+          </button>
+          <div class="card-body">
+            <h5 class="card-title">Reserve su Mesa Ya!</h5>
+          </div>
         </div>
       </div>
-      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="prev">
-        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
-      </button>
-      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying" data-bs-slide="next">
-        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
-      </button>
-    </div>
-
-
-    <!-- CLIENTE -->
-
-    <div *ngIf="tipoLogged()  == ('cliente')" class="navbar-item">
-        <div class="row">
-            <div class="col-lg-4 col-md-6">
-                <div class="card mb-4">
-                    <button (click)="reserva()">
-                        <img [src]="" class="card-img-top" alt="Imagen bebida">
-                    </button>
-                    <div class="card-body">
-                        <h5 class="card-title">Reserve su Mesa Ya!</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6">
-                <div class="card mb-4">
-                    <button (click)="bebida()">
-                        <img [src]="" class="card-img-top" alt="Imagen bebida">
-                    </button>
-                    <div class="card-body">
-                        <h5 class="card-title">Ya puedes encargar tus Bebidas!</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="card mb-4">
-                    <button (click)="comentario()">
-                        <img [src]="" class="card-img-top" alt="Imagen bebida">
-                    </button>
-                    <div class="card-body">
-                        <h5 class="card-title">Tu opinión nos importa!</h5>
-                    </div>
-                </div>
-            </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card mb-4">
+          <button (click)="bebida()">
+            <img [src]="" class="card-img-top" alt="Imagen bebida">
+          </button>
+          <div class="card-body">
+            <h5 class="card-title">Ya puedes encargar tus Bebidas!</h5>
+          </div>
         </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="card mb-4">
+          <button (click)="comentario()">
+            <img [src]="" class="card-img-top" alt="Imagen bebida">
+          </button>
+          <div class="card-body">
+            <h5 class="card-title">Tu opinión nos importa!</h5>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <div class="carousel-item active">
+        <img
+          src="https://media.cnn.com/api/v1/images/stellar/prod/221004165915-06-world-best-bars-2022.jpg?c=original&q=w_1280,c_fill"
+          class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://hips.hearstapps.com/hmg-prod/images/harrison1933-1663317313.jpg?crop=1xw:1xh;center,top&resize=980:*"
+          class="d-block w-100" alt="...">
+      </div>
+      <div class="carousel-item">
+        <img
+          src="https://hips.hearstapps.com/hmg-prod/images/dilek-s-elle-gourmet-641d55b1626b8.jpg?crop=1xw:1xh;center,top&resize=980:*"
+          class="d-block w-100" alt="...">
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+
 </div>

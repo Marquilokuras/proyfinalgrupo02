@@ -134,7 +134,6 @@
     <div class="navbar-item">
         <!-- USUARIOS NO REGISTRADOS -->
         <a class="navbar-link active" [routerLink]="['home']"><i class="fa-solid fa-house"></i> Home</a>
-        <a class="navbar-link" [routerLink]="['about']"><i class="fa-sharp fa-solid fa-circle-info"></i> Acerca de</a>
         <a class="navbar-link" [routerLink]="['menu']"><i class="fa-solid fa-martini-glass-citrus"></i> Carta</a>
         <a *ngIf="!loginService.userLoggedIn()" class="navbar-link" [routerLink]="['comentario-usuario']"><i
                 class="fa-solid fa-comment-dots"></i>Comentario</a>

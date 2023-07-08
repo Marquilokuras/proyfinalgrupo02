@@ -26,6 +26,7 @@
     "exceljs": "^4.3.0",
     "jquery": "^3.7.0",
     "jsonwebtoken": "^9.0.0",
+    "ngx-facebook": "^3.0.0-0",
     "ngx-toastr": "^13.2.1",
     "pdfmake": "^0.2.7",
     "rxjs": "~7.5.0",
