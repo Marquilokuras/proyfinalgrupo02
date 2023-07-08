@@ -22,7 +22,7 @@
           <td>{{usuario.edadUsuario}}</td>
           <td>{{usuario.tipoUsuario}}</td>
           <td>
-            <button type="button" class="btn btn-primary" style="margin-right: 10px"  routerLink="/usuario-form/:id"
+            <button type="button" class="btn btn-primary" style="margin-right: 10px" routerLink="/usuario-form/:id"
               (click)="modificarUsuario(usuario._id)"><i class="fa-solid fa-pencil"></i></button>
             <button type="button" class="btn btn-danger" (click)="eliminarUsuario(usuario._id)"><i
                 class="fa-sharp fa-solid fa-trash"></i></button>
@@ -30,6 +30,9 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div *ngIf="tipoLogged()  == ('administrador')">
+    <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel</button>
   </div>
   <button type="button" class="btn btn-primary" (click)="agregarUsuario()">Agregar Usuario</button>
 </div>
