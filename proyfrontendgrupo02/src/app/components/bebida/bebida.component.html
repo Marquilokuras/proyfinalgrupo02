@@ -2,7 +2,9 @@
     <h2>Gestion de Bebidas</h2>
     <br>
     <button type="button" class="btn btn-primary" (click)="nuevoBebida()">Agregar Bebida</button>
-
+    <div *ngIf="tipoLogged()  == ('administrador')">
+      <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel</button>
+    </div>
     <div class="table-responsive ">
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
         <thead>
