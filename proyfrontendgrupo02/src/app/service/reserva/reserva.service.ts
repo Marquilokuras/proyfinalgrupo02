@@ -8,12 +8,12 @@ import { Reserva } from 'src/app/models/reserva/reserva';
 })
 export class ReservaService {
 
-  urlBase:string="proygrupo02.onrender.com/api/reserva/"
-  //urlBase:string="http://localhost:3000/api/reserva/"
+  //urlBase:string="proygrupo02.onrender.com/api/reserva/"
+  urlBase:string="http://localhost:3000/api/reserva/"
 
   constructor(private _http: HttpClient) { }
 
-  
+
   obtenerReservas(usuario:string):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
@@ -21,7 +21,7 @@ export class ReservaService {
       }),
       params : new HttpParams().append("usuario",usuario)
     }
-  
+
     return this._http.get(this.urlBase,httpOptions);
   }
 
@@ -32,7 +32,7 @@ export class ReservaService {
       }),
       params : new HttpParams()
     }
-  
+
     return this._http.get(this.urlBase + "todas",httpOptions);
   }
 
@@ -43,10 +43,10 @@ export class ReservaService {
       }),
       params : new HttpParams().append("numeroMesa",numero)
     }
-  
+
     return this._http.get(this.urlBase + "mesa",httpOptions);
   }
-  
+
   crearReserva(reserva: Reserva):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
@@ -74,22 +74,22 @@ export class ReservaService {
     obtenerReserva(id : string):Observable<any>{
       let httpOptions ={
         headers : new HttpHeaders ({
-  
+
         }),
       params : new HttpParams()
       }
-      
+
       return this._http.get(this.urlBase + id,httpOptions);
     }
 
     borrarReserva(id : string):Observable<any>{
       let httpOptions ={
         headers : new HttpHeaders ({
-  
+
         }),
       params : new HttpParams()
       }
-      
+
       return this._http.delete(this.urlBase + id,httpOptions);
     }
 

@@ -9,8 +9,8 @@ import { Promocion } from 'src/app/models/promocion/promocion';
 })
 export class PromocionService {
 
-  urlBase:string="https://proygrupo02.onrender.com/api/promocion/"
-  //urlBase:string="http://localhost:3000/api/promocion/"
+  //urlBase:string="https://proygrupo02.onrender.com/api/promocion/"
+  urlBase:string="http://localhost:3000/api/promocion/"
 
   constructor(private _http: HttpClient) { }
 
@@ -21,7 +21,7 @@ export class PromocionService {
       }),
       params : new HttpParams()
     }
-  
+
     return this._http.get(this.urlBase,httpOptions);
   }
 
@@ -32,8 +32,8 @@ export class PromocionService {
       }),
       params : new HttpParams()
     }
-  
-    return this._http.get(this.urlBase+id,httpOptions);                                                           
+
+    return this._http.get(this.urlBase+id,httpOptions);
 
   }
 
@@ -63,7 +63,7 @@ export class PromocionService {
   public eliminarPromocion(promo:Promocion):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-      
+
       }),
       params : new HttpParams()
     }
@@ -74,7 +74,7 @@ export class PromocionService {
   public agregarBebida(promo:Promocion,bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-      
+
       }),
       params : new HttpParams()
     }
@@ -84,7 +84,7 @@ export class PromocionService {
   public eliminarBebida(promo:Promocion,bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-      
+
       }),
       params : new HttpParams()
     }

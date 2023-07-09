@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "proyfrontendgrupo02": {
+    "tp5-quinterosMarcos-frontend": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/proyfrontendgrupo02",
+            "outputPath": "dist/tp5-quinteros-marcos-frontend",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -108,7 +108,7 @@
       }
     }
   },
-  "defaultProject": "proyfrontendgrupo02",
+  "defaultProject": "tp5-quinterosMarcos-frontend",
   "cli": {
     "analytics": false
   }

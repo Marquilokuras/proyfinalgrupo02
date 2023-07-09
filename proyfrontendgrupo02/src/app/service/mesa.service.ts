@@ -8,12 +8,12 @@ import { Mesa } from '../models/mesa';
 })
 export class MesaService {
 
-  urlBase:string="https://proygrupo02.onrender.com/api/mesa/"
-  //urlBase:string="http://localhost:3000/api/mesa/"
+  //urlBase:string="https://proygrupo02.onrender.com/api/mesa/"
+  urlBase:string="http://localhost:3000/api/mesa/"
 
   constructor(private _http: HttpClient) { }
 
-  
+
   obtenerMesas():Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
@@ -21,11 +21,11 @@ export class MesaService {
       }),
       params : new HttpParams()
     }
-  
+
     return this._http.get(this.urlBase,httpOptions);
   }
 
-  
+
   crearMesa(mesa: Mesa):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
@@ -53,22 +53,22 @@ export class MesaService {
     obtenerMesa(id : string):Observable<any>{
       let httpOptions ={
         headers : new HttpHeaders ({
-  
+
         }),
       params : new HttpParams()
       }
-      
+
       return this._http.get(this.urlBase + id,httpOptions);
     }
 
     borrarMesa(id : string):Observable<any>{
       let httpOptions ={
         headers : new HttpHeaders ({
-  
+
         }),
       params : new HttpParams()
       }
-      
+
       return this._http.delete(this.urlBase + id,httpOptions);
     }
 
@@ -76,22 +76,22 @@ export class MesaService {
     obtenerMesasDisponibles():Observable<any>{
       const httpOptions={
         headers : new HttpHeaders({
-  
+
         }),
         params : new HttpParams()
       }
-    
+
       return this._http.get(this.urlBase + "disponible",httpOptions);
     }
 
     obtenerMesasNoDisponibles():Observable<any>{
       const httpOptions={
         headers : new HttpHeaders({
-  
+
         }),
         params : new HttpParams()
       }
-    
+
       return this._http.get(this.urlBase + "noDisponible",httpOptions);
     }
   }
