@@ -8,8 +8,8 @@ import { Bebida } from '../models/bebida';
 })
 export class BebidaService {
 
-  urlBase:string="https://proygrupo02.onrender.com/api/bebida/"
-  //urlBase:string="http://localhost:3000/api/bebida/"
+  //urlBase:string="https://proygrupo02.onrender.com/api/bebida/"
+  urlBase:string="http://localhost:3000/api/bebida/"
 
   constructor(private _http: HttpClient) { }
 
@@ -20,7 +20,7 @@ export class BebidaService {
       }),
       params : new HttpParams()
     }
-  
+
     return this._http.get(this.urlBase,httpOptions);
   }
 
@@ -31,7 +31,7 @@ export class BebidaService {
       }),
       params : new HttpParams()
     }
-  
+
     return this._http.get(this.urlBase+"disponibles",httpOptions);
   }
 
@@ -42,7 +42,7 @@ export class BebidaService {
       }),
       params : new HttpParams()
     }
-  
+
     return this._http.get(this.urlBase+id,httpOptions);
   }
 
@@ -53,7 +53,7 @@ export class BebidaService {
       }),
       params : new HttpParams()
     }
-    
+
     let body = JSON.stringify(bebida);
 
     return this._http.post(this.urlBase,body,httpOptions);
@@ -67,7 +67,7 @@ export class BebidaService {
       }),
       params : new HttpParams()
     }
-    
+
     let body = JSON.stringify(bebida);
 
     return this._http.put(this.urlBase+bebida._id,body,httpOptions);
@@ -76,7 +76,7 @@ export class BebidaService {
   public eliminarBebida(bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-      
+
       }),
       params : new HttpParams()
     }
