@@ -1,7 +1,7 @@
 <div>
   <title>Bar - Página de inicio</title>
 </div>
-<div class="container-fluid ">
+<div class="container-fluid">
   <div class="container text-center">
     <div>
       <h1>Bienvenido al Bar</h1>
@@ -14,8 +14,8 @@
     <div class="row">
       <div class="col-lg-4 col-md-6">
         <div class="card mb-4">
-          <button (click)="reserva()">
-            <img [src]="" class="card-img-top" alt="Imagen bebida">
+          <button (click)="reserva()" class="card-button">
+            <img src="../../../assets/mesas.png" class="card-img-top" alt="Imagen bebida">
           </button>
           <div class="card-body">
             <h5 class="card-title">Reserve su Mesa Ya!</h5>
@@ -24,21 +24,21 @@
       </div>
       <div class="col-lg-4 col-md-6">
         <div class="card mb-4">
-          <button (click)="bebida()">
-            <img [src]="" class="card-img-top" alt="Imagen bebida">
+          <button (click)="bebida()" class="card-button">
+            <img src="../../../assets/bebidas.png" class="card-img-top" alt="Imagen bebida">
           </button>
           <div class="card-body">
             <h5 class="card-title">Ya puedes encargar tus Bebidas!</h5>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
+      <div class="col-lg-4 col-md-6">
         <div class="card mb-4">
-          <button (click)="comentario()">
-            <img [src]="" class="card-img-top" alt="Imagen bebida">
+          <button (click)="comentario()" class="card-button">
+            <img src="../../../assets/comentarios.png" class="card-img-top" alt="Imagen bebida">
           </button>
           <div class="card-body">
-            <h5 class="card-title">Tu opinión nos importa!</h5>
+            <h5 class="card-title">Comentario</h5>
           </div>
         </div>
       </div>
@@ -48,18 +48,15 @@
   <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
-        <img
-          src="https://media.cnn.com/api/v1/images/stellar/prod/221004165915-06-world-best-bars-2022.jpg?c=original&q=w_1280,c_fill"
+        <img src="https://media.cnn.com/api/v1/images/stellar/prod/221004165915-06-world-best-bars-2022.jpg?c=original&q=w_1280,c_fill"
           class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img
-          src="https://hips.hearstapps.com/hmg-prod/images/harrison1933-1663317313.jpg?crop=1xw:1xh;center,top&resize=980:*"
+        <img src="https://hips.hearstapps.com/hmg-prod/images/harrison1933-1663317313.jpg?crop=1xw:1xh;center,top&resize=980:*"
           class="d-block w-100" alt="...">
       </div>
       <div class="carousel-item">
-        <img
-          src="https://hips.hearstapps.com/hmg-prod/images/dilek-s-elle-gourmet-641d55b1626b8.jpg?crop=1xw:1xh;center,top&resize=980:*"
+        <img src="https://hips.hearstapps.com/hmg-prod/images/dilek-s-elle-gourmet-641d55b1626b8.jpg?crop=1xw:1xh;center,top&resize=980:*"
           class="d-block w-100" alt="...">
       </div>
     </div>
@@ -74,5 +71,4 @@
       <span class="visually-hidden">Next</span>
     </button>
   </div>
-
 </div>

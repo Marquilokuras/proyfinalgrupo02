@@ -28,7 +28,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       pagingType: 'full_pages',
       pageLength: 5,
     },
-      this.obtenerComentarios()
+    this.obtenerComentarios()
     this.fechaComentario()
     this.usuarioRegistrado()
   }
@@ -50,6 +50,7 @@ export class ComentarioUsuarioComponent implements OnInit {
         this.dtTrigger.next(this.listaComentarios);
       })
   }
+
 
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
@@ -104,7 +105,6 @@ export class ComentarioUsuarioComponent implements OnInit {
         this.fechaComentario()
       })
   }
-
 
   evaluarPuntaje(puntaje: number) {
     if (puntaje <= 2) {
