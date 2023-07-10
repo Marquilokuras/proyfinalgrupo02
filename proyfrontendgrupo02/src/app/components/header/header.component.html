@@ -56,6 +56,15 @@
                                 Comentarios</button></li>
                     </ul>
                 </div>
+                <div class="dropdown">
+                    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        Estadisticas
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                        <li><button class="dropdown-item" type="button" [routerLink]="['estadisticas']">Gestion de Estadistica</button></li>
+                    </ul>
+                </div>
             </ul>
         </div>
     </div>
@@ -129,7 +138,7 @@
         <!-- CLIENTE -->
         <a [routerLink]="['mesa-cliente']">Reservar Mesa</a>
 
-        <a [routerLink]="['comentario-usuario']">Realizar Comentario</a>
+        <a [routerLink]="['comentario-usuario']"> Realizar Comentario</a>
 
         <a [routerLink]="['pedido']">Registrar Pedido</a>
 
@@ -139,7 +148,6 @@
         <!-- USUARIOS NO REGISTRADOS -->
         <a class="navbar-link active" [routerLink]="['home']"><i class="fa-solid fa-house"></i> Home</a>
         <a class="navbar-link" [routerLink]="['menu']"><i class="fa-solid fa-martini-glass-citrus"></i> Carta</a>
-        <a class="navbar-link" [routerLink]="['estadisticas']">Estadistica</a>
         <a *ngIf="!loginService.userLoggedIn()" class="navbar-link" [routerLink]="['comentario-usuario']"><i
                 class="fa-solid fa-comment-dots"></i>Comentario</a>
         <a *ngIf="!loginService.userLoggedIn()" class="navbar-link" [routerLink]="['login']"><i
