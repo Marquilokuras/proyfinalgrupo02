@@ -23,7 +23,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <button class="btn btn-primary mx-5 mt-2 mb-2"
                 (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad,bebida.nombreBebida)">Agregar al
                 Pedido</button>
@@ -38,7 +38,6 @@
           (click)="generarPedido()">Generar Pedido</button>
         <button type="button" class="btn btn-primary" *ngIf=" cambios == 'modificar'" routerLink="/pedido"
           (click)="generarPedido()">Modificar Pedido</button>
-
         <button class="btn btn-danger" *ngIf="pedidoSolicitado===true" (click)="cancelarPedido()">Cancelar
           Pedido</button>
         <h3 class="menu mt-3">Precio Total: {{total}}</h3>

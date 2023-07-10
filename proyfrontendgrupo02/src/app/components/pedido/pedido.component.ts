@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Bebida } from 'src/app/models/bebida';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { BebidaService } from 'src/app/service/bebida.service';
+import { ConversorService } from 'src/app/service/conversor/conversor.service';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 
@@ -26,8 +27,11 @@ export class PedidoComponent implements OnInit {
   cambios: string = 'new';
   idPedido!:string;
   emailUsuario !: string | null;
-
-  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService) {
+  monedaOrigen:string = 'usd';
+  monedaDestino:string = 'ars';
+  monedaSeleccionada: string = '';
+  tiposMonedas: any;
+  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService) {
   }
 
   ngOnInit(): void {
@@ -46,6 +50,18 @@ export class PedidoComponent implements OnInit {
       }
     });
     this.obtenerBebidas();
+
+    this.conversorService.getAll().subscribe(
+      result=>{
+        this.tiposMonedas = result;
+        console.log(this.tiposMonedas),
+        console.log(this.tiposMonedas[1])
+      }
+    )
+  }
+
+  seleccionarMoneda(moneda: string): void {
+    this.monedaSeleccionada = moneda;
   }
 
   obtenerPedido(pedidoId:string) {
@@ -91,6 +107,14 @@ export class PedidoComponent implements OnInit {
     this.total = this.total + cantidad * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
+    this.conversorService.getCurrencyValue(this.monedaOrigen, this.monedaDestino).subscribe(
+      result=>{
+        console.log(result)
+      },
+      error => {
+        console.log('result')
+      }
+    )
   }
 
   public generarPedido() {
