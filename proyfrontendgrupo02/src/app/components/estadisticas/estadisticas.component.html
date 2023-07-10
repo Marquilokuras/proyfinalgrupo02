@@ -1,13 +1,16 @@
+<h3>Estadistica de Usuarios</h3>
+
 <div id="chart">
-  <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"
-    [plotOptions]="chartOptions.plotOptions"
-    [yaxis]="chartOptions.yaxis"
-    [fill]="chartOptions.fill"
-    [stroke]="chartOptions.stroke"
-    [tooltip]="chartOptions.tooltip"
-    [xaxis]="chartOptions.xaxis"
-  ></apx-chart>
+  <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+    [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [fill]="chartOptions.fill"
+    [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [xaxis]="chartOptions.xaxis">
+  </apx-chart>
+</div>
+
+<h3 class="text-align">Total Recaudado</h3>
+
+<div id="chart">
+  <apx-chart [series]="chartOptionsPedido.series" [chart]="chartOptionsPedido.chart" [dataLabels]="chartOptionsPedido.dataLabels"
+    [plotOptions]="chartOptionsPedido.plotOptions" [yaxis]="chartOptionsPedido.yaxis" [fill]="chartOptionsPedido.fill"
+    [stroke]="chartOptionsPedido.stroke" [tooltip]="chartOptionsPedido.tooltip" [xaxis]="chartOptionsPedido.xaxis"></apx-chart>
 </div>
