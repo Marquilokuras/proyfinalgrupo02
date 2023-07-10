@@ -97,5 +97,5 @@ export class PedidoFormComponent implements OnInit {
   modificarPedido(idPedido: string){
     this.router.navigate(['pedido', idPedido],);
   }
-  
+
 }

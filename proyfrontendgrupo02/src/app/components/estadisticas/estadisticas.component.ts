@@ -1,27 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from 'src/app/service/login/login.service';
+import { Usuario } from 'src/app/models/usuario/usuario';
 import {
-  ApexAxisChartSeries,
   ApexChart,
-  ApexDataLabels,
-  ApexPlotOptions,
-  ApexYAxis,
-  ApexStroke,
-  ApexXAxis,
-  ApexFill,
-  ApexTooltip
+  ApexNonAxisChartSeries,
+  ApexResponsive,
 } from "ng-apexcharts";
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
+export type ChartOptions =  {
+  series: ApexNonAxisChartSeries | any[];
   chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  yaxis: ApexYAxis;
-  xaxis: ApexXAxis;
-  fill: ApexFill;
-  tooltip: ApexTooltip;
-  stroke: ApexStroke;
+  responsive: ApexResponsive[];
+  labels: any;
 };
+
 
 @Component({
   selector: 'app-estadisticas',
@@ -30,84 +22,65 @@ export type ChartOptions = {
 })
 export class EstadisticasComponent implements OnInit {
   chartOptions!: ChartOptions;
-  constructor() {
+  listUsuario: Usuario[] = [];
+  tipoUsuario: string = ""
+  contadorAdmin: number = 0;
+  contadorGestor: number = 0;
+  contadorCliente: number = 0;
 
+
+
+  constructor(public loginService: LoginService) {
+    this.mostrarUsuario();
   }
 
   ngOnInit(): void {
-    //this.estadistica();
-    this.chartOptions = {
-      series: [
-        {
-          name: "Net Profit",
-          data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
-        },
-        {
-          name: "Revenue",
-          data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
-        },
-        {
-          name: "Free Cash Flow",
-          data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-        }
-      ],
-      chart: {
-        type: "bar",
-        height: 350
-      },
-      /*plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          endingShape: "rounded"
-        }
-      },*/
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: "55%",
-          borderRadius: 0 // En lugar de endingShape
-        }
-      },
 
-      dataLabels: {
-        enabled: false
+  }
+  mostrarUsuario() {
+    this.loginService.mostrarUsuario().subscribe(
+      result => {
+        this.listUsuario = result;
+        this.cantidad();
+        this.estadistica()
       },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ["transparent"]
+    )
+  }
+
+  cantidad() {
+    this.listUsuario.forEach(usuario => {
+      if (usuario.tipoUsuario === "administrador") {
+        this.contadorAdmin++;
+      } else if (usuario.tipoUsuario === "gestor") {
+        this.contadorGestor++;
+      } else if (usuario.tipoUsuario === "cliente") {
+        this.contadorCliente++;
+      }
+    });
+  }
+
+  estadistica() {
+    this.chartOptions = {
+      series: [this.contadorCliente, this.contadorAdmin, this.contadorGestor],
+      chart: {
+        width: 380,
+        type: "pie"
       },
-      xaxis: {
-        categories: [
-          "Feb",
-          "Mar",
-          "Apr",
-          "May",
-          "Jun",
-          "Jul",
-          "Aug",
-          "Sep",
-          "Oct"
-        ]
-      },
-      yaxis: {
-        title: {
-          text: "$ (thousands)"
-        }
-      },
-      fill: {
-        opacity: 1
-      },
-      tooltip: {
-        y: {
-          formatter: function(val) {
-            return "$ " + val + " thousands";
+      labels: ["Cliente", "Administrador", "Gestor"],
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: "bottom"
+            }
           }
         }
-      }
+      ]
     };
-
   }
 }
 
