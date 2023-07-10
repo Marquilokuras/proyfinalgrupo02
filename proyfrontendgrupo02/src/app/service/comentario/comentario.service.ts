@@ -70,4 +70,17 @@ export class ComentarioService {
     return this._http.delete(this.url+id,httpOptions);
   }
 
+
+  public filtroPuntuacion(puntaje:number):Observable<any>{
+    const httpOptions={
+      headers : new HttpHeaders({
+
+      }),
+      params : new HttpParams()
+      .append('puntajeComentario',puntaje)
+    }
+
+    return this._http.get(this.url+"puntaje/",httpOptions);
+  }
 }
+

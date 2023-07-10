@@ -16,6 +16,7 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
@@ -37,6 +38,7 @@ const routes: Routes = [
   {path: 'pedido-form', component:PedidoFormComponent},
   {path: 'promocion',component:PromocionComponent},   
   {path: 'promocion-form/:id',component:PromocionFormComponent},
+  {path: 'estadisticas',component:EstadisticasComponent},
   {path: '**', pathMatch:'full',redirectTo:'home' },
 ];
 

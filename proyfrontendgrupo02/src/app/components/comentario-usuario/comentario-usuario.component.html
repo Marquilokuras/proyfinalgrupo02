@@ -1,5 +1,5 @@
 <!-- GESTOR -->
-  <div *ngIf="tipoLogged()  || ('gestor') || ('administrador') " class="navbar-item">
+  <div *ngIf="tipoLogged() == ('gestor') || tipoLogged() ==  ('administrador') " class="navbar-item">
 
    <div class="container-fluid container-comment">
     <h2 class="text-titulo">Gestion de Comentarios</h2>
@@ -15,7 +15,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let div of listaComentarios" class="">
+            <tr *ngFor="let div of listaComentarios"  class="">
               <td class="col-2">{{div.usuario}}</td>
               <td class="col-2">{{div.fechaComentario}}</td>
               <td class="col-2">
@@ -50,7 +50,7 @@
 
             <div class="fw-bold text-light"><i class="fa-solid fa-user" style="color: #5680c8;"></i>{{comentario.usuario}}</div>
 
-            <div class="fechacom1">{{comentario.fechaComentario}}</div>
+            <div class="text-light">{{comentario.fechaComentario}}</div>
 
             <div class="rating">
               <input type="radio" hidden name="rate" id="rating_5" (click)="setPuntaje(5)"
@@ -89,7 +89,22 @@
           </form>
         </div>
 
-        <ol class="list-group">
+        <ol class="list-group ">
+          <div class="row">
+            <div class="col-6 ol-sm-4 col-md-3">
+              <div class=" input-group mb-3">
+                <span class="input-group-text">Puntajes</span>
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="filtroP" (ngModelChange)="filtroPuntaje()">
+                  <option value="">TODA LA LISTA</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                </select>
+              </div>
+            </div>
+          </div>
           <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
             <div class=" ms-2 me-auto">
               <div class="fw-bold"><i class="fa-solid fa-user"></i>{{div.usuario}}

@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OAuthModule } from 'angular-oauth2-oidc';
+import { NgApexchartsModule } from "ng-apexcharts";
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
@@ -30,7 +31,7 @@ import { UsuarioFormComponent } from './components/usuario-form/usuario-form.com
 import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
-import { FacebookModule } from 'ngx-facebook';
+import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { FacebookModule } from 'ngx-facebook';
     PromocionComponent,
     PromocionFormComponent,
     ReservaComponent,
+    EstadisticasComponent,
 
   ],
 
@@ -66,7 +68,7 @@ import { FacebookModule } from 'ngx-facebook';
     AppRoutingModule,
     DataTablesModule,
     HttpClientModule,
-    FacebookModule.forRoot(),
+    NgApexchartsModule
   ],
   providers: [LoginService,
     {

@@ -55,10 +55,18 @@ comentarioCtrl.deleteComentario = async (req,res)=>{
     } 
 }
 
-
 comentarioCtrl.getComentario = async (req, res)=>{
     const comentario = await Comentario.findById(req.params.id)
     res.json(comentario);
+}
+
+comentarioCtrl.getComment = async (req, res) => {
+    let criteria ={}
+    if (req.query.puntajeComentario != null && req.query.puntajeComentario!=""){
+        criteria.puntajeComentario = req.query.puntajeComentario;
+    }
+    var comment = await Comentario.find(criteria)
+    res.json(comment);
 }
 
 module.exports = comentarioCtrl;
