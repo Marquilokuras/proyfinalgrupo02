@@ -9,7 +9,7 @@ const router = express.Router();
 
 //definimos las rutas para la gestion de bebida
 router.get('/disponibles',bebidaCtrl.mostrarBebidasDisponibles);
-router.get('/',autCtrl.verifyToken,bebidaCtrl.getBebidas); 
+router.get('/',bebidaCtrl.getBebidas); 
 router.post('/',autCtrl.verifyToken,bebidaCtrl.crearBebida); 
 router.get('/:id',autCtrl.verifyToken,bebidaCtrl.getBebida); 
 router.put('/:id',autCtrl.verifyToken,bebidaCtrl.editarBebida);

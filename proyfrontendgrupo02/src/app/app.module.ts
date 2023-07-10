@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './service/auth/auth.service';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
@@ -32,6 +34,7 @@ import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+
 
 @NgModule({
   declarations: [
@@ -75,7 +78,8 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    AuthService, AuthGuard
   ],
   bootstrap: [AppComponent]
 })
