@@ -16,7 +16,7 @@ export class BebidaService {
   public obtenerBebidas(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
+        
       }),
       params: new HttpParams()
     }

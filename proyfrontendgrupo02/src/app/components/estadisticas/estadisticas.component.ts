@@ -30,6 +30,7 @@ export type ChartOptions = {
 })
 export class EstadisticasComponent implements OnInit {
   chartOptions!: ChartOptions;
+  
   constructor() {
 
   }
