@@ -15,12 +15,15 @@ export class ComentarioUsuarioComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   listaComentarios: Array<Comentario>;
+  copiaListaComentario: Array<Comentario>;
   comentario!: Comentario;
   usuario!: any;
+  filtroP!:number
 
   constructor(private comentarioService: ComentarioService, public usuarioService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
+    this.copiaListaComentario= new Array<Comentario>();
   }
 
   ngOnInit(): void {
@@ -28,7 +31,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       pagingType: 'full_pages',
       pageLength: 5,
     },
-      this.obtenerComentarios()
+    this.obtenerComentarios()
     this.fechaComentario()
     this.usuarioRegistrado()
   }
@@ -50,6 +53,16 @@ export class ComentarioUsuarioComponent implements OnInit {
         this.dtTrigger.next(this.listaComentarios);
       })
   }
+  filtroPuntaje(){
+    this.listaComentarios = new Array<Comentario>();
+    this.comentarioService.filtroPuntuacion(this.filtroP).subscribe(
+      result=>{
+         this.listaComentarios=result;
+         console.log(result);
+
+     },
+    )
+  }
 
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
@@ -68,10 +81,7 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentarioService.modificarComentario(this.comentario).subscribe(
       result => {
         if (result.status == 1) {
-          this.obtenerComentarios();
-          this.comentario = new Comentario();
-          this.usuarioRegistrado();
-          this.fechaComentario();
+          location.reload();
         }
       },
       error => { alert(error.msg); }
@@ -104,7 +114,6 @@ export class ComentarioUsuarioComponent implements OnInit {
         this.fechaComentario()
       })
   }
-
 
   evaluarPuntaje(puntaje: number) {
     if (puntaje <= 2) {

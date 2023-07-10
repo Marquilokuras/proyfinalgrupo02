@@ -89,7 +89,6 @@ export class BebidaComponent {
           Object.assign(unaBebida, element)
           this.listaBebida.push(unaBebida)
           unaBebida = new Bebida();
-
           this.ngOnDestroy()
         });
       },

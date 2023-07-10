@@ -4,13 +4,8 @@
 .table-responsive{
   color:#f5e7aa;
 }
-
 .table{
   padding: 15px;
-}
-
-textarea{
-  height: 70px;
 }
 .btn-danger {
   background-color: #fa6816;
@@ -21,6 +16,10 @@ textarea{
 .btn-danger:hover {
   background-color: #fd8037; /* Cambia el color de fondo en hover */
   border-color: #fd8037; /*Cambia el color del borde en hover */
+}
+
+textarea{
+  height: 70px;
 }
 
 .rating {
@@ -111,11 +110,14 @@ h2 {
   animation-name: bounceIn; /* Animación de entrada */
   animation-duration: 1s; /* Duración de la animación */
 }
-
+.list-group, .card-cliente{
+  padding: 50px;
+}
 .list-group-item{
   background-color: rgb(255, 245, 152,0.83);
   padding: 25px;
 }
+
 .fa-user{
   color: rgb(17, 17, 81);
   padding-right: 10px;
