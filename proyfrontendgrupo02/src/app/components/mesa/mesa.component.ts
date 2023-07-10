@@ -89,4 +89,9 @@ export class MesaComponent {
     )
   }
 
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
+  }
+
 }

@@ -1,6 +1,6 @@
 <div class="container">
     <h2>Gestion de Promociones</h2>
-    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()">Agregar Promocion</button>
+    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()"  *ngIf="tipoLogged() == 'administrador'">Agregar Promocion</button>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
