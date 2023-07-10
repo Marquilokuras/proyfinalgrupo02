@@ -80,4 +80,9 @@ export class PromocionComponent implements OnInit {
     this.obtenerPromociones;
   }
 
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
+  }
+
 }
