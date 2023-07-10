@@ -1,50 +1,57 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6">
-      <h1 class="menu mb-2">Menú de bebidas</h1>
-      <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-12 mb-5" *ngFor="let bebida of carta">
-          <div class="card h-100">
-            <img [src]="bebida.imagenBebida" class="card-img-top" alt="Imagen bebida">
+      <div class="col-lg-6">
+        <h1 class="menu mb-2">Menú de bebidas</h1>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12 mb-5" *ngFor="let bebida of carta">
+            <div class="card h-100">
+              <img [src]="bebida.imagenBebida" class="card-img-top" alt="Imagen bebida">
+              <div class="card-body">
+                <h5 class="card-title">{{bebida.nombreBebida}}</h5>
+                <p class="card-text ingredients-color"><strong>Ingredientes:</strong> {{bebida.ingredientesBebida}}</p>
+                <p class="card-text"><strong>Tipo de Vaso:</strong> {{bebida.tipoVasoBebida}}</p>
+                <p class="card-text"><strong>Precio:</strong> {{bebida.precioBebida}}</p>
+              </div>
+              <div class="form-group mx-5 mt-2">
+                <label for="cantidad">Cantidad:</label>
+                <select id="cantidad" [(ngModel)]="bebida.cantidad" name="cantidadBebida" class="form-control" #cantidadBebida="ngModel" required>
+                  <option *ngFor="let numero of numeros" [value]="numero">{{ numero }}</option>
+                </select>
+                <div *ngIf="cantidadBebida.invalid && (cantidadBebida.dirty || cantidadBebida.touched)" class="alert alert-danger">
+                  <div *ngIf="cantidadBebida.errors?.['required']">
+                    La cantidad es requerida
+                  </div>
+                </div>
+              </div>
+              
+              <button class="btn btn-primary mx-5 mt-2 mb-2"
+                (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad,bebida.nombreBebida)">Agregar al
+                Pedido</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-6">
+        <h1 class="menu mt-4">Pedido</h1>
+        <button type="button" class="btn btn-primary" *ngIf=" cambios == 'new' && pedidoSolicitado===true" routerLink="/pedido"
+          (click)="generarPedido()">Generar Pedido</button>
+        <button type="button" class="btn btn-primary" *ngIf=" cambios == 'modificar'" routerLink="/pedido"
+          (click)="generarPedido()">Modificar Pedido</button>
+
+        <button class="btn btn-danger" *ngIf="pedidoSolicitado===true" (click)="cancelarPedido()">Cancelar
+          Pedido</button>
+        <h3 class="menu mt-3">Precio Total: {{total}}</h3>
+
+        <div *ngFor="let pedido of arrayPedido">
+          <div class="card texto m-2">
             <div class="card-body">
-              <h5 class="card-title">{{bebida.nombreBebida}}</h5>
-              <p class="card-text ingredients-color"><strong>Ingredientes:</strong> {{bebida.ingredientesBebida}}</p>
-              <p class="card-text"><strong>Tipo de Vaso:</strong> {{bebida.tipoVasoBebida}}</p>
-              <p class="card-text"><strong>Precio:</strong> {{bebida.precioBebida}}</p>
+              <p>Cantidad de bebidas: {{ pedido.cantidadBebidas }}</p>
+              <p>Precio de detalle: {{ pedido.precioDetalle }}</p>
+              <p>Bebida: {{ pedido.nombreBebida }}</p>
             </div>
-            <div class="form-group mx-5 mt-2">
-              <label for="cantidad">Cantidad:</label>
-              <select id="cantidad" [(ngModel)]="bebida.cantidad" name="cantidadBebida" class="form-control">
-                <option *ngFor="let numero of numeros" [value]="numero">{{ numero }}</option>
-              </select>
-            </div>
-            <button class="btn btn-primary mx-5 mt-2 mb-2"
-              (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad,bebida.nombreBebida)">Agregar al Pedido</button>
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="col-lg-6">
-      <h1 class="menu mt-4">Pedido</h1>
-      <button type="button" class="btn btn-primary"  *ngIf=" cambios == 'new'"
-        routerLink="/pedido" (click)="generarPedido()">Generar Pedido</button>
-      <button type="button" class="btn btn-primary"  *ngIf=" cambios == 'modificar'"
-        routerLink="/pedido" (click)="generarPedido()">Modificar Pedido</button>
-
-      <button class="btn btn-danger" *ngIf="pedidoSolicitado===true" (click)="cancelarPedido()">Cancelar Pedido</button>
-      <h3 class="menu mt-3">Precio Total: {{total}}</h3>
-
-      <div *ngFor="let pedido of arrayPedido">
-        <div class="card texto m-2">
-          <div class="card-body">
-            <p>Cantidad de bebidas: {{ pedido.cantidadBebidas }}</p>
-            <p>Precio de detalle: {{ pedido.precioDetalle }}</p>
-            <p>Bebida: {{ pedido.nombreBebida }}</p>
-          </div>
-        </div>
-      </div>
-
-    </div>
   </div>
 </div>
