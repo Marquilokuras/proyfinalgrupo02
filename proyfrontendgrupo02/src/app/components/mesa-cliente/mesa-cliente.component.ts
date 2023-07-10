@@ -11,7 +11,9 @@ import { ReservaService } from 'src/app/service/reserva/reserva.service';
   templateUrl: './mesa-cliente.component.html',
   styleUrls: ['./mesa-cliente.component.css']
 })
+
 export class MesaClienteComponent implements OnInit {
+
   mesa!: Mesa;
   mesasDisponibles!: Array<Mesa>;
   cantidadPersonas!: number;
@@ -20,7 +22,7 @@ export class MesaClienteComponent implements OnInit {
   mesasReservadas!: Array<Reserva>;
   todasLasReservas!: Array<Reserva>;
   reservaEliminar: any;
-  modalReserva: Mesa; // para mandar la reserva al modal
+  modalReserva: Mesa;
   reserva!: Reserva;
   cantidadMesasElegida!: number;
   cantidadSillasElegida!: number;
@@ -43,17 +45,14 @@ export class MesaClienteComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuario = sessionStorage.getItem("user");
-
     this.obtenerMesasDisp();
     this.obtenerMesasReservadas();
     this.fechaDeHoy = new Date();
-    // this.obtenerTodasLasReservas();
   }
 
   obtenerMesasDisp() {
     this.servicio.obtenerMesasDisponibles().subscribe(
       result => {
-        console.log(result)
         let unaMesa = new Mesa();
         result.forEach((element: any) => {
           Object.assign(unaMesa, element)
@@ -61,14 +60,9 @@ export class MesaClienteComponent implements OnInit {
           unaMesa = new Mesa();
         });
       },
-
-      error => {
-        console.log(error)
-      }
+      error => { }
     )
   }
-
-
 
   async eliminarReserva(reserva: Reserva) {
     try {
@@ -80,54 +74,37 @@ export class MesaClienteComponent implements OnInit {
       setTimeout(() => {
         location.reload();
       }, 500);
-
-
-    } catch (error) {
-      console.error("Ocurrió un error al eliminar la reserva:", error);
-    }
+    } catch (error) { }
   }
 
   async guardarReserva(res: Mesa) {
-
-
     this.reserva.numeroMesa = res.numeroMesa;
     this.reserva.usuario = this.usuario;
     this.reserva.cantidadMesa = this.cantidadMesasElegida
     this.reserva.cantidadSilla = this.cantidadSillasElegida
     this.reserva.fecha = new Date()
-    console.log(this.reserva)
     this.servicioReserva.crearReserva(this.reserva).subscribe(
       result => {
         this.toastrService.success("Mesa Reservada");
         setTimeout(() => {
           location.reload();
         }, 1000);
-
       },
-      error => {
-
-        console.log(error)
-      }
+      error => { }
     )
   }
 
-
   obtenerMesasReservadas() {
-    console.log(this.usuario)
     this.servicioReserva.obtenerReservas(this.usuario).subscribe(
       result => {
-        console.log(result)
         let unaReserva = new Reserva();
         result.forEach((element: any) => {
           Object.assign(unaReserva, element)
           this.mesasReservadas.push(unaReserva)
           unaReserva = new Reserva();
         });
-        console.log(this.mesasReservadas)
       },
-      error => {
-
-      }
+      error => { }
     )
   }
 
@@ -139,21 +116,11 @@ export class MesaClienteComponent implements OnInit {
           Object.assign(unaReserva, element)
           this.porMesa.push(unaReserva)
           unaReserva = new Reserva();
-
-
         });
-
-
       },
-      error => {
-        alert("err")
-      }
+      error => { }
     )
-
   }
-
-
-
 
   abrirModalEliminar(reserva: any) {
     this.reservaEliminar = reserva;
@@ -164,10 +131,7 @@ export class MesaClienteComponent implements OnInit {
     this.obtenerPorNumeroDeMesa(this.modalReserva.numeroMesa);
     this.cantidadSillasElegida = this.modalReserva.cantidadSilla;
     this.cantidadMesasElegida = this.modalReserva.cantidadMesa;
-    // this.horariosDisponibles = this.getHorariosDisponibles(this.modalReserva);
-    // console.log(this.horariosDisponibles.length)
   }
-
 
   getNumerosHastaCantidadSillas(): number[] {
     let numeros: Array<number>;
@@ -176,8 +140,8 @@ export class MesaClienteComponent implements OnInit {
       numeros.push(i);
     }
     return numeros;
-
   }
+
   getNumerosHastaCantidadMesas(): number[] {
     let numeros: Array<number>;
     numeros = new Array<number>();
@@ -185,18 +149,14 @@ export class MesaClienteComponent implements OnInit {
       numeros.push(i);
     }
     return numeros;
-
   }
-
-
-
 
   getHorariosDisponibles(mesa: Mesa): string[] {
     const horarios: string[] = [];
     let horaActual = new Date().getHours();
-    const horaLimite = 25; // Hora límite para poder reservar
+    const horaLimite = 25;
     if (horaActual >= 2 && horaActual <= 18) {
-      horaActual = 17; // sirve para poder seleccionar solo horarios despues de las 6
+      horaActual = 17;
     }
 
     for (let i = horaActual + 1; i <= horaLimite; i++) {
@@ -209,18 +169,12 @@ export class MesaClienteComponent implements OnInit {
       }
       i++;
     }
+
     const horariosFiltrados = horarios.filter((horario) => {
       return !this.porMesa.some((reserva) => reserva.hora === horario);
     });
-
-    // if (horariosFiltrados.length === 1  ){
-
-    // }
-
     return horariosFiltrados;
   }
-
-
 
 }
 

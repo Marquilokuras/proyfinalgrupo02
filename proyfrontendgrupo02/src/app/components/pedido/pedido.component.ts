@@ -12,7 +12,9 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
   templateUrl: './pedido.component.html',
   styleUrls: ['./pedido.component.css']
 })
+
 export class PedidoComponent implements OnInit {
+
   carta = new Array();
   pedido = new Array();
   arrayPedido = new Array();
@@ -25,37 +27,30 @@ export class PedidoComponent implements OnInit {
   pedidoSolicitado: boolean = false
   total: number = 0;
   cambios: string = 'new';
-  idPedido!:string;
+  idPedido!: string;
   emailUsuario !: string | null;
-  monedaOrigen:string = 'usd';
-  monedaDestino:string = 'ars';
+  monedaOrigen: string = 'usd';
+  monedaDestino: string = 'ars';
   monedaSeleccionada: string = '';
   tiposMonedas: any;
-  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService) {
+
+  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if (params['id'].trim() === ":id") {
-        console.log(params['id']);
-
         this.cambios = "new";
-
       } else {
-
         this.cambios = "modificar";
-        this.idPedido= params['id'];
-        console.log(this.idPedido)
+        this.idPedido = params['id'];
         this.obtenerPedido(this.idPedido);
       }
     });
     this.obtenerBebidas();
-
     this.conversorService.getAll().subscribe(
-      result=>{
+      result => {
         this.tiposMonedas = result;
-        console.log(this.tiposMonedas),
-        console.log(this.tiposMonedas[1])
       }
     )
   }
@@ -64,7 +59,7 @@ export class PedidoComponent implements OnInit {
     this.monedaSeleccionada = moneda;
   }
 
-  obtenerPedido(pedidoId:string) {
+  obtenerPedido(pedidoId: string) {
     this.pedidoSolicitado = true;
     this.pedidoService.mostrarPedido().subscribe(
       result => {
@@ -72,12 +67,10 @@ export class PedidoComponent implements OnInit {
         this.pedido.some(id => id === pedidoId);
         this.arrayModificar = this.pedido.find(item => item._id === pedidoId);
         if (this.arrayModificar) {
-
           this.pedido = this.pedido.filter(item => item._id !== pedidoId);
         }
       },
-      error => {
-      }
+      error => { }
     )
   }
 
@@ -87,59 +80,50 @@ export class PedidoComponent implements OnInit {
         console.log(result);
         this.carta = result.map((any: any) => ({
           ...any,
-          cantidad: ""  // Agregar la propiedad cantidad con valor inicial de ""
+          cantidad: ""
         }));
       },
-      error => {
-        console.log(error);
-      }
+      error => { }
     );
   }
 
-  public crearPedido(identificador: string, precioDetalle: number,cantidad:number,nombreBebida:string) {
-
+  public crearPedido(identificador: string, precioDetalle: number, cantidad: number, nombreBebida: string) {
     const bebidaPedido = {
       cantidadBebidas: cantidad,
       precioDetalle: precioDetalle,
       bebida: identificador,
-      nombreBebida : nombreBebida,
+      nombreBebida: nombreBebida,
     };
     this.total = this.total + cantidad * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
     this.conversorService.getCurrencyValue(this.monedaOrigen, this.monedaDestino).subscribe(
-      result=>{
-        console.log(result)
-      },
-      error => {
-        console.log('result')
-      }
+      result => { },
+      error => { }
     )
   }
 
   public generarPedido() {
     this.total = 0;
-    this.emailUsuario= this.loginService.userLogged();
-    this.pedidoService.generarPedido(this.arrayPedido,this.emailUsuario).subscribe(
+    this.emailUsuario = this.loginService.userLogged();
+    this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario).subscribe(
       result => {
         this.arrayPedido = []
       },
-      error => {
-      }
+      error => { }
     )
   }
 
-  cancelarPedido(){
+  cancelarPedido() {
     this.arrayPedido = [];
     this.total = 0;
   }
 
-  modificarPedido(){
-     this.pedidoService.modificarPedido(this.idPedido,this.arrayModificar).subscribe(
-      result => {
-      },
-      error => {
-      }
+  modificarPedido() {
+    this.pedidoService.modificarPedido(this.idPedido, this.arrayModificar).subscribe(
+      result => { },
+      error => { }
     )
   }
+
 }
