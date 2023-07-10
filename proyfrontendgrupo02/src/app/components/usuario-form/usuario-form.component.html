@@ -16,23 +16,41 @@
                   <label for="email">Email</label>
                   <div class="input-group">
                     <div class="input-group-text">@</div>
-                    <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
-                      [(ngModel)]="emailUsuario" required />
+                    <input placeholder="ejemplo@gmail.com" type="text" class="form-control" name="email"
+                      [(ngModel)]="emailUsuario" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+                      #emailNuevo="ngModel" />
+                    <div *ngIf="emailNuevo.invalid && (emailNuevo.dirty || emailNuevo.touched)"
+                      class="alert alert-danger">
+                      <div *ngIf="emailNuevo.errors?.['required']">
+                        El Email es requerido
+                      </div>
+                      <div *ngIf="emailNuevo.errors?.['pattern']">
+                        El Email ingresado debe seguir el formato: ___@___.com
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label for="registerNombre">Passaword</label>
-                  <input type="password" class="form-control" name="registerNombre" placeholder="Ingrese Password"
-                    [(ngModel)]="passwordUsuario" required />
+                  <label for="registerPassword">Password</label>
+                  <input type="password" class="form-control" name="registerPassword" placeholder="Ingrese Password"
+                    #passwordNuevo="ngModel" [(ngModel)]="passwordUsuario" required />
                 </div>
-
+                
                 <div class="form-group">
                   <label for="registerNombre">Nombre</label>
                   <input type="text" class="form-control" name="registerNombre" placeholder="Ingrese Nombre Completo"
-                    [(ngModel)]="nombreUsuario" required />
+                    #nombreNuevo="ngModel" [(ngModel)]="nombreUsuario" required pattern="[a-zA-Z ]*" />
+                  <div *ngIf="nombreNuevo.invalid && (nombreNuevo.dirty || nombreNuevo.touched)" class="alert alert-danger">
+                    <div *ngIf="nombreNuevo.errors?.['required']">
+                      El nombre es requerido
+                    </div>
+                    <div *ngIf="nombreNuevo.errors?.['pattern']">
+                      El nombre ingresado debe contener solo letras
+                    </div>
+                  </div>
                 </div>
-
+                
                 <div class="form-group">
                   <label for="registerApellido">Apellido</label>
                   <input type="text" class="form-control" name="registerApellido"
