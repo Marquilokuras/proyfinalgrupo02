@@ -29,12 +29,15 @@ export class PedidoComponent implements OnInit {
   cambios: string = 'new';
   idPedido!: string;
   emailUsuario !: string | null;
-  monedaOrigen: string = 'usd';
-  monedaDestino: string = 'ars';
   monedaSeleccionada: string = '';
-  tiposMonedas: any;
+  codigoMonedaOrigen: string = "ars";
+  codigoMonedaDestino!: string;
+  resultadoConversion!: string;
+  totalConversion!: number;
+  monedas: any;
+  conversionHabilitada: boolean = false;
 
-  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService) {
+  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService) {
   }
 
   ngOnInit(): void {
@@ -48,16 +51,46 @@ export class PedidoComponent implements OnInit {
       }
     });
     this.obtenerBebidas();
-    this.conversorService.getAll().subscribe(
-      result => {
-        this.tiposMonedas = result;
-      }
-    )
+    this.obtenerMonedas();
   }
 
-  seleccionarMoneda(moneda: string): void {
-    this.monedaSeleccionada = moneda;
+  habilitarConversion(): void {
+    this.conversionHabilitada = true;
   }
+
+  obtenerMonedas(): void {
+    this.conversorService.getAll().subscribe(
+      data => {
+        this.monedas = Object.entries(data).map(([key, value]) => ({ key, value }));
+      },
+      error => { }
+    );
+  }
+
+  // Método para manejar el evento de selección de moneda
+  seleccionarMoneda(event: any, tipo: string): void {
+    const codigoMoneda = event.target.value;
+
+    if (tipo === 'origen') {
+      this.codigoMonedaOrigen = codigoMoneda;
+      console.log('Código de moneda de origen seleccionado:', this.codigoMonedaOrigen);
+    } else if (tipo === 'destino') {
+      this.codigoMonedaDestino = codigoMoneda;
+      console.log('Código de moneda de destino seleccionado:', this.codigoMonedaDestino);
+    }
+  }
+
+  convertirMonedas() {
+    this.conversorService.getCurrencyValue(this.codigoMonedaOrigen, this.codigoMonedaDestino).subscribe(
+      result => {
+        this.resultadoConversion = this.codigoMonedaDestino;
+        const valorConversion = result[this.codigoMonedaDestino];
+        this.totalConversion = valorConversion * this.total;
+        console.log(this.totalConversion)
+      }
+    );
+  }
+
 
   obtenerPedido(pedidoId: string) {
     this.pedidoSolicitado = true;
@@ -97,10 +130,6 @@ export class PedidoComponent implements OnInit {
     this.total = this.total + cantidad * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
-    this.conversorService.getCurrencyValue(this.monedaOrigen, this.monedaDestino).subscribe(
-      result => { },
-      error => { }
-    )
   }
 
   public generarPedido() {
@@ -117,6 +146,8 @@ export class PedidoComponent implements OnInit {
   cancelarPedido() {
     this.arrayPedido = [];
     this.total = 0;
+    this.totalConversion = 0;
+    this.conversionHabilitada = false;
   }
 
   modificarPedido() {
