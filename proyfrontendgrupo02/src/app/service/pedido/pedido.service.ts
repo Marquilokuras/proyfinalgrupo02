@@ -14,7 +14,7 @@ export class PedidoService {
     this.hostBase = "http://localhost:3000/api/pedido/";
   }
 
-  public generarPedido(bebidasPedido:Array<any>,email : string | null): Observable<any> {
+  public generarPedido(bebidasPedido: Array<any>, email: string | null): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -23,7 +23,7 @@ export class PedidoService {
     }
 
     const body = {
-      'bebidasPedido' : bebidasPedido,
+      'bebidasPedido': bebidasPedido,
       'emailUsuario': email
     };
 
@@ -35,13 +35,13 @@ export class PedidoService {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-       /*  Authorization: 'Bearer ' + localStorage.getItem('token'), */
+        Authorization: 'Bearer ' + localStorage.getItem('token')
       })
     }
-    return this._http.get(this.hostBase+'pedidos', httpOption);
+    return this._http.get(this.hostBase + 'pedidos', httpOption);
   }
 
-  public eliminarPedido(id : string): Observable<any> {
+  public eliminarPedido(id: string): Observable<any> {
 
     const httpOption = {
       headers: new HttpHeaders({
@@ -49,12 +49,11 @@ export class PedidoService {
         Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
-
-    const url = this.hostBase+id
+    const url = this.hostBase + id
     return this._http.delete(url, httpOption);
   }
 
-  public modificarPedido(_id:string,arrayModificado:Array<any>): Observable<any> {
+  public modificarPedido(_id: string, arrayModificado: Array<any>): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -62,11 +61,11 @@ export class PedidoService {
       })
     }
 
-     const data = {
-      'bebidasPedido' : arrayModificado
+    const data = {
+      'bebidasPedido': arrayModificado
     };
 
-    var url = this.hostBase+ _id
+    var url = this.hostBase + _id
     return this._http.put(url, data, httpOption);
   }
 

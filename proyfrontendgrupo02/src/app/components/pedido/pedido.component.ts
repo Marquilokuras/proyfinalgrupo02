@@ -12,7 +12,9 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
   templateUrl: './pedido.component.html',
   styleUrls: ['./pedido.component.css']
 })
+
 export class PedidoComponent implements OnInit {
+
   carta = new Array();
   pedido = new Array();
   arrayPedido = new Array();
@@ -25,7 +27,7 @@ export class PedidoComponent implements OnInit {
   pedidoSolicitado: boolean = false
   total: number = 0;
   cambios: string = 'new';
-  idPedido!:string;
+  idPedido!: string;
   emailUsuario !: string | null;
   monedaSeleccionada: string = '';
   codigoMonedaOrigen: string = "ars";
@@ -41,15 +43,10 @@ export class PedidoComponent implements OnInit {
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if (params['id'].trim() === ":id") {
-        console.log(params['id']);
-
         this.cambios = "new";
-
       } else {
-
         this.cambios = "modificar";
-        this.idPedido= params['id'];
-        console.log(this.idPedido)
+        this.idPedido = params['id'];
         this.obtenerPedido(this.idPedido);
       }
     });
@@ -65,11 +62,8 @@ export class PedidoComponent implements OnInit {
     this.conversorService.getAll().subscribe(
       data => {
         this.monedas = Object.entries(data).map(([key, value]) => ({ key, value }));
-        console.log(this.monedas);
       },
-      error => {
-        console.error('Error al obtener las monedas:', error);
-      }
+      error => { }
     );
   }
 
@@ -98,7 +92,7 @@ export class PedidoComponent implements OnInit {
   }
 
 
-  obtenerPedido(pedidoId:string) {
+  obtenerPedido(pedidoId: string) {
     this.pedidoSolicitado = true;
     this.pedidoService.mostrarPedido().subscribe(
       result => {
@@ -106,12 +100,10 @@ export class PedidoComponent implements OnInit {
         this.pedido.some(id => id === pedidoId);
         this.arrayModificar = this.pedido.find(item => item._id === pedidoId);
         if (this.arrayModificar) {
-
           this.pedido = this.pedido.filter(item => item._id !== pedidoId);
         }
       },
-      error => {
-      }
+      error => { }
     )
   }
 
@@ -121,22 +113,19 @@ export class PedidoComponent implements OnInit {
         console.log(result);
         this.carta = result.map((any: any) => ({
           ...any,
-          cantidad: ""  // Agregar la propiedad cantidad con valor inicial de ""
+          cantidad: ""
         }));
       },
-      error => {
-        console.log(error);
-      }
+      error => { }
     );
   }
 
-  public crearPedido(identificador: string, precioDetalle: number,cantidad:number,nombreBebida:string) {
-
+  public crearPedido(identificador: string, precioDetalle: number, cantidad: number, nombreBebida: string) {
     const bebidaPedido = {
       cantidadBebidas: cantidad,
       precioDetalle: precioDetalle,
       bebida: identificador,
-      nombreBebida : nombreBebida,
+      nombreBebida: nombreBebida,
     };
     this.total = this.total + cantidad * precioDetalle
     this.arrayPedido.push(bebidaPedido)
@@ -145,29 +134,27 @@ export class PedidoComponent implements OnInit {
 
   public generarPedido() {
     this.total = 0;
-    this.emailUsuario= this.loginService.userLogged();
-    this.pedidoService.generarPedido(this.arrayPedido,this.emailUsuario).subscribe(
+    this.emailUsuario = this.loginService.userLogged();
+    this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario).subscribe(
       result => {
         this.arrayPedido = []
       },
-      error => {
-      }
+      error => { }
     )
   }
 
-  cancelarPedido(){
+  cancelarPedido() {
     this.arrayPedido = [];
     this.total = 0;
     this.totalConversion = 0;
     this.conversionHabilitada = false;
   }
 
-  modificarPedido(){
-     this.pedidoService.modificarPedido(this.idPedido,this.arrayModificar).subscribe(
-      result => {
-      },
-      error => {
-      }
+  modificarPedido() {
+    this.pedidoService.modificarPedido(this.idPedido, this.arrayModificar).subscribe(
+      result => { },
+      error => { }
     )
   }
+
 }

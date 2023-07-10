@@ -9,6 +9,7 @@ import { LoginService } from 'src/app/service/login/login.service';
   templateUrl: './comentario-usuario.component.html',
   styleUrls: ['./comentario-usuario.component.css']
 })
+
 export class ComentarioUsuarioComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
@@ -18,12 +19,12 @@ export class ComentarioUsuarioComponent implements OnInit {
   copiaListaComentario: Array<Comentario>;
   comentario!: Comentario;
   usuario!: any;
-  filtroP!:number
+  filtroP!: number
 
   constructor(private comentarioService: ComentarioService, public usuarioService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
-    this.copiaListaComentario= new Array<Comentario>();
+    this.copiaListaComentario = new Array<Comentario>();
   }
 
   ngOnInit(): void {
@@ -31,7 +32,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       pagingType: 'full_pages',
       pageLength: 5,
     },
-    this.obtenerComentarios()
+      this.obtenerComentarios()
     this.fechaComentario()
     this.usuarioRegistrado()
   }
@@ -48,22 +49,18 @@ export class ComentarioUsuarioComponent implements OnInit {
   public obtenerComentarios() {
     this.comentarioService.obtenerComentarios().subscribe(
       result => {
-        console.log(result);
         this.listaComentarios = result;
         this.dtTrigger.next(this.listaComentarios);
       })
   }
-  filtroPuntaje(){
+  filtroPuntaje() {
     this.listaComentarios = new Array<Comentario>();
     this.comentarioService.filtroPuntuacion(this.filtroP).subscribe(
-      result=>{
-         this.listaComentarios=result;
-         console.log(result);
-
-     },
+      result => {
+        this.listaComentarios = result;
+      },
     )
   }
-
 
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
@@ -72,7 +69,7 @@ export class ComentarioUsuarioComponent implements OnInit {
           location.reload();
         }
       },
-      error => { alert(error.msg); }
+      error => { }
     )
   }
 
@@ -85,10 +82,9 @@ export class ComentarioUsuarioComponent implements OnInit {
           location.reload();
         }
       },
-      error => { alert(error.msg); }
+      error => { }
     )
   }
-
 
   cancelarComentario() {
     this.comentario = new Comentario()
@@ -103,14 +99,13 @@ export class ComentarioUsuarioComponent implements OnInit {
           location.reload();
         }
       },
-      error => { alert(error.msg) }
+      error => { }
     )
   }
 
   obtenerComentario(id: string) {
     this.comentarioService.obtenerComentario(id).subscribe(
       result => {
-        console.log(result);
         this.comentario = result
         this.fechaComentario()
       })
@@ -127,6 +122,7 @@ export class ComentarioUsuarioComponent implements OnInit {
       return 'Sin evaluar';
     }
   }
+
   setPuntaje(puntaje: number) {
     this.comentario.puntajeComentario = puntaje;
   }
