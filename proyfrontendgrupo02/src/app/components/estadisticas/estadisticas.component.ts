@@ -140,7 +140,7 @@ export class EstadisticasComponent implements OnInit {
         tooltip: {
           y: {
             formatter: function (val) {
-              return val + " años";
+              return val + " ";
             }
           }
         }
