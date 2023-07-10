@@ -1,45 +1,85 @@
-/*
-Naranja:  #fa6816
-Amarillo: #f5e7aa
-Verde: #7fa38c
-Marron Clarito:  #494144
-Marron: #251a21
-*/
 .container-fluid {
-  background-color: #f5e7aa; /* Reemplaza con el color de fondo deseado */
-  padding-left: 5%; /* Ajusta el padding izquierdo según tus preferencias */
-  padding-right: 5%;
-  padding-bottom: 5%;
-  padding-top: 2%;
-  font-family: 'Lato', sans-serif;
-}
-.carousel-inner {
-  height: 100%;
-  width: auto; /* Ajusta la altura deseada */
+  padding: 0;
 }
 
-.container h1{
-  font-size: 6vw;
+.container {
+  padding: 40px;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card-button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out;
+}
+
+.card-button:hover {
+  transform: scale(1.05);
+}
+
+.card-img-top {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.card-body {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.card-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
 }
 
 .carousel-item img {
-  object-fit: cover;
-  height: 100%;
   width: 100%;
+  height: auto;
 }
 
 .carousel-control-prev,
 .carousel-control-next {
-  width: 5%;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 10px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+  background-color: rgba(0, 0, 0, 0.7);
 }
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(100%);
+  background-color: #fff;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  transition: background-color 0.3s ease-in-out;
 }
 
-@media (max-width: 576px) {
-  .carousel-inner {
-    height: 200px; /* Ajusta la altura deseada para dispositivos móviles */
-  }
+.carousel-control-prev:hover .carousel-control-prev-icon,
+.carousel-control-next:hover .carousel-control-next-icon {
+  background-color: #000;
 }

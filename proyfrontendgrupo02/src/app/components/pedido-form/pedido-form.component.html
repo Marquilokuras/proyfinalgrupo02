@@ -4,6 +4,9 @@
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
             <thead>
                 <button type="button" class="btn btn-primary" (click)="agregarPedido()">Agregar Pedido</button>
+                <div *ngIf="tipoLogged()  == ('administrador')">
+                    <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel</button>
+                  </div>
                 <tr>
                     <th scope="col">Nombre Bebida</th>
                     <th scope="col">Ingredientes Bebida</th>
@@ -37,8 +40,10 @@
                     </td>
                     <td>${{ pedido.totalPedido }}</td>
                     <td>
-                        <button type="button" class="btn btn-primary" (click)="modificarPedido(pedido._id)" style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-danger"  (click)="eliminarPedido(pedido._id)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                        <button type="button" class="btn btn-primary" (click)="modificarPedido(pedido._id)"
+                            style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
+                        <button type="button" class="btn btn-danger" (click)="eliminarPedido(pedido._id)"><i
+                                class="fa-sharp fa-solid fa-trash"></i></button>
                     </td>
                 </tr>
             </tbody>

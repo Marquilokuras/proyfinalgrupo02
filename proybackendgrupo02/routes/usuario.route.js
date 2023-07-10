@@ -6,11 +6,11 @@ const express = require('express');
 const router = express.Router();
 
 //ABM Usuario
-router.post('/', usuarioCtrl.createUsuario); //Dar de alta un Usuario
-router.get('/', usuarioCtrl.getUsuario); //Obtener todas los Usuario
-router.delete('/:id', usuarioCtrl.deleteUsuario); //Eliminar un Usuario
-router.put('/:id',usuarioCtrl.editUsuario); //Modificar un Usuario
-router.get('/recuperarContrasena', usuarioCtrl.recuperarContrasena);
+router.post('/',usuarioCtrl.createUsuario); //Dar de alta un Usuario
+router.get('/',autCtrl.verifyToken,usuarioCtrl.getUsuario); //Obtener todas los Usuario
+router.delete('/:id',autCtrl.verifyToken,usuarioCtrl.deleteUsuario); //Eliminar un Usuario
+router.put('/:id',autCtrl.verifyToken,usuarioCtrl.editUsuario); //Modificar un Usuario
+router.get('/recuperarContrasena',usuarioCtrl.recuperarContrasena);
 
 //Login
 router.post('/login', usuarioCtrl.loginUsuario); 

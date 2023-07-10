@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { LoginService } from 'src/app/service/login/login.service';
+import * as ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-usuario',
@@ -12,8 +13,8 @@ import { LoginService } from 'src/app/service/login/login.service';
 
 export class UsuarioComponent implements OnInit {
 
-  dtOptions : DataTables.Settings = {};
-  dtTrigger : Subject<any> = new Subject <any>();
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   listUsuario: Usuario[] = [];
 
@@ -22,16 +23,49 @@ export class UsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType : 'full_pages',
-      pageLength : 5,
+      pagingType: 'full_pages',
+      pageLength: 5,
     },
 
-    this.mostrarUsuario();
+      this.mostrarUsuario();
 
   }
 
-  ngOnDestroy():void{
+  generarExcel() {
+    const workbook = new ExcelJS.Workbook(); //se geneara una hoja nueva
+    const create = workbook.creator = ('Marcos Quinteros');
+    const worksheet = workbook.addWorksheet('Lista de Usuarios');
+    worksheet.addRow(['Nombre', 'Apellido', 'Email', 'DNI', 'Edad', 'Tipo de Usuario']);
+
+    for (const usuario of this.listUsuario) {
+      worksheet.addRow([
+        usuario.nombre,
+        usuario.apellido,
+        usuario.email,
+        usuario.dniUsuario,
+        usuario.edadUsuario,
+        usuario.tipoUsuario
+      ]);
+    }
+
+    workbook.xlsx.writeBuffer().then((data: ArrayBuffer) => {
+      const blob = new Blob([data]);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'listaUsuarios.xlsx';
+      a.click();
+    });
+
+  }
+
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+  }
+
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
   }
 
   agregarUsuario() {
@@ -43,7 +77,7 @@ export class UsuarioComponent implements OnInit {
       result => {
         this.listUsuario = result;
         this.dtTrigger.next(this.listUsuario);
-        },
+      },
     )
   }
 

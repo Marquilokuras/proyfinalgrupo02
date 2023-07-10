@@ -1,9 +1,10 @@
-import { Component , OnInit, OnDestroy} from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Bebida } from 'src/app/models/bebida';
 import { BebidaService } from 'src/app/service/bebida.service';
 import { LoginService } from 'src/app/service/login/login.service';
+import * as ExcelJS from 'exceljs';
 
 @Component({
   selector: 'app-bebida',
@@ -12,14 +13,14 @@ import { LoginService } from 'src/app/service/login/login.service';
 })
 export class BebidaComponent {
 
-  dtOptions : DataTables.Settings = {};
-  dtTrigger : Subject<any> = new Subject <any>();
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   listaBebida: Array<Bebida>
 
-  public constructor (private loginService:LoginService,
-                      private bebidaService:BebidaService, 
-                      private router:Router){
+  public constructor(private loginService: LoginService,
+    private bebidaService: BebidaService,
+    private router: Router) {
     this.listaBebida = new Array<Bebida>();
     if (this.loginService.userLoggedIn()) {
       //controlo si alguien esta logueado, ejecuto acciones normales
@@ -30,53 +31,87 @@ export class BebidaComponent {
     }
   }
 
-  ngOnInit(){
-     this.dtOptions = {
-      pagingType : 'full_pages',
-      pageLength : 5,
+  ngOnInit() {
+    this.dtOptions = {
+      pagingType: 'full_pages',
+      pageLength: 5,
     },
-    this.obtenerBebidas();
+      this.obtenerBebidas();
 
   }
 
-  ngOnDestroy():void{
+  generarExcel() {
+    const workbook = new ExcelJS.Workbook(); //se geneara una hoja nueva
+    const create = workbook.creator = ('Marcos Quinteros');
+    const worksheet = workbook.addWorksheet('Registro de Bebidas')
+
+    worksheet.addRow(['Nombre de Bebida', 'Ingredientes de Bebida', 'Tipo de Vaso', 'Disponibilidad', 'Precio de Bebida', 'Imagen de Bebida']);
+
+    for (const bebida of this.listaBebida) {
+      const disponibilidad = bebida.disponibilidadBebida ? 'Disponible' : 'No disponible';
+      worksheet.addRow([
+        bebida.nombreBebida,
+        bebida.ingredientesBebida,
+        bebida.tipoVasoBebida,
+        disponibilidad,
+        bebida.precioBebida,
+        bebida.imagenBebida
+      ]);
+    }
+
+    workbook.xlsx.writeBuffer().then((data: ArrayBuffer) => {
+      const blob = new Blob([data]);
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement('a')
+      a.href = url
+      a.download = 'registroBebidas.xlsx';
+      a.click();
+    });
+
+  }
+
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
+  }
+
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
- public obtenerBebidas() {
+  public obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
-      result=>{
+      result => {
         console.log(result)
         this.dtTrigger.next(this.listaBebida);
         let unaBebida = new Bebida();
-        result.forEach((element: any )=> {
-          Object.assign(unaBebida,element)
+        result.forEach((element: any) => {
+          Object.assign(unaBebida, element)
           this.listaBebida.push(unaBebida)
           unaBebida = new Bebida();
-
-           this.ngOnDestroy()
+          this.ngOnDestroy()
         });
       },
 
-      error=>{
+      error => {
         console.log(error)
       }
     )
   }
 
-  public nuevoBebida(){
-    this.router.navigate(["bebida-form",0])
+  public nuevoBebida() {
+    this.router.navigate(["bebida-form", 0])
   }
 
-  public actualizarBebida(bebida:Bebida){
+  public actualizarBebida(bebida: Bebida) {
     console.log(bebida._id)
-    this.router.navigate(["bebida-form",bebida._id])
+    this.router.navigate(["bebida-form", bebida._id])
   }
 
-  public eliminarBebida(bebida: Bebida){
+  public eliminarBebida(bebida: Bebida) {
     this.bebidaService.eliminarBebida(bebida).subscribe(
-      result=>{
-        if(result.status==1){
+      result => {
+        if (result.status == 1) {
           alert(result.msg)
           this.listaBebida = new Array<Bebida>();
           this.obtenerBebidas();
@@ -84,16 +119,16 @@ export class BebidaComponent {
         console.log(result)
       },
 
-      error=>{
+      error => {
         console.log(error)
         alert(error.msg)
       }
     )
   }
 
-  public cambiarEstadoBebida(bebida:Bebida){
+  public cambiarEstadoBebida(bebida: Bebida) {
     bebida.disponibilidadBebida = !bebida.disponibilidadBebida;
     this.bebidaService.actualizarBebida(bebida).subscribe()
-     this.obtenerBebidas()
+    this.obtenerBebidas()
   }
 }

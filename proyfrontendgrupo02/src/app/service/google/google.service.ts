@@ -7,10 +7,8 @@ const oAuthConfig: AuthConfig = {
   issuer: 'https://accounts.google.com',
   strictDiscoveryDocumentValidation: false,
   redirectUri: "https://proygrupo02.onrender.com/home",
-
-/*   redirectUri: "http://localhost:3000/home",
- */  clientId: '407408718192.apps.googleusercontent.com',
-
+  //redirectUri: "http://localhost:3000/home",
+  clientId: '407408718192.apps.googleusercontent.com',
   scope: 'openid profile email https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/calendar.events'
 }
 @Injectable({

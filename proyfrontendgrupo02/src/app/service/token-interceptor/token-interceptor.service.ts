@@ -6,7 +6,9 @@ import { LoginService } from '../login/login.service';
     providedIn: 'root'
 })
 export class TokenInterceptorService implements HttpInterceptor {
+
     constructor(private loginService: LoginService) { }
+    
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url.indexOf("localhost", 0) >= 0) {
             const tokenizeReq = req.clone({

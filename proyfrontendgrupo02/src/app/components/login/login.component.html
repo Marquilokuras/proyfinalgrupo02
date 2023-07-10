@@ -22,20 +22,13 @@
             </div>
 
             <div class="form-group">
-              <label for="password">Contraseña</label>
+              <label for="password">Password</label>
               <input type="password" class="form-control" name="password" [(ngModel)]="userform.password" required />
             </div>
 
             <div class="form-group">
               <button class="btn btn-primary btn-block" (click)="login()"
                 [disabled]="!loginForm.form.valid">Login</button>
-            </div>
-
-            <br>
-
-            <div>
-              <button type="button" (click)="loginGoogle()">01 login</button>
-              <button type="button" (click)="logout()">05 logout</button>
             </div>
 
             <div class="form-group text-center">
@@ -50,7 +43,6 @@
       </div>
     </div>
 
-
     <div class="col-md-6 card card-body" *ngIf="nuevoUsuario===true">
       <h2>Registrar</h2>
       <form name="registerForm" class="register-form" #registrarForm="ngForm">
@@ -58,24 +50,40 @@
           <label for="email">Email</label>
           <div class="input-group">
             <div class="input-group-text">@</div>
-            <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
-              [(ngModel)]="emailUsuario" required />
-
+            <input type="email" class="form-control" name="emailRegiter" placeholder="Ingrese Email"
+              [(ngModel)]="emailUsuario" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}"
+              #emailLog="ngModel" />
+            <div *ngIf="emailLog.invalid && (emailLog.dirty || emailLog.touched)" class="alert alert-danger">
+              <div *ngIf="emailLog.errors?.['required']">
+                El Email es requerido
+              </div>
+              <div *ngIf="emailLog.errors?.['pattern']">
+                El Email ingresado debe seguir el formato: ___@___.com
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="registerNombre">Passaword</label>
-          <input type="password" class="form-control" name="registerNombre" placeholder="Ingrese Password"
-            [(ngModel)]="passwordUsuario" required />
 
+        <div class="form-group">
+          <label for="registerPassword">Password</label>
+          <input type="password" class="form-control" name="registerPassword" placeholder="Ingrese Password"
+            [(ngModel)]="passwordUsuario" required />
         </div>
 
         <div class="form-group">
           <label for="registerNombre">Nombre</label>
           <input type="text" class="form-control" name="registerNombre" placeholder="Ingrese Nombre Completo"
-            [(ngModel)]="nombreUsuario" required />
-
+            #nombreUs="ngModel" [(ngModel)]="nombreUsuario" required pattern="[a-zA-Z ]*" />
+          <div *ngIf="nombreUs.invalid && (nombreUs.dirty || nombreUs.touched)" class="alert alert-danger">
+            <div *ngIf="nombreUs.errors?.['required']">
+              El nombre es requerido
+            </div>
+            <div *ngIf="nombreUs.errors?.['pattern']">
+              El nombre ingresado debe contener solo letras
+            </div>
+          </div>
         </div>
+
 
         <div class="form-group">
           <label for="registerApellido">Apellido</label>
@@ -104,7 +112,6 @@
             </div>
           </div>
         </div>
-
 
         <div class="form-group">
           <label for="registerEdad">Edad</label>
@@ -137,7 +144,6 @@
             <div class="input-group-text">@</div>
             <input type="email" class="form-control" name="registerNombre" placeholder="Ingrese Email"
               [(ngModel)]="emailRecuperado" required />
-
           </div>
         </div>
 

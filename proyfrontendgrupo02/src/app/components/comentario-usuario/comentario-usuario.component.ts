@@ -11,29 +11,32 @@ import { LoginService } from 'src/app/service/login/login.service';
 })
 export class ComentarioUsuarioComponent implements OnInit {
 
-  dtOptions : DataTables.Settings = {};
-  dtTrigger : Subject<any> = new Subject <any>();
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
 
   listaComentarios: Array<Comentario>;
-  comentario!:Comentario;
-  usuario!:any;
+  copiaListaComentario: Array<Comentario>;
+  comentario!: Comentario;
+  usuario!: any;
+  filtroP!:number
 
-  constructor(private comentarioService:ComentarioService,public usuarioService: LoginService) {
+  constructor(private comentarioService: ComentarioService, public usuarioService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
+    this.copiaListaComentario= new Array<Comentario>();
   }
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType : 'full_pages',
-      pageLength : 5,
+      pagingType: 'full_pages',
+      pageLength: 5,
     },
     this.obtenerComentarios()
     this.fechaComentario()
     this.usuarioRegistrado()
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
@@ -42,72 +45,78 @@ export class ComentarioUsuarioComponent implements OnInit {
     return tipoUsuario;
   }
 
-
   public obtenerComentarios() {
     this.comentarioService.obtenerComentarios().subscribe(
       result => {
         console.log(result);
-          this.listaComentarios=result;
-          this.dtTrigger.next(this.listaComentarios);
+        this.listaComentarios = result;
+        this.dtTrigger.next(this.listaComentarios);
       })
   }
-
-  guardarComentario(){
-    this.comentarioService.altaComentario(this.comentario).subscribe(
+  filtroPuntaje(){
+    this.listaComentarios = new Array<Comentario>();
+    this.comentarioService.filtroPuntuacion(this.filtroP).subscribe(
       result=>{
-        if(result.status == 1){
+         this.listaComentarios=result;
+         console.log(result);
+
+     },
+    )
+  }
+
+
+  guardarComentario() {
+    this.comentarioService.altaComentario(this.comentario).subscribe(
+      result => {
+        if (result.status == 1) {
           location.reload();
         }
       },
-      error=>{ alert(error.msg); }
+      error => { alert(error.msg); }
     )
   }
 
-  modificarComentario(){
+  modificarComentario() {
 
     console.log(this.comentario);
-     this.comentarioService.modificarComentario(this.comentario).subscribe(
-      result=>{
-        if(result.status == 1){
-          this.obtenerComentarios();
-          this.comentario = new Comentario();
-          this.usuarioRegistrado();
-          this.fechaComentario();
+    this.comentarioService.modificarComentario(this.comentario).subscribe(
+      result => {
+        if (result.status == 1) {
+          location.reload();
         }
       },
-      error=>{ alert(error.msg); }
+      error => { alert(error.msg); }
     )
   }
 
 
-  cancelarComentario(){
+  cancelarComentario() {
     this.comentario = new Comentario()
     this.usuarioRegistrado();
     this.fechaComentario();
   }
 
-   eliminarComentario(comentario: Comentario) {
+  eliminarComentario(comentario: Comentario) {
     this.comentarioService.eliminarComentario(comentario._id).subscribe(
       result => {
         if (result.status == 1) {
           location.reload();
         }
       },
-      error => {  alert(error.msg) }
+      error => { alert(error.msg) }
     )
   }
 
-  obtenerComentario(id:string){
+  obtenerComentario(id: string) {
     this.comentarioService.obtenerComentario(id).subscribe(
-      result=>{
+      result => {
         console.log(result);
-        this.comentario=result
+        this.comentario = result
         this.fechaComentario()
       })
   }
 
-
-  evaluarPuntaje(puntaje:number) {
+  evaluarPuntaje(puntaje: number) {
     if (puntaje <= 2) {
       return 'Bajo';
     } else if (puntaje == 3) {
@@ -122,14 +131,14 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentario.puntajeComentario = puntaje;
   }
 
-  fechaComentario(){
+  fechaComentario() {
     const fecha = new Date();
     this.comentario.fechaComentario = fecha.toLocaleString();
   }
 
-  usuarioRegistrado(){
+  usuarioRegistrado() {
     this.usuario = sessionStorage.getItem("user");
-    this.comentario.usuario=this.usuario
+    this.comentario.usuario = this.usuario
   }
 
 }
