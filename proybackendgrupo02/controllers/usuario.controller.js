@@ -8,11 +8,6 @@ usuarioCtrl.getUsuario = async (req, res) => { //se define una funcion asincrona
     res.json(usuarios);
 }
 
-/* usuarioCtrl.getUsuario = async (req, res) => { //se define una funcion asincrona
-    const usuarios = await Usuario.find({ tipoUsuario: { $in: ['cliente', 'gestor'] } });
-    res.json(usuarios);
-} */
-
 usuarioCtrl.createUsuario = async (req, res) => {
     var usuario = new Usuario(req.body);
     try {
