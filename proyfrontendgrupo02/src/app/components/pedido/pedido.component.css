@@ -27,6 +27,12 @@ Marron: #251a21
   -webkit-text-stroke: 0.5px #251a21;
   font-size: 18px;
 }
+
+.texto2{
+  color: #f5e7aa;
+  font-size: 18px;
+}
+
 .btn-primary {
   background-color: #7fa38c;
   border-color: #7fa38c;
@@ -36,6 +42,17 @@ Marron: #251a21
 .btn-primary:hover {
   background-color: #749981; /* Cambia el color de fondo en hover */
   border-color: #749981; /* Cambia el color del borde en hover */
+}
+
+.btn-info {
+  background-color: #f5e7aa;
+  border-color: #f5e7aa;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-info:hover {
+  background-color: #f5e7aa; /* Cambia el color de fondo en hover */
+  border-color: #f5e7aa; /* Cambia el color del borde en hover */
 }
 
 .btn-danger {
