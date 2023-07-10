@@ -7,6 +7,7 @@ import { LoginService } from 'src/app/service/login/login.service';
   templateUrl: './usuario-form.component.html',
   styleUrls: ['./usuario-form.component.css']
 })
+
 export class UsuarioFormComponent implements OnInit {
 
   nuevoUsuario: boolean = false;
@@ -18,55 +19,47 @@ export class UsuarioFormComponent implements OnInit {
   dniUsuario !: string;
   edadUsuario !: number;
   tipoUsuarioCliente !: string;
-  idUsuario!:string;
+  idUsuario!: string;
 
   usuario = new Array();
-  usuarioNuevo : boolean = false;
+  usuarioNuevo: boolean = false;
   cambios: string = 'new';
 
-  constructor(public usuarioService: LoginService,private activatedRoute: ActivatedRoute, private router: Router){}
+  constructor(public usuarioService: LoginService, private activatedRoute: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if (params['id'].trim() === ":id") {
-        console.log(params['id']);
-
         this.cambios = "new";
       } else {
-
         this.cambios = "modificar";
-        this.idUsuario= params['id'];
-        console.log(this.idUsuario)
+        this.idUsuario = params['id'];
         this.obtenerUsuarios(this.idUsuario);
       }
     });
   }
 
-  obtenerUsuarios(idUser:string) {
+  obtenerUsuarios(idUser: string) {
     this.usuarioService.mostrarUsuario().subscribe(
       result => {
-        this.usuario= result;
+        this.usuario = result;
         this.usuario.some(id => id === idUser);
         const array = this.usuario.find(item => item._id === idUser);
-        console.log(array)
         this.apellidoUsuario = array.apellido;
-        this.nombreUsuario  = array.nombre;
+        this.nombreUsuario = array.nombre;
         this.emailUsuario = array.email;
         this.passwordUsuario = array.password;
         this.dniUsuario = array.dniUsuario;
         this.edadUsuario = array.edadUsuario;
         this.tipoUsuarioCliente = array.tipoUsuario;
       },
-      error => {
-        console.log(error);
-      }
+      error => { }
     )
   }
 
   altaUsuario() {
     this.usuarioService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
       (result) => {
-
       }
     );
   }
@@ -75,16 +68,11 @@ export class UsuarioFormComponent implements OnInit {
     location.reload();
   }
 
-  modificarUsuario(){
-    this.usuarioService.modificarUsuario(this.idUsuario,this.apellidoUsuario,this.nombreUsuario,this.emailUsuario,this.passwordUsuario,this.dniUsuario,this.edadUsuario,this.tipoUsuarioCliente).subscribe(
-      result => {
-        console.log(result);
-      },
-      error => {
-        console.log(error);
-      }
+  modificarUsuario() {
+    this.usuarioService.modificarUsuario(this.idUsuario, this.apellidoUsuario, this.nombreUsuario, this.emailUsuario, this.passwordUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
+      result => { },
+      error => { }
     )
   }
-
 
 }

@@ -3,10 +3,14 @@
     <div class="table-responsive">
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
             <thead>
-                <button type="button" class="btn btn-primary" (click)="agregarPedido()">Agregar Pedido</button>
-                <div *ngIf="tipoLogged()  == ('administrador')">
-                    <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel</button>
-                  </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" (click)="agregarPedido()" *ngIf="tipoLogged() == 'gestor'">Agregar Pedido</button>
+                    <div *ngIf="tipoLogged() == 'administrador'">
+                        <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
+                            Excel</button>
+                    </div>
+                </div>
+
                 <tr>
                     <th scope="col">Nombre Bebida</th>
                     <th scope="col">Ingredientes Bebida</th>

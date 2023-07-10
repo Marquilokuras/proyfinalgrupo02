@@ -23,7 +23,7 @@
                   </div>
                 </div>
               </div>
-              
+
               <button class="btn btn-primary mx-5 mt-2 mb-2"
                 (click)="crearPedido(bebida._id,bebida.precioBebida,bebida.cantidad,bebida.nombreBebida)">Agregar al
                 Pedido</button>
@@ -36,13 +36,32 @@
         <h1 class="menu mt-4">Pedido</h1>
         <button type="button" class="btn btn-primary" *ngIf=" cambios == 'new' && pedidoSolicitado===true" routerLink="/pedido"
           (click)="generarPedido()">Generar Pedido</button>
-        <button type="button" class="btn btn-primary" *ngIf=" cambios == 'modificar'" routerLink="/pedido"
+        <button type="button" class="btn btn-primary mx-2" *ngIf=" cambios == 'modificar'" routerLink="/pedido"
           (click)="generarPedido()">Modificar Pedido</button>
+          <button class="btn btn-danger mx-2" *ngIf="pedidoSolicitado===true" (click)="cancelarPedido()">Cancelar Pedido</button>
+          <button class="btn btn-info"  *ngIf=" cambios == 'new' && pedidoSolicitado===true" routerLink="/pedido" (click)="habilitarConversion()">Habilitar Conversión</button>
+        <div *ngIf="cambios == 'new' && pedidoSolicitado === true && conversionHabilitada === true" routerLink="/pedido">
 
-        <button class="btn btn-danger" *ngIf="pedidoSolicitado===true" (click)="cancelarPedido()">Cancelar
-          Pedido</button>
-        <h3 class="menu mt-3">Precio Total: {{total}}</h3>
+          <div >
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="destino" class="texto2 mt-2" >¡Pague con su Moneda!</label>
+                <select class="form-control" id="destino" (change)="seleccionarMoneda($event, 'destino')">
+                  <option value="">Seleccione un código de moneda de destino</option>
+                  <option *ngFor="let moneda of monedas" [value]="moneda.key" [selected]="moneda.key === codigoMonedaDestino">{{ moneda.value }}</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <button class="btn btn-primary mt-2" (click)="convertirMonedas()">Convertir</button>
+              <h3 class="menu mt-3">Precio Convertido: {{totalConversion}} {{codigoMonedaDestino}}</h3>
+            </div>
+          </div>
+        </div>
 
+        <h3 class="menu mt-3">Precio Total: {{total}} {{codigoMonedaOrigen}}</h3>
         <div *ngFor="let pedido of arrayPedido">
           <div class="card texto m-2">
             <div class="card-body">

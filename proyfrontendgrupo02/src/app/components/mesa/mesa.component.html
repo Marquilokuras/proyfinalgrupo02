@@ -1,6 +1,6 @@
      <div class="container">
     <h2>Gestion de Mesas </h2>
-    <button type="button" class="btn btn-primary" (click)="nuevaMesa()">Agregar Mesa</button>
+    <button type="button" class="btn btn-primary" (click)="nuevaMesa()" *ngIf="tipoLogged() == 'gestor'">Agregar Mesa</button>
     <div class="table-responsive" style="max-width: 1000px;">
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
         <thead>
@@ -20,11 +20,11 @@
             <td *ngIf="mesa.disponibilidadReserva === true">Disponible</td>
             <td *ngIf="mesa.disponibilidadReserva === false">No disponible</td>
             <td>   
-        <button type="button" class="btn btn-secondary me-2" (click)="modificarMesa(mesa)" >
+        <button type="button" class="btn btn-secondary me-2" (click)="modificarMesa(mesa)"  *ngIf="tipoLogged() == 'gestor'">
           <i class="fa-solid fa-pencil"></i>
         </button>
         
-         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)" >
+         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)"  *ngIf="tipoLogged() == 'gestor'">
 
          <i class="fa-sharp fa-solid fa-trash"></i>
          </button>

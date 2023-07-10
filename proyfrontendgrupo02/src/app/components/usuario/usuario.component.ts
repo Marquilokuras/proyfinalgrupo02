@@ -28,11 +28,10 @@ export class UsuarioComponent implements OnInit {
     },
 
       this.mostrarUsuario();
-
   }
 
   generarExcel() {
-    const workbook = new ExcelJS.Workbook(); //se geneara una hoja nueva
+    const workbook = new ExcelJS.Workbook();
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Lista de Usuarios');
     worksheet.addRow(['Nombre', 'Apellido', 'Email', 'DNI', 'Edad', 'Tipo de Usuario']);
@@ -56,7 +55,6 @@ export class UsuarioComponent implements OnInit {
       a.download = 'listaUsuarios.xlsx';
       a.click();
     });
-
   }
 
   ngOnDestroy(): void {
@@ -86,8 +84,7 @@ export class UsuarioComponent implements OnInit {
       result => {
         location.reload();
       },
-      error => {
-      }
+      error => { }
     )
   }
 

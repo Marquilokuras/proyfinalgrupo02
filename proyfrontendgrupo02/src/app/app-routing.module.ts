@@ -17,13 +17,14 @@ import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent },
   {path: 'usuario', component: UsuarioComponent },
-  {path: 'usuario-form/:id', component: UsuarioFormComponent },
-  {path: 'usuario-form', component: UsuarioFormComponent },
-  {path: 'login', component: LoginComponent },
+  {path: 'usuario-form/:id', component: UsuarioFormComponent},
+  {path: 'usuario-form', component: UsuarioFormComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'bebida',component:BebidaComponent},
   {path: 'bebida-form/:id', component:BebidaFormComponent},
   {path: 'mesa-form/:id', component:MesaFormComponent},

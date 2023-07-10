@@ -20,7 +20,6 @@ export class BebidaService {
       }),
       params: new HttpParams()
     }
-
     return this._http.get(this.urlBase, httpOptions);
   }
 
@@ -31,7 +30,6 @@ export class BebidaService {
       }),
       params: new HttpParams()
     }
-
     return this._http.get(this.urlBase + "disponibles", httpOptions);
   }
 
@@ -42,7 +40,6 @@ export class BebidaService {
       }),
       params: new HttpParams()
     }
-
     return this._http.get(this.urlBase + id, httpOptions);
   }
 
@@ -54,9 +51,7 @@ export class BebidaService {
       }),
       params: new HttpParams()
     }
-
     let body = JSON.stringify(bebida);
-
     return this._http.post(this.urlBase, body, httpOptions);
   }
 
@@ -69,9 +64,7 @@ export class BebidaService {
       }),
       params: new HttpParams()
     }
-
     let body = JSON.stringify(bebida);
-
     return this._http.put(this.urlBase + bebida._id, body, httpOptions);
   }
 
@@ -82,7 +75,6 @@ export class BebidaService {
       }),
       params: new HttpParams()
     }
-
     return this._http.delete(this.urlBase + bebida._id, httpOptions);
   }
 }

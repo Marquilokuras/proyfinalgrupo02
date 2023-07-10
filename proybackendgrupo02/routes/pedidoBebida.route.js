@@ -1,6 +1,5 @@
 const pedidoBebidaCtrl = require('./../controllers/pedidoBebida.controller');
 const autCtrl = require('./../controllers/auth.controller');
-
 const express = require('express');
 const router = express.Router();
 

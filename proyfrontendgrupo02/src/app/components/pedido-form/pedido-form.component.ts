@@ -10,29 +10,30 @@ import * as ExcelJS from 'exceljs';
   templateUrl: './pedido-form.component.html',
   styleUrls: ['./pedido-form.component.css']
 })
+
 export class PedidoFormComponent implements OnInit {
 
-  dtOptions : DataTables.Settings = {};
-  dtTrigger : Subject<any> = new Subject <any>();
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
   pedidos = new Array();
   bebidaPedido = new Array()
 
-  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router:Router) { }
+  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType : 'full_pages',
-      pageLength : 5,
+      pagingType: 'full_pages',
+      pageLength: 5,
     },
-    this.mostrarPedidos();
+      this.mostrarPedidos();
   }
 
-  generarExcel(){
-    const workbook = new ExcelJS.Workbook(); //se geneara una hoja nueva
+  generarExcel() {
+    const workbook = new ExcelJS.Workbook();
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Registro de Pedidos')
 
-    worksheet.addRow(['Nombre Bebida','Ingredientes Bebida','Precio por Bebida','Cantidad de Bebidas','Total Precio Pedido'])
+    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas', 'Total Precio Pedido'])
 
     for (const pedido of this.pedidos) {
       for (const bebida of pedido.bebidasPedido) {
@@ -46,18 +47,17 @@ export class PedidoFormComponent implements OnInit {
       }
     }
 
-    workbook.xlsx.writeBuffer().then((data: ArrayBuffer) =>{
-      const blob  = new Blob([data]);
+    workbook.xlsx.writeBuffer().then((data: ArrayBuffer) => {
+      const blob = new Blob([data]);
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a')
       a.href = url
       a.download = 'registroPedidos.xlsx';
       a.click();
     });
-
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
@@ -73,8 +73,7 @@ export class PedidoFormComponent implements OnInit {
         this.bebidaPedido = result.bebidasPedido
         this.dtTrigger.next(this.pedidos);
       },
-      error => {
-      }
+      error => { }
     )
   }
 
@@ -85,8 +84,7 @@ export class PedidoFormComponent implements OnInit {
         this.bebidaPedido = result.bebidasPedido
         location.reload();
       },
-      error => {
-      }
+      error => { }
     )
   }
 
@@ -94,7 +92,7 @@ export class PedidoFormComponent implements OnInit {
     this.router.navigate(["pedido"])
   }
 
-  modificarPedido(idPedido: string){
+  modificarPedido(idPedido: string) {
     this.router.navigate(['pedido', idPedido],);
   }
 

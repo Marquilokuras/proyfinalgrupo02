@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgApexchartsModule } from "ng-apexcharts";
+import { AuthGuard } from './auth/auth.guard';
+import { AuthService } from './service/auth/auth.service';
 
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
@@ -55,15 +57,14 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
     PromocionFormComponent,
     ReservaComponent,
     EstadisticasComponent,
-
   ],
 
   imports: [
     CommonModule,
-    FormsModule, // Asegúrate de que FormsModule esté antes que cualquier otro módulo que pueda depender de él
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
-    OAuthModule.forRoot(), //google
+    FormsModule, 
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    OAuthModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     DataTablesModule,
@@ -75,7 +76,8 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
       multi: true
-    }
+    },
+    AuthService, AuthGuard
   ],
   bootstrap: [AppComponent]
 })
