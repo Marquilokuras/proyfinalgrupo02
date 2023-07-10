@@ -1,4 +1,3 @@
-
 <h3>Estadistica de Usuarios</h3>
 
 <div id="chart">
@@ -7,20 +6,21 @@
     [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [xaxis]="chartOptions.xaxis">
   </apx-chart>
 
-<div *ngIf="chartOptions">
+  <!-- <div *ngIf="chartOptions">
   <apx-chart
     [series]="chartOptions.series"
     [chart]="chartOptions.chart"
     [labels]="chartOptions.labels"
     [responsive]="chartOptions.responsive"
   ></apx-chart>
-
+-->
 </div>
 
 <h3 class="text-align">Total Recaudado</h3>
 
 <div id="chart">
-  <apx-chart [series]="chartOptionsPedido.series" [chart]="chartOptionsPedido.chart" [dataLabels]="chartOptionsPedido.dataLabels"
-    [plotOptions]="chartOptionsPedido.plotOptions" [yaxis]="chartOptionsPedido.yaxis" [fill]="chartOptionsPedido.fill"
-    [stroke]="chartOptionsPedido.stroke" [tooltip]="chartOptionsPedido.tooltip" [xaxis]="chartOptionsPedido.xaxis"></apx-chart>
+  <apx-chart [series]="chartOptionsPedido.series" [chart]="chartOptionsPedido.chart"
+    [dataLabels]="chartOptionsPedido.dataLabels" [plotOptions]="chartOptionsPedido.plotOptions"
+    [yaxis]="chartOptionsPedido.yaxis" [fill]="chartOptionsPedido.fill" [stroke]="chartOptionsPedido.stroke"
+    [tooltip]="chartOptionsPedido.tooltip" [xaxis]="chartOptionsPedido.xaxis"></apx-chart>
 </div>
