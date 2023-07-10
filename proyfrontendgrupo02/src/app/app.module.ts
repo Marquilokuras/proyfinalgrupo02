@@ -58,7 +58,6 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
     PromocionFormComponent,
     ReservaComponent,
     EstadisticasComponent,
-
   ],
 
   imports: [
