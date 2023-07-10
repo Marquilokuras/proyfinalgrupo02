@@ -10,7 +10,7 @@ export class LoginService {
   hostBase: string;
 
   constructor(private _http: HttpClient) {
-    // this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
+    //this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
     this.hostBase = "http://localhost:3000/api/usuario/";
   }
 
@@ -102,27 +102,28 @@ export class LoginService {
   public mostrarUsuario(): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
-
     return this._http.get(this.hostBase, httpOption);
   }
 
   public eliminarUsuario(_id: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
-
     return this._http.delete(this.hostBase + _id, httpOption);
   }
 
   public modificarUsuario(_id: string, emailUsuario: string, passwordUsuario: string, nombreUsuario: string, apellidoUsuario: string, dniUsuario: string, edadUsuario: number, tipoUsuarioCliente: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
     const data = {
@@ -135,24 +136,21 @@ export class LoginService {
       'tipoUsuario': tipoUsuarioCliente
     };
 
-
     var url = this.hostBase + _id
-
     return this._http.put(url, data, httpOption);
   }
 
   public recuperarContrasena(email: string, dniUsuario: string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
-    const url = this.hostBase+`recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
+    const url = this.hostBase + `recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
     console.log(url)
     return this._http.get(url, httpOption);
   }
 
 }
-
-

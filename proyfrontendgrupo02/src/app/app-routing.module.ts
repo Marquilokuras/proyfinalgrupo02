@@ -36,7 +36,7 @@ const routes: Routes = [
   {path: 'reserva', component:ReservaComponent},
   {path: 'pedido/:id', component:PedidoComponent},
   {path: 'pedido-form', component:PedidoFormComponent},
-  {path: 'promocion',component:PromocionComponent},
+  {path: 'promocion',component:PromocionComponent},   
   {path: 'promocion-form/:id',component:PromocionFormComponent},
   {path: 'estadisticas',component:EstadisticasComponent},
   {path: '**', pathMatch:'full',redirectTo:'home' },

@@ -64,6 +64,7 @@ export class ComentarioUsuarioComponent implements OnInit {
     )
   }
 
+
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result => {

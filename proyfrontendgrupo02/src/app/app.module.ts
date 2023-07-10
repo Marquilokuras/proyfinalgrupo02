@@ -10,8 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { NgApexchartsModule } from "ng-apexcharts";
 
-
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HomeComponent } from './components/home/home.component';
@@ -61,23 +60,23 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
 
   imports: [
     CommonModule,
+    FormsModule, // Asegúrate de que FormsModule esté antes que cualquier otro módulo que pueda depender de él
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot(), // ToastrModule added
     OAuthModule.forRoot(), //google
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     DataTablesModule,
     HttpClientModule,
     NgApexchartsModule
   ],
   providers: [LoginService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: TokenInterceptorService,
-    multi: true
-   }
-   ],
+      provide: HTTP_INTERCEPTORS,
+      useClass: TokenInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

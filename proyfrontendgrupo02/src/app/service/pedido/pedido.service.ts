@@ -8,17 +8,17 @@ import { Observable } from 'rxjs';
 export class PedidoService {
 
   hostBase: string;
-  
+
   constructor(private _http: HttpClient) {
     //this.hostBase = "https://proygrupo02.onrender.com/api/pedido/";
     this.hostBase = "http://localhost:3000/api/pedido/";
   }
 
   public generarPedido(bebidasPedido:Array<any>,email : string | null): Observable<any> {
-
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
@@ -34,10 +34,10 @@ export class PedidoService {
 
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
-
     return this._http.get(this.hostBase+'pedidos', httpOption);
   }
 
@@ -45,31 +45,29 @@ export class PedidoService {
 
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
     const url = this.hostBase+id
-
     return this._http.delete(url, httpOption);
   }
 
   public modificarPedido(_id:string,arrayModificado:Array<any>): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
      const data = {
       'bebidasPedido' : arrayModificado
     };
- 
 
     var url = this.hostBase+ _id
-
     return this._http.put(url, data, httpOption);
   }
 
 }
-
