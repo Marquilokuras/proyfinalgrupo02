@@ -17,42 +17,40 @@ export class PromocionService {
   public obtenerPromociones():Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }
-
     return this._http.get(this.urlBase,httpOptions);
   }
 
   public obtenerPromocion(id:string):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }
-
     return this._http.get(this.urlBase+id,httpOptions);
-
   }
 
   public guardarPromocion (promo:Promocion):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        "Content-type":"application/json"
+        "Content-type":"application/json",
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }
     let body = JSON.stringify(promo)
-
     return this._http.post(this.urlBase,body,httpOptions)
   }
 
   public actualizarPromocion(promo:Promocion):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        "Content-type":"application/json"
+        "Content-type":"application/json",
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }
@@ -63,18 +61,17 @@ export class PromocionService {
   public eliminarPromocion(promo:Promocion):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }
-
     return this._http.delete(this.urlBase+promo._id,httpOptions);
   }
 
   public agregarBebida(promo:Promocion,bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }
@@ -84,7 +81,7 @@ export class PromocionService {
   public eliminarBebida(promo:Promocion,bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       }),
       params : new HttpParams()
     }

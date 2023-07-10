@@ -15,10 +15,10 @@ export class PedidoService {
   }
 
   public generarPedido(bebidasPedido:Array<any>,email : string | null): Observable<any> {
-
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
@@ -34,10 +34,10 @@ export class PedidoService {
 
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
-
     return this._http.get(this.hostBase+'pedidos', httpOption);
   }
 
@@ -45,19 +45,20 @@ export class PedidoService {
 
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
     const url = this.hostBase+id
-
     return this._http.delete(url, httpOption);
   }
 
   public modificarPedido(_id:string,arrayModificado:Array<any>): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
       })
     }
 
@@ -65,11 +66,8 @@ export class PedidoService {
       'bebidasPedido' : arrayModificado
     };
 
-
     var url = this.hostBase+ _id
-
     return this._http.put(url, data, httpOption);
   }
 
 }
-
