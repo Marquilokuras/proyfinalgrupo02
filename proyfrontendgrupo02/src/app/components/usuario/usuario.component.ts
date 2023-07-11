@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { LoginService } from 'src/app/service/login/login.service';
 import * as ExcelJS from 'exceljs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuario',
@@ -18,7 +19,7 @@ export class UsuarioComponent implements OnInit {
 
   listUsuario: Usuario[] = [];
 
-  constructor(public loginService: LoginService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(public loginService: LoginService, private activatedRoute: ActivatedRoute, private router: Router,private toastrService:ToastrService) {
   }
 
   ngOnInit(): void {
@@ -28,11 +29,10 @@ export class UsuarioComponent implements OnInit {
     },
 
       this.mostrarUsuario();
-
   }
 
   generarExcel() {
-    const workbook = new ExcelJS.Workbook(); //se geneara una hoja nueva
+    const workbook = new ExcelJS.Workbook();
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Lista de Usuarios');
     worksheet.addRow(['Nombre', 'Apellido', 'Email', 'DNI', 'Edad', 'Tipo de Usuario']);
@@ -56,7 +56,6 @@ export class UsuarioComponent implements OnInit {
       a.download = 'listaUsuarios.xlsx';
       a.click();
     });
-
   }
 
   ngOnDestroy(): void {
@@ -84,10 +83,12 @@ export class UsuarioComponent implements OnInit {
   eliminarUsuario(id: string) {
     this.loginService.eliminarUsuario(id).subscribe(
       result => {
-        location.reload();
+        this.toastrService.error("Eliminando Usuario...");
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       },
-      error => {
-      }
+      error => { }
     )
   }
 

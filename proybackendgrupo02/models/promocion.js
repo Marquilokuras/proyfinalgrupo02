@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const Bebida = require('./bebida');
+
 const PromocionSchema = new Schema({
     nombrePromocion: { type: String, required: true },
     totalPrecioPromocion: { type: Number, required: true },

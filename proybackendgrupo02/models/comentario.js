@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Usuario = require('./usuario');
 const { Schema } = mongoose;
+
 const ComentarioSchema = new Schema ({
     usuario:{type:String, requiere:true},
     descripcionComentario: {type:String, requiere:true},

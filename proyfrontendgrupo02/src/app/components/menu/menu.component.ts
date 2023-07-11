@@ -12,9 +12,8 @@ import { LoginService } from 'src/app/service/login/login.service';
 export class MenuComponent implements OnInit {
   router: any;
   carta = new Array();
-  
+
   constructor(public loginService: LoginService, public bebidaService: BebidaService) {
-    
   }
 
   ngOnInit(): void {
@@ -24,21 +23,17 @@ export class MenuComponent implements OnInit {
   obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result => {
-
-        console.log(result)
         let unaBebida = new Bebida();
-        result.forEach((element: any )=> {
-          Object.assign(unaBebida,element)
-          if(unaBebida.disponibilidadBebida==true){
+        result.forEach((element: any) => {
+          Object.assign(unaBebida, element)
+          if (unaBebida.disponibilidadBebida == true) {
             this.carta.push(unaBebida)
           }
           unaBebida = new Bebida();
         });
       },
-
-      error => {
-        console.log(error)
-      }
+      error => { }
     )
   }
+
 }

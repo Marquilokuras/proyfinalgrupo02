@@ -3,6 +3,14 @@
   padding: 20px;
   font-family: 'Lato', sans-serif;
 }
+.row{
+  margin: 10px 70px;
+}
+
+h2{
+  text-align: center;
+  text-transform: uppercase;
+}
 
 .menu {
   color: #251a21;
@@ -11,6 +19,16 @@
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
   animation-name: bounceIn;
   animation-duration: 1s;
+}
+.btn-danger {
+  background-color: #fa6816;
+  border-color: #fa6816;
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.btn-danger:hover {
+  background-color: #fa6816;
+  border-color: #fa6816;
 }
 
 .btn-primary {

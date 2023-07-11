@@ -11,51 +11,42 @@ import { resourceLimits } from 'worker_threads';
   templateUrl: './promocion.component.html',
   styleUrls: ['./promocion.component.css']
 })
+
 export class PromocionComponent implements OnInit {
 
-  listaPromocion : Array<Promocion>;
+  listaPromocion: Array<Promocion>;
 
   constructor(private promocionService: PromocionService,
               private router: Router,
               private toastrService:ToastrService,) { 
     this.listaPromocion = new Array<Promocion>();
-
   }
-
-
 
   ngOnInit(): void {
     this.obtenerPromociones();
-
-
   }
 
-  public obtenerPromociones(){
+  public obtenerPromociones() {
     this.promocionService.obtenerPromociones().subscribe(
-      result=>{
+      result => {
         let unaPromocion = new Promocion()
-        result.forEach((element:any )=>{
-          Object.assign(unaPromocion,element)
+        result.forEach((element: any) => {
+          Object.assign(unaPromocion, element)
           this.verificar(unaPromocion)
           this.listaPromocion.push(unaPromocion)
-          unaPromocion=new Promocion();
+          unaPromocion = new Promocion();
         });
       },
-
-      error=>{
-        console.log(error)
-      }
-
+      error => { }
     )
   }
+
   verificar(unaPromocion: Promocion) {
     let unaBebida = new Bebida();
-    unaPromocion.bebidas.forEach((element:any) => {
-      
-      Object.assign(unaBebida,element)
-      if(unaBebida.disponibilidadBebida==false){
-        
-        unaPromocion.disponibilidadPromocion=false;
+    unaPromocion.bebidas.forEach((element: any) => {
+      Object.assign(unaBebida, element)
+      if (unaBebida.disponibilidadBebida == false) {
+        unaPromocion.disponibilidadPromocion = false;
         this.promocionService.actualizarPromocion(unaPromocion).subscribe()
       }else{ 
         unaPromocion.fechaPromocion = new Date(unaPromocion.fechaPromocion);
@@ -63,33 +54,28 @@ export class PromocionComponent implements OnInit {
           unaPromocion.disponibilidadPromocion=false;
           this.promocionService.actualizarPromocion(unaPromocion).subscribe()
         }
-
       }
       unaBebida = new Bebida();
     });
   }
 
-  public nuevoPromocion(){
-    this.router.navigate(["promocion-form",0])
+  public nuevoPromocion() {
+    this.router.navigate(["promocion-form", 0])
   }
 
-  public actualizarPromocion(promocion:Promocion){
-    this.router.navigate(["promocion-form",promocion._id])
+  public actualizarPromocion(promocion: Promocion) {
+    this.router.navigate(["promocion-form", promocion._id])
   }
 
-  public eliminarPromocion(promocion:Promocion){
+  public eliminarPromocion(promocion: Promocion) {
     this.promocionService.eliminarPromocion(promocion).subscribe(
-      result=>{
-        if(result.status == 1){
-          alert(result.msg)
+      result => {
+        if (result.status == 1) {
           this.listaPromocion = new Array<Promocion>();
           this.obtenerPromociones();
         }
       },
-      error=>{
-        console.log(error)
-        alert(error.msg)
-      }
+      error => { }
     )
   }
 
@@ -103,4 +89,5 @@ export class PromocionComponent implements OnInit {
       this.obtenerPromociones;
     }
   }
+  
 }

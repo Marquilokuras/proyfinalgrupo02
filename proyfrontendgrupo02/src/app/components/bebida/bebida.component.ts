@@ -11,6 +11,7 @@ import * as ExcelJS from 'exceljs';
   templateUrl: './bebida.component.html',
   styleUrls: ['./bebida.component.css']
 })
+
 export class BebidaComponent {
 
   dtOptions: DataTables.Settings = {};
@@ -23,10 +24,7 @@ export class BebidaComponent {
     private router: Router) {
     this.listaBebida = new Array<Bebida>();
     if (this.loginService.userLoggedIn()) {
-      //controlo si alguien esta logueado, ejecuto acciones normales
-      //controlo si alguien esta logueado, ejecuto acciones normales
     } else {
-      alert("Debe validarse e ingresar su usuario y clave");
       this.router.navigate(['login']);
     }
   }
@@ -37,7 +35,6 @@ export class BebidaComponent {
       pageLength: 5,
     },
       this.obtenerBebidas();
-
   }
 
   generarExcel() {
@@ -67,7 +64,6 @@ export class BebidaComponent {
       a.download = 'registroBebidas.xlsx';
       a.click();
     });
-
   }
 
   public tipoLogged() {
@@ -82,7 +78,6 @@ export class BebidaComponent {
   public obtenerBebidas() {
     this.bebidaService.obtenerBebidas().subscribe(
       result => {
-        console.log(result)
         this.dtTrigger.next(this.listaBebida);
         let unaBebida = new Bebida();
         result.forEach((element: any) => {
@@ -92,10 +87,7 @@ export class BebidaComponent {
           this.ngOnDestroy()
         });
       },
-
-      error => {
-        console.log(error)
-      }
+      error => { }
     )
   }
 
@@ -104,7 +96,6 @@ export class BebidaComponent {
   }
 
   public actualizarBebida(bebida: Bebida) {
-    console.log(bebida._id)
     this.router.navigate(["bebida-form", bebida._id])
   }
 
@@ -112,17 +103,11 @@ export class BebidaComponent {
     this.bebidaService.eliminarBebida(bebida).subscribe(
       result => {
         if (result.status == 1) {
-          alert(result.msg)
           this.listaBebida = new Array<Bebida>();
           this.obtenerBebidas();
         }
-        console.log(result)
       },
-
-      error => {
-        console.log(error)
-        alert(error.msg)
-      }
+      error => { }
     )
   }
 
@@ -131,4 +116,5 @@ export class BebidaComponent {
     this.bebidaService.actualizarBebida(bebida).subscribe()
     this.obtenerBebidas()
   }
+
 }
