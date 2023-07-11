@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
+  url="https://proygrupo02.onrender.com/api/usuario/auth/autenticacion";
+  //url="http://localhost:3000/api/usuario/auth/autenticacion";
+
   isLoggedIn = false;
 
   constructor(private _http: HttpClient) { }
@@ -21,7 +24,7 @@ export class AuthService {
       }),
     };
     
-    return this._http.get('http://localhost:3000/api/usuario/auth/autenticacion', httpOption);
+    return this._http.get(this.url, httpOption);
   }
 
   isAuthenticated() {
