@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Comentario } from 'src/app/models/comentario/comentario';
 import { ComentarioService } from 'src/app/service/comentario/comentario.service';
@@ -20,7 +21,7 @@ export class ComentarioUsuarioComponent implements OnInit {
   usuario!: any;
   filtroP!: number
 
-  constructor(private comentarioService: ComentarioService, public usuarioService: LoginService) {
+  constructor(private comentarioService: ComentarioService, public usuarioService: LoginService,private toastrService: ToastrService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
   }
@@ -63,7 +64,10 @@ export class ComentarioUsuarioComponent implements OnInit {
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result => {
-          location.reload();
+          this.toastrService.success('¡Gracias por Comentar!✨😄🎉');
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
       },
       error => { }
     )
@@ -74,7 +78,10 @@ export class ComentarioUsuarioComponent implements OnInit {
     console.log(this.comentario);
     this.comentarioService.modificarComentario(this.comentario).subscribe(
       result => {
+        this.toastrService.info('Modificado Correctamente');
+        setTimeout(() => {
           location.reload();
+        }, 1000);
       },
       error => { }
     )
@@ -89,7 +96,10 @@ export class ComentarioUsuarioComponent implements OnInit {
   eliminarComentario(comentario: Comentario) {
     this.comentarioService.eliminarComentario(comentario._id).subscribe(
       result => {
+        this.toastrService.error("Eliminando Comentario...");
+        setTimeout(() => {
           location.reload();
+        }, 1000);
       },
       error => { }
     )
