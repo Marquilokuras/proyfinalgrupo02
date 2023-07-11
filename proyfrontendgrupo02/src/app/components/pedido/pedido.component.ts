@@ -38,7 +38,7 @@ export class PedidoComponent implements OnInit {
   monedas: any;
   conversionHabilitada: boolean = false;
 
-  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService, private toastrService:ToastrService) {
+  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -138,13 +138,14 @@ export class PedidoComponent implements OnInit {
     this.emailUsuario = this.loginService.userLogged();
     this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario).subscribe(
       result => {
-        this.arrayPedido = []
+        this.arrayPedido = [];
+        this.totalConversion = 0;
+        this.conversionHabilitada = false;
         this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito', {
           closeButton: true,
           timeOut: 4000,
           progressBar: true
-      });
-
+        });
       },
       error => { }
     )

@@ -47,8 +47,7 @@ export class MesaFormComponent {
   guardarMesa() {
     this.servicio.crearMesa(this.mesa).subscribe(
       (result: any) => {
-        if (result.status == 1)
-          this.router.navigate(["mesa"])
+        this.router.navigate(["mesa"])
       },
       error => { }
     )
@@ -57,8 +56,8 @@ export class MesaFormComponent {
   actualizarMesa() {
     this.servicio.editarMesa(this.mesa).subscribe(
       (result: any) => {
-        if (result.status == 1)
-          this.router.navigate(["mesa"])
+
+        this.router.navigate(["mesa"])
       },
       error => { }
     )

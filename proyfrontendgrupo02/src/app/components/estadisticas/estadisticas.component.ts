@@ -186,7 +186,6 @@ export class EstadisticasComponent implements OnInit {
           }
         }
       };
-
        this.chartOptionsTorta = {
           series: [totalClientes,totalAdmins,totalGestores],
           chart: {
