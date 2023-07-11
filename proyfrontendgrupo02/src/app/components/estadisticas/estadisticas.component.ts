@@ -89,6 +89,11 @@ export class EstadisticasComponent implements OnInit {
     this.obtenerEstadisticaPorPedido();
   }
 
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
+  }
+
   obtenerEstadistica() {
     this.usuario.mostrarUsuario().subscribe(result => {
       const usuarios = result;
