@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Bebida } from 'src/app/models/bebida';
 import { Promocion } from 'src/app/models/promocion/promocion';
 import { PromocionService } from 'src/app/service/promocion/promocion.service';
@@ -16,7 +17,8 @@ export class PromocionComponent implements OnInit {
   listaPromocion: Array<Promocion>;
 
   constructor(private promocionService: PromocionService,
-    private router: Router) {
+              private router: Router,
+              private toastrService:ToastrService,) { 
     this.listaPromocion = new Array<Promocion>();
   }
 
@@ -46,9 +48,12 @@ export class PromocionComponent implements OnInit {
       if (unaBebida.disponibilidadBebida == false) {
         unaPromocion.disponibilidadPromocion = false;
         this.promocionService.actualizarPromocion(unaPromocion).subscribe()
-      } else {
-        unaPromocion.disponibilidadPromocion = true;
-        this.promocionService.actualizarPromocion(unaPromocion).subscribe()
+      }else{ 
+        unaPromocion.fechaPromocion = new Date(unaPromocion.fechaPromocion);
+        if (unaPromocion.fechaPromocion < new Date()) {
+          unaPromocion.disponibilidadPromocion=false;
+          this.promocionService.actualizarPromocion(unaPromocion).subscribe()
+        }
       }
       unaBebida = new Bebida();
     });
@@ -74,15 +79,15 @@ export class PromocionComponent implements OnInit {
     )
   }
 
-  cambiarEstadoPromocion(promo: Promocion) {
-    promo.disponibilidadPromocion = !promo.disponibilidadPromocion
-    this.promocionService.actualizarPromocion(promo).subscribe();
-    this.obtenerPromociones;
+  cambiarEstadoPromocion(promo:Promocion){
+    promo.fechaPromocion = new Date(promo.fechaPromocion);
+    if (promo.fechaPromocion < new Date()) {
+      this.toastrService.warning("Promocion caduco... cambiar fecha antes")
+    }else{
+      promo.disponibilidadPromocion=!promo.disponibilidadPromocion
+      this.promocionService.actualizarPromocion(promo).subscribe();
+      this.obtenerPromociones;
+    }
   }
-
-  public tipoLogged() {
-    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
-    return tipoUsuario;
-  }
-
+  
 }
