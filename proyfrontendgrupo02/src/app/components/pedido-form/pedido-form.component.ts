@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import * as ExcelJS from 'exceljs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pedido-form',
@@ -18,7 +19,7 @@ export class PedidoFormComponent implements OnInit {
   pedidos = new Array();
   bebidaPedido = new Array()
 
-  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router) { }
+  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router, private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -82,7 +83,12 @@ export class PedidoFormComponent implements OnInit {
       result => {
         this.pedidos = result;
         this.bebidaPedido = result.bebidasPedido
-        location.reload();
+        this.toastrService.success(`Se ha eliminado`, '¡Pedido eliminado con éxito!', {
+          closeButton: true,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       },
       error => { }
     )
