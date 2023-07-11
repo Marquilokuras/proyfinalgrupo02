@@ -1,18 +1,18 @@
 <div class="container-fluid">
   <h2>Gestion de Bebidas</h2>
   <br>
-  <div class="btn-group">
-    <button type="button" class="btn btn-primary" (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador'">Agregar Bebida</button>
-    <div *ngIf="tipoLogged() == 'administrador'">
-      <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
-        Excel</button>
-    </div>
-    <br>
-  </div>
 
   <div class="table-responsive ">
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
       <thead>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador'">Agregar Bebida</button>
+          <div *ngIf="tipoLogged() == 'administrador'">
+            <button type="button" class="btn btn-success" (click)="generarExcel()">Generar
+              Excel</button>
+          </div>
+          <br>
+        </div>
         <tr>
           <th scope="col-2">Nombre</th>
           <th scope="col-2">Ingredientes</th>

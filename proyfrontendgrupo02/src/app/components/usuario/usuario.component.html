@@ -1,15 +1,15 @@
 <div class="container-fluid">
   <h2>Gestion de Usuarios</h2>
-  <div class="btn-group" *ngIf="tipoLogged() == 'administrador'">
-    <button type="button" class="btn btn-primary" (click)="agregarUsuario()">Agregar Usuario</button>
-    <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
-      Excel</button>
-    <br>
-  </div>
 
   <div class="table-responsive">
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
       <thead>
+        <div class="btn-group" *ngIf="tipoLogged() == 'administrador'">
+          <button type="button" class="btn btn-primary" (click)="agregarUsuario()">Agregar Usuario</button>
+          <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
+            Excel</button>
+          <br>
+        </div>
         <tr>
           <th scope="col">Nombre</th>
           <th scope="col">Apellido</th>
