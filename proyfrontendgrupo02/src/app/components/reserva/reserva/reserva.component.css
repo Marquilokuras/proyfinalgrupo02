@@ -1,0 +1,61 @@
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
+.container-fluid{
+    background-color:#f5e7aa ;
+    padding: 40px;
+    font-family: 'Lato', sans-serif;
+  }
+  
+  h2{
+    color: #251a21 ;
+    text-align: center;
+    font-weight: bold;
+    font-size: 36px; /* Tamaño de fuente */
+    text-transform: uppercase; /* Convertir texto a mayúsculas */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Sombra de texto */
+    animation-name: bounceIn; /* Animación de entrada */
+    animation-duration: 1s; /* Duración de la animación */
+  }
+  
+  
+  .table-responsive{
+    color:#251a21;
+  }
+  
+  .table{
+    padding: 15px;
+  }
+  
+  .btn-agregarUsuario{
+    background:#fa6816 ;
+    border: none;
+  }
+  
+  .btn-primary {
+    background-color: #7fa38c;
+    border-color: #7fa38c;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .btn-primary:hover {
+    background-color: #749981; /*Cambia el color de fondo en hover*/
+    border-color: #749981; /* Cambia el color del borde en hover */
+  }
+  
+  .btn-danger {
+    background-color: #fa6816;
+    border-color: #fa6816;
+    transition: background-color 0.3s, border-color 0.3s;
+  }
+  
+  .btn-danger:hover {
+    background-color: #fd8037; /* Cambia el color de fondo en hover */
+    border-color: #fd8037; /*Cambia el color del borde en hover */
+  }
+  
+  
