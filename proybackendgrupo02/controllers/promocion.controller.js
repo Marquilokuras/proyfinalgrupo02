@@ -5,8 +5,8 @@ const promocionCtrl = {}
 
 promocionCtrl.getPromociones = async (req, res) => {
     const promociones = await Promocion.find().populate('bebidas')
+    res.json(promociones);
 }
-
 
 promocionCtrl.crearPromocion = async (req, res) => {
     var promocion = new Promocion(req.body)

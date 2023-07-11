@@ -92,7 +92,6 @@ export class PedidoComponent implements OnInit {
     );
   }
 
-
   obtenerPedido(pedidoId: string) {
     this.pedidoSolicitado = true;
     this.pedidoService.mostrarPedido().subscribe(
@@ -109,7 +108,7 @@ export class PedidoComponent implements OnInit {
   }
 
   obtenerBebidas() {
-    this.bebidaService.obtenerBebidas().subscribe(
+    this.bebidaService.obtenerBebidasDisponibles().subscribe(
       result => {
         console.log(result);
         this.carta = result.map((any: any) => ({
