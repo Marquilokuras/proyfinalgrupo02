@@ -1,8 +1,11 @@
-<div class="container">
+<div *ngIf="tipoLogged() == 'gestor' || tipoLogged() ==  ('administrador')">
+<div class="container-fluid">
+  <div class="container">
     <h2>Gestion de reservas </h2>
-    <div class="table table-responsive" style="max-width: 1100px;">
+    <div class="table table-responsive" style="max-width: 1300px;">
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
         <thead>
+          <button type="button" class="btn btn-primary" (click)="nuevaReserva()" >Agregar Reserva</button>
           <tr>
             <th scope="col">Numero de mesa</th>
             <th scope="col">Usuario</th>
@@ -22,7 +25,7 @@
             <td>{{reserva.fecha | date:'yyyy-MM-dd'}}</td>
             <td>{{reserva.hora}}</td>
             <td>   
-                <button type="button" class="btn btn-secondary me-2"  >
+                <button type="button" class="btn btn-secondary me-2" (click)="modificarReserva(reserva)" >
                   <i class="fa-solid fa-pencil"></i>
                 </button>
                 
@@ -35,5 +38,6 @@
         </tbody>
       </table>
     </div>
-   
+  </div> 
   </div>
+</div>

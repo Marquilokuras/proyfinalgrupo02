@@ -8,12 +8,45 @@ import {
   ApexStroke,
   ApexXAxis,
   ApexFill,
-  ApexTooltip
+  ApexTooltip,
+  ApexNonAxisChartSeries,
+  ApexResponsive
 } from "ng-apexcharts";
 
 import { LoginService } from 'src/app/service/login/login.service';
+import { PedidoService } from 'src/app/service/pedido/pedido.service';
 
 export type ChartOptions = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+};
+export type chartOptionsTorta = {
+  series: ApexNonAxisChartSeries | any[];
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};
+
+export type ChartOptionsPedido = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+};
+
+export type ChartOptionsPorPedido = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   dataLabels: ApexDataLabels;
@@ -32,17 +65,33 @@ export type ChartOptions = {
 })
 
 export class EstadisticasComponent implements OnInit {
+
   chartOptions!: ChartOptions;
+  chartOptionsTorta!: chartOptionsTorta;
+  chartOptionsPedido!: ChartOptionsPedido;
+  chartOptionsPorPedido!: ChartOptionsPedido;
   contadorEdadCliente: number = 0;
   contadorEdadGestor: number = 0;
   contadorEdadAdmin: number = 0;
+  total: number = 0;
+  totalMojito: number = 0;
+  totalBeach: number = 0;
+  totalGaribaldi: number = 0;
+  totalGin: number = 0;
+  totalNegroni: number = 0;
 
-  constructor(private usuario: LoginService) {
+  constructor(private usuario: LoginService, private pedido: PedidoService) {
   }
 
   ngOnInit(): void {
-    //this.estadistica();
     this.obtenerEstadistica();
+    this.obtenerEstadisticaPedido();
+    this.obtenerEstadisticaPorPedido();
+  }
+
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
   }
 
   obtenerEstadistica() {
@@ -87,7 +136,7 @@ export class EstadisticasComponent implements OnInit {
       this.chartOptions = {
         series: [
           {
-            name: "Edad",
+            name: "Edad Promedio",
             data: [
               promedioCliente,
               promedioGestor,
@@ -97,15 +146,12 @@ export class EstadisticasComponent implements OnInit {
           {
             name: "Cantidad de Usuarios",
             data: [totalClientes, totalGestores, totalAdmins]
-          },
-          /*{
-            name: "Free Cash Flow",
-            data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
-          }*/
+          }
         ],
         chart: {
           type: "bar",
-          height: 350
+          height: 350,
+          width: 800
         },
         plotOptions: {
           bar: {
@@ -131,7 +177,7 @@ export class EstadisticasComponent implements OnInit {
         },
         yaxis: {
           title: {
-            text: "Edad Promedio"
+            text: "Valores"
           }
         },
         fill: {
@@ -145,10 +191,174 @@ export class EstadisticasComponent implements OnInit {
           }
         }
       };
+       this.chartOptionsTorta = {
+          series: [totalClientes,totalAdmins,totalGestores],
+          chart: {
+            width: 380,
+            type: "pie"
+          },
+          labels: ["Cliente", "Administrador", "Gestor"],
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: "bottom"
+                }
+              }
+            }
+          ]
+        };
+
     });
   }
 
+  obtenerEstadisticaPedido() {
+    this.pedido.mostrarPedido().subscribe(result => {
+      const pedidos = result;
+      this.total = 0;
 
+      for(let i = 0; i < pedidos.length; i++){
+        this.total += pedidos[i].totalPedido;
+      }
+
+      this.chartOptionsPedido = {
+        series: [
+          {
+            name: "Precio",
+            data: [
+              this.total
+            ]
+          },
+        ],
+        chart: {
+          type: "bar",
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%",
+            borderRadius: 0
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+        xaxis: {
+          categories: [
+            "Precio Pedidos",
+          ]
+        },
+        yaxis: {
+          title: {
+            text: "Total Recaudado"
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$ " + val + " ";
+            }
+          }
+        }
+      };
+    });
+  }
+
+  obtenerEstadisticaPorPedido() {
+    this.pedido.mostrarPedido().subscribe(result => {
+      const pedidos = result;
+      this.total = 0;
+
+      for (let i = 0; i < pedidos.length; i++) {
+        let pedido = pedidos[i].bebidasPedido
+        for (let j = 0; j < pedido.length; j++) {
+          switch (pedido[j].bebida.nombreBebida) {
+            case "Mojito": this.totalMojito++;
+              break;
+            case "Gin Tonic": this.totalGin++;
+              break
+            case "Sex on the beach": this.totalBeach++;
+              break
+            case "Garibaldi": this.totalGaribaldi++;
+              break
+            case "Negroni": this.totalNegroni++;
+              break
+            default:
+              break;
+          }
+        }
+      }
+
+      this.chartOptionsPorPedido = {
+        series: [
+          {
+            name: "Bebidas pedidas",
+            data: [
+              this.totalGin,
+              this.totalMojito,
+              this.totalBeach,
+              this.totalGaribaldi,
+              this.totalNegroni
+            ]
+          },
+        ],
+        chart: {
+          type: "bar",
+          height: 350
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%",
+            borderRadius: 0
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"]
+        },
+        xaxis: {
+          categories: [
+            "Gin Tonic",
+            "Mojito",
+            "Sex on the beach",
+            "Garibaldi",
+            "Negroni"
+          ]
+        },
+        yaxis: {
+          title: {
+            text: "Cantidad de Bebidas Solicitadas"
+          }
+        },
+        fill: {
+          opacity: 1
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "" + val + "";
+            }
+          }
+        }
+      };
+    });
+  }
 }
-
-

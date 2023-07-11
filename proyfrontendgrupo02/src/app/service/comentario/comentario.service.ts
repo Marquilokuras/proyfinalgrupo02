@@ -3,10 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Comentario } from 'src/app/models/comentario/comentario';
 
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class ComentarioService {
   url="https://proygrupo02.onrender.com/api/comentario/";
   //url="http://localhost:3000/api/comentario/";
@@ -19,7 +19,6 @@ export class ComentarioService {
       }),
       params : new HttpParams()
     }
-
     return this._http.get(this.url,httpOptions);
   }
 
@@ -30,7 +29,6 @@ export class ComentarioService {
       }),
       params : new HttpParams()
     }
-
     return this._http.get(this.url+id,httpOptions);
   }
 
@@ -70,16 +68,13 @@ export class ComentarioService {
     return this._http.delete(this.url+id,httpOptions);
   }
 
-
   public filtroPuntuacion(puntaje:number):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-
       }),
       params : new HttpParams()
       .append('puntajeComentario',puntaje)
     }
-
     return this._http.get(this.url+"puntaje/",httpOptions);
   }
 }

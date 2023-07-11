@@ -34,7 +34,7 @@ import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
-
+import { ReservaFormComponent } from './components/reserva-form/reserva-form.component';
 
 @NgModule({
   declarations: [
@@ -58,14 +58,15 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
     PromocionFormComponent,
     ReservaComponent,
     EstadisticasComponent,
+    ReservaFormComponent,
   ],
 
   imports: [
     CommonModule,
-    FormsModule, // Asegúrate de que FormsModule esté antes que cualquier otro módulo que pueda depender de él
-    BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
-    OAuthModule.forRoot(), //google
+    FormsModule, 
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    OAuthModule.forRoot(),
     BrowserModule,
     AppRoutingModule,
     DataTablesModule,

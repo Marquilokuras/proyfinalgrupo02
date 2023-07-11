@@ -1,6 +1,6 @@
-<div class="container">
-    <h2>Gestion de Promociones</h2>
-    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()">Agregar Promocion</button>
+<div class="container-fluid">
+    <h2 class="mt-3">Gestion de Promociones</h2>
+    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()"  *ngIf="tipoLogged() == 'administrador'">Agregar Promocion</button>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -31,13 +31,13 @@
                             No Disponible
                           </button>
                       </td>
-                      
+
                     <!--<td class="col-auto">{{promo.totalPrecioPromocion}}</td>
                     <td class="col-auto">{{promo.totalPrecioBebidasSinDescuento}}</td>
                     <td class="col-auto">{{promo.descuento}}</td>
                     <td class="col-auto">{{promo.fechaPromocion}}</td>
                     <td class="col-auto">{{promo.disponibilidadPromocion}}</td>-->
-                    
+
                     <td class="col-auto">
                         <div class="d-flex flex-wrap">
                             <div class="mr-2" style="max-width: 150px;" *ngFor="let bebida of promo.bebidas">
@@ -51,9 +51,9 @@
                             </div>
                         </div>
                     </td>
-                      
-                      
-                    <td class="col-1">   
+
+
+                    <td class="col-1">
                         <div class="d-flex">
                           <button type="button" class="btn btn-primary me-2" (click)="actualizarPromocion(promo)">
                             <i class="fa-solid fa-pencil"></i>

@@ -1,7 +1,5 @@
 const ImagenUsuario = require('../models/imagenUsuario');
-
 const imagenUsuarioCtrl = {}
-
 
 imagenUsuarioCtrl.getImagenes = async(req,res)=>{
     const imagenes = await ImagenUsuario.find();

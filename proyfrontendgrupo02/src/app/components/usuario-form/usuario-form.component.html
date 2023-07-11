@@ -36,7 +36,7 @@
                   <input type="password" class="form-control" name="registerPassword" placeholder="Ingrese Password"
                     #passwordNuevo="ngModel" [(ngModel)]="passwordUsuario" required />
                 </div>
-                
+
                 <div class="form-group">
                   <label for="registerNombre">Nombre</label>
                   <input type="text" class="form-control" name="registerNombre" placeholder="Ingrese Nombre Completo"
@@ -50,7 +50,7 @@
                     </div>
                   </div>
                 </div>
-                
+
                 <div class="form-group">
                   <label for="registerApellido">Apellido</label>
                   <input type="text" class="form-control" name="registerApellido"
@@ -117,13 +117,13 @@
                     *ngIf=" cambios == 'new'" routerLink="/usuario" (click)="altaUsuario()">Registrar</button>
                   <button type="button" class="btn btn-primary" [disabled]="!registrarForm.form.valid"
                     *ngIf=" cambios == 'modificar'" routerLink="/usuario"
-                    (click)="modificarUsuario()">Modificar</button>
-                  <button class="btn btn-danger" (click)="cancelar()">Cancelar</button>
+                    (click)="modificarUsuario()"><i class="fa-solid fa-check"></i> Modificar</button>
+                  <button class="btn btn-danger" (click)="cancelar()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
                 </div>
               </div>
             </div>
           </form>
-          <button type="button" class="btn btn-primary" routerLink="/usuario">Volver Atras</button>
+          <button type="button" class="btn btn-primary" routerLink="/usuario"><i class="fa-solid fa-left-long"></i> Atras</button>
         </div>
       </div>
     </div>

@@ -26,15 +26,14 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
         }
 
         pedido.totalPedido = precioPedido
-
         const emailUsuario = req.body.emailUsuario;
 
-        //transportador del mensaje (quien lo envia en este caso un mail temporal )
+        //transportador del mensaje (quien lo envia en este caso un mail temporal)
         let transporter = nodemailer.createTransport({
 
             service: 'gmail',
             auth: {
-                user: 'theWintonHouse@gmail.com', // Mail del que se va a enviar el mensaje
+                user: 'theWintonHouse@gmail.com',
                 pass: 'avavfnwuonsqahju',
             },
         });
@@ -43,9 +42,8 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
             from: 'theWintonHouse@gmail.com',
             to: emailUsuario,
             subject: 'Pedido Registrado',
-            text: "Gracias por tu Pedido esperamos que lo Disfrutes!! " 
-              +  ", su total a pagar es de: $"+ pedido.totalPedido 
-
+            text: "Gracias por tu Pedido esperamos que lo Disfrutes!! "
+                + ", su total a pagar es de: $" + pedido.totalPedido
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
@@ -55,18 +53,13 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
                 console.log('Correo electrónico enviado: ' + info.response);
             }
         });
-
+        
         pedido.save();
-        res.json({
-            'status': '1',
-            'msg': 'Pedido guardado.'
-        })
+        
+        res.json({})
 
     } catch (error) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando operacion.'
-        })
+        res.status(400).json({})
     }
 }
 
@@ -76,31 +69,19 @@ pedidoCtrl.editPedidoBebida = async (req, res) => {
         req.body;
         await Pedido.findByIdAndUpdate({ _id: id }, req.body, { new: true, });
 
-        res.json({
-            status: '1',
-            msg: 'Pedido Modifiado'
-        });
+        res.json({});
 
     } catch (err) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
-        })
+        res.status(400).json({})
     }
 };
 
 pedidoCtrl.deletePedidoBebida = async (req, res) => {
     try {
         await Pedido.deleteOne({ _id: req.params.id });
-        res.json({
-            status: '1',
-            msg: 'Pedido eliminado'
-        })
+        res.json({})
     } catch (error) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
-        })
+        res.status(400).json({})
     }
 }
 

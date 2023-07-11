@@ -1,13 +1,36 @@
-<div id="chart">
-  <apx-chart
-    [series]="chartOptions.series"
-    [chart]="chartOptions.chart"
-    [dataLabels]="chartOptions.dataLabels"
-    [plotOptions]="chartOptions.plotOptions"
-    [yaxis]="chartOptions.yaxis"
-    [fill]="chartOptions.fill"
-    [stroke]="chartOptions.stroke"
-    [tooltip]="chartOptions.tooltip"
-    [xaxis]="chartOptions.xaxis"
-  ></apx-chart>
+<div class="container-fluid" *ngIf="tipoLogged() ==  ('administrador') ">
+  <h3 class="text-center">Estadisticas de Usuarios</h3>
+  <div class="row">
+    <div class="col-md-8" id="chart">
+      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [xaxis]="chartOptions.xaxis">
+      </apx-chart>
+    </div>
+
+    <div class="col-md-4 torta" id="chart">
+      <apx-chart [series]="chartOptionsTorta.series" [chart]="chartOptionsTorta.chart"
+        [labels]="chartOptionsTorta.labels" [responsive]="chartOptionsTorta.responsive"></apx-chart>
+    </div>
+  </div>
+
+
+  <h3 class="text-center">Total Recaudado</h3>
+
+  <div *ngIf="chartOptionsPedido" id="chart">
+    <apx-chart [series]="chartOptionsPedido.series" [chart]="chartOptionsPedido.chart"
+      [dataLabels]="chartOptionsPedido.dataLabels" [plotOptions]="chartOptionsPedido.plotOptions"
+      [yaxis]="chartOptionsPedido.yaxis" [fill]="chartOptionsPedido.fill" [stroke]="chartOptionsPedido.stroke"
+      [tooltip]="chartOptionsPedido.tooltip" [xaxis]="chartOptionsPedido.xaxis"></apx-chart>
+  </div>
+
+  <h3 class="text-center">Total Obtenido por Cada Bebida</h3>
+
+  <div id="chart">
+    <apx-chart [series]="chartOptionsPorPedido.series" [chart]="chartOptionsPorPedido.chart"
+      [dataLabels]="chartOptionsPorPedido.dataLabels" [plotOptions]="chartOptionsPorPedido.plotOptions"
+      [yaxis]="chartOptionsPorPedido.yaxis" [fill]="chartOptionsPorPedido.fill" [stroke]="chartOptionsPorPedido.stroke"
+      [tooltip]="chartOptionsPorPedido.tooltip" [xaxis]="chartOptionsPorPedido.xaxis"></apx-chart>
+  </div>
+
 </div>

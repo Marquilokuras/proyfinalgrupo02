@@ -1,40 +1,57 @@
-<div class="container">
+<div class="container-fluid">
+  <div class="container">
   <h1 *ngIf="accion == 'new'">Añadir Mesa</h1>
   <h1 *ngIf="accion == 'update'">Modificar Mesa</h1>
-     <form>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="numero" class="form-label">Número de mesa</label>
-                <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="mesa.numeroMesa">
+  <form #mesaForm="ngForm">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+            <label for="numero" class="form-label">Número de mesa</label>
+            <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="mesa.numeroMesa" required #numerom="ngModel">
+            <div *ngIf="numerom.invalid && (numerom.dirty || numerom.touched)" class="alert alert-danger">
+              <div *ngIf="numerom.errors?.['required']">
+               El numero de mesa es requerido.
               </div>
+            </div> 
           </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="sillas" class="form-label">Cantidad de sillas</label>
-              <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="mesa.cantidadSilla">
-            </div>
-          </div>
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="sillas" class="form-label">Cantidad de sillas</label>
+          <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="mesa.cantidadSilla" required #cantidadS="ngModel">
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="mesa" class="form-label">Cantidad de mesas</label>
-                <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="mesa.cantidadMesa">
-              </div>
+        <div *ngIf="cantidadS.invalid && (cantidadS.dirty || cantidadS.touched)" class="alert alert-danger">
+          <div *ngIf="cantidadS.errors?.['required']">
+            La cantidad de sillas es requerida.
           </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="estado" class="form-label">Estado</label>
-              <select class="form-select" id="estado" name="estado" [(ngModel)]="mesa.disponibilidadReserva">
-                <option value="true">Disponible</option>
-                <option value="false">No Disponible</option>
-              </select>
+        </div> 
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="mb-3">
+            <label for="mesa" class="form-label">Cantidad de mesas</label>
+            <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="mesa.cantidadMesa"required #cantidadm="ngModel" >
+          </div>
+          <div *ngIf="cantidadm.invalid && (cantidadm.dirty || cantidadm.touched)" class="alert alert-danger">
+            <div *ngIf="cantidadm.errors?.['required']">
+              La cantidad de mesas es requerida.
             </div>
-          </div>
+          </div> 
+      </div>
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="estado" class="form-label">Estado</label>
+          <select class="form-select" id="estado" name="estado" [(ngModel)]="mesa.disponibilidadReserva"required >
+            <option value="true" >Disponible</option>
+            <option value="false">No Disponible</option>
+          </select>
         </div>
-       
-        <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarMesa()">Guardar</button>
-        <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarMesa()">Modificar</button> 
-      </form>
+      </div>
+    </div>
+   
+    <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarMesa()" [disabled]="mesaForm.invalid">Guardar</button>
+    <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarMesa()">Modificar</button> 
+  </form>
+    </div>
     </div>

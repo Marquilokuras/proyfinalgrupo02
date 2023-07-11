@@ -18,28 +18,31 @@ import { PromocionFormComponent } from './components/promocion-form/promocion-fo
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ReservaFormComponent } from './components/reserva-form/reserva-form.component';
 
 const routes: Routes = [
-  {path: 'home', component: HomeComponent },
-  {path: 'usuario', component: UsuarioComponent },
-  {path: 'usuario-form/:id', component: UsuarioFormComponent},
-  {path: 'usuario-form', component: UsuarioFormComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'usuario', component: UsuarioComponent,canActivate:[AuthGuard] },
+  {path: 'usuario-form/:id', component: UsuarioFormComponent,canActivate:[AuthGuard]},
+  {path: 'usuario-form', component: UsuarioFormComponent,canActivate:[AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'bebida',component:BebidaComponent},
-  {path: 'bebida-form/:id', component:BebidaFormComponent},
-  {path: 'mesa-form/:id', component:MesaFormComponent},
-  {path: 'mesa-form/0', component:MesaFormComponent},
-  {path: 'mesa', component:MesaComponent},
-  {path: 'mesa-cliente', component:MesaClienteComponent},
+  {path: 'bebida',component:BebidaComponent,canActivate:[AuthGuard]},
+  {path: 'bebida-form/:id', component:BebidaFormComponent,canActivate:[AuthGuard]},
+  {path: 'mesa-form/:id', component:MesaFormComponent,canActivate:[AuthGuard]},
+  {path: 'mesa-form/0', component:MesaFormComponent,canActivate:[AuthGuard]},
+  {path: 'mesa', component:MesaComponent,canActivate:[AuthGuard]},
+  {path: 'mesa-cliente', component:MesaClienteComponent,canActivate:[AuthGuard]},
   {path: 'comentario-usuario', component:ComentarioUsuarioComponent},
   {path: 'menu', component:MenuComponent},
-  {path: 'pedido', component:PedidoComponent},
-  {path: 'reserva', component:ReservaComponent},
-  {path: 'pedido/:id', component:PedidoComponent},
-  {path: 'pedido-form', component:PedidoFormComponent},
-  {path: 'promocion',component:PromocionComponent},   
-  {path: 'promocion-form/:id',component:PromocionFormComponent},
-  {path: 'estadisticas',component:EstadisticasComponent},
+  {path: 'pedido', component:PedidoComponent,canActivate:[AuthGuard]},
+  {path: 'reserva', component:ReservaComponent,canActivate:[AuthGuard]},
+  {path: 'reserva-form/:id', component:ReservaFormComponent,canActivate:[AuthGuard]},
+  {path: 'reserva-form/0', component:ReservaFormComponent,canActivate:[AuthGuard]},
+  {path: 'pedido/:id', component:PedidoComponent,canActivate:[AuthGuard]},
+  {path: 'pedido-form', component:PedidoFormComponent,canActivate:[AuthGuard]},
+  {path: 'promocion',component:PromocionComponent,canActivate:[AuthGuard]},   
+  {path: 'promocion-form/:id',component:PromocionFormComponent,canActivate:[AuthGuard]},
+  {path: 'estadisticas',component:EstadisticasComponent,canActivate:[AuthGuard]},
   {path: '**', pathMatch:'full',redirectTo:'home' },
 ];
 

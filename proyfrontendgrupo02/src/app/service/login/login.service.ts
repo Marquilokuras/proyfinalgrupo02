@@ -14,8 +14,6 @@ export class LoginService {
     //this.hostBase = "http://localhost:3000/api/usuario/";
   }
 
-  // LOGIN
-
   public login(email: string, password: string): Observable<any> {
 
     const httpOption = {
@@ -30,20 +28,16 @@ export class LoginService {
     };
 
     var url = this.hostBase + 'login';
-
     return this._http.post(url, body, httpOption);
   }
 
-  //Se desloguea del sistema
   public logout() {
-    //borro el vble almacenado mediante el storage
     sessionStorage.removeItem("user");
     sessionStorage.removeItem("tipoUsuario");
     sessionStorage.removeItem("userid");
     sessionStorage.removeItem("token");
   }
 
-  //sessionStorage para ver cliente
   public userLoggedIn() {
     var resultado = false;
     var usuario = sessionStorage.getItem("user");
@@ -53,18 +47,15 @@ export class LoginService {
     return resultado;
   }
 
-  //Se obtiene el email de sesion
   public userLogged() {
     var usuario = sessionStorage.getItem("user");
     return usuario;
   }
 
-  //Se obtiene el id de sesion
   public idLogged() {
     var id = sessionStorage.getItem("userid");
     return id;
   }
-
 
   getToken(): string {
     if (sessionStorage.getItem("token") != null) {
@@ -73,10 +64,6 @@ export class LoginService {
       return "";
     }
   }
-
-  // FIN LOGIN
-
-  // DAR DE ALTA USUARIO
 
   public altaUsuario(email: string, password: string, nombreUsuario: string, apellidoUsuario: string, dniUsuario: string, edadUsuario: number, tipoUsuario: string): Observable<any> {
 
@@ -149,8 +136,6 @@ export class LoginService {
     }
 
     const url = this.hostBase + `recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
-    console.log(url)
     return this._http.get(url, httpOption);
   }
-
 }

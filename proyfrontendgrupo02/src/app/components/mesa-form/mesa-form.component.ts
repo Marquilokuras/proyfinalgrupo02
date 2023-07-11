@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Mesa } from 'src/app/models/mesa';
 import { LoginService } from 'src/app/service/login/login.service';
 import { MesaService } from 'src/app/service/mesa.service';
@@ -9,21 +10,21 @@ import { MesaService } from 'src/app/service/mesa.service';
   templateUrl: './mesa-form.component.html',
   styleUrls: ['./mesa-form.component.css']
 })
+
 export class MesaFormComponent {
-  mesa!:Mesa;
-  accion:string="";
 
-  constructor(private servicio:MesaService,private router:Router,private activatedRoute:ActivatedRoute,public usuarioService: LoginService){
-    this.mesa= new Mesa();
+  mesa!: Mesa;
+  accion: string = "";
 
+  constructor(private servicio: MesaService, private router: Router, private activatedRoute: ActivatedRoute, public usuarioService: LoginService, public toastrService:ToastrService) {
+    this.mesa = new Mesa();
   }
 
-  ngOnInit():void{
-
+  ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
-      if(params['id'] == "0"){
-        this.accion ="new";
-      }else {
+      if (params['id'] == "0") {
+        this.accion = "new";
+      } else {
         this.accion = "update";
         this.cargarMesa(params['id'])
       }
@@ -34,41 +35,38 @@ export class MesaFormComponent {
     var tipoUsuario = sessionStorage.getItem("tipoUsuario");
     return tipoUsuario;
   }
-  cargarMesa(id : string){
+
+  cargarMesa(id: string) {
     this.servicio.obtenerMesa(id).subscribe(
-      result=>{
-        console.log(result)
-        Object.assign(this.mesa,result);
+      result => {
+        Object.assign(this.mesa, result);
       },
-      error=>{
-  
-      }
+      error => { }
     )
   }
 
-   guardarMesa(){
+  guardarMesa() {
     this.servicio.crearMesa(this.mesa).subscribe(
-      (result:any)=>{
-        if (result.status == 1)
+      (result: any) => {
         this.router.navigate(["mesa"])
+        this.toastrService.success(`Mesa número: ${this.mesa.numeroMesa}`, '¡Mesa creada con exito!', {
+          closeButton: true,
+          timeOut: 4000,
+          progressBar: true
+        });
       },
-      error=>{
-        alert(error.msg)
-      }
+      error => { }
     )
   }
 
-  actualizarMesa(){
+  actualizarMesa() {
     this.servicio.editarMesa(this.mesa).subscribe(
-      (result:any)=>{
-        if (result.status == 1)
+      (result: any) => {
+
         this.router.navigate(["mesa"])
       },
-      error=>{
-        alert(error.msg)
-      }
+      error => { }
     )
   }
 
- 
 }

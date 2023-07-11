@@ -4,35 +4,37 @@ import { Subject } from 'rxjs';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import * as ExcelJS from 'exceljs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-pedido-form',
   templateUrl: './pedido-form.component.html',
   styleUrls: ['./pedido-form.component.css']
 })
+
 export class PedidoFormComponent implements OnInit {
 
-  dtOptions : DataTables.Settings = {};
-  dtTrigger : Subject<any> = new Subject <any>();
+  dtOptions: DataTables.Settings = {};
+  dtTrigger: Subject<any> = new Subject<any>();
   pedidos = new Array();
   bebidaPedido = new Array()
 
-  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router:Router) { }
+  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router, private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
-      pagingType : 'full_pages',
-      pageLength : 5,
+      pagingType: 'full_pages',
+      pageLength: 5,
     },
-    this.mostrarPedidos();
+      this.mostrarPedidos();
   }
 
-  generarExcel(){
-    const workbook = new ExcelJS.Workbook(); //se geneara una hoja nueva
+  generarExcel() {
+    const workbook = new ExcelJS.Workbook();
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Registro de Pedidos')
 
-    worksheet.addRow(['Nombre Bebida','Ingredientes Bebida','Precio por Bebida','Cantidad de Bebidas','Total Precio Pedido'])
+    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas', 'Total Precio Pedido'])
 
     for (const pedido of this.pedidos) {
       for (const bebida of pedido.bebidasPedido) {
@@ -46,18 +48,17 @@ export class PedidoFormComponent implements OnInit {
       }
     }
 
-    workbook.xlsx.writeBuffer().then((data: ArrayBuffer) =>{
-      const blob  = new Blob([data]);
+    workbook.xlsx.writeBuffer().then((data: ArrayBuffer) => {
+      const blob = new Blob([data]);
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a')
       a.href = url
       a.download = 'registroPedidos.xlsx';
       a.click();
     });
-
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
   }
 
@@ -73,8 +74,7 @@ export class PedidoFormComponent implements OnInit {
         this.bebidaPedido = result.bebidasPedido
         this.dtTrigger.next(this.pedidos);
       },
-      error => {
-      }
+      error => { }
     )
   }
 
@@ -83,10 +83,14 @@ export class PedidoFormComponent implements OnInit {
       result => {
         this.pedidos = result;
         this.bebidaPedido = result.bebidasPedido
-        location.reload();
+        this.toastrService.success(`Se ha eliminado`, '¡Pedido eliminado con éxito!', {
+          closeButton: true,
+        });
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       },
-      error => {
-      }
+      error => { }
     )
   }
 
@@ -94,8 +98,8 @@ export class PedidoFormComponent implements OnInit {
     this.router.navigate(["pedido"])
   }
 
-  modificarPedido(idPedido: string){
+  modificarPedido(idPedido: string) {
     this.router.navigate(['pedido', idPedido],);
   }
-  
+
 }

@@ -6,9 +6,10 @@ import { Router } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
 
-  constructor(private router:Router) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -18,15 +19,15 @@ export class HomeComponent implements OnInit {
     return tipoUsuario;
   }
 
-  reserva(){
+  reserva() {
     this.router.navigate(["mesa-cliente"])
   }
 
-  bebida(){
+  bebida() {
     this.router.navigate(["pedido"])
   }
 
-  comentario(){
+  comentario() {
     this.router.navigate(["comentario-usuario"])
   }
 

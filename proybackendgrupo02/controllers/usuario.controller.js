@@ -1,9 +1,8 @@
 const Usuario = require('../models/usuario');
 const jwt = require('jsonwebtoken');
-
 const usuarioCtrl = {}
 
-usuarioCtrl.getUsuario = async (req, res) => { //se define una funcion asincrona
+usuarioCtrl.getUsuario = async (req, res) => {
     const usuarios = await Usuario.find();
     res.json(usuarios);
 }
@@ -12,49 +11,34 @@ usuarioCtrl.createUsuario = async (req, res) => {
     var usuario = new Usuario(req.body);
     try {
         await usuario.save();
-
-        res.json({
-            'status': '1',
-            'msg': 'Usuario guardado.'
-        })
+        res.json({})
     } catch (error) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando operacion.'
-        })
+        res.status(400).json({})
     }
 }
 
 usuarioCtrl.loginUsuario = async (req, res) => {
 
-    //el método findOne retorna un objeto que cumpla con los criterios de busqueda
     Usuario.findOne({ email: req.body.email, password: req.body.password })
         .then(user => {
             if (!user) {
-                res.json({
-                    status: 0,
-                    msg: "not found"
-                })
+                res.json({})
             } else {
                 const unToken = jwt.sign({ id: user._id }, "secretkey");
                 res.json({
                     status: 1,
                     msg: "success",
-                    email: user.email, //retorno información útil para el frontend
-                    tipoUsuario: user.tipoUsuario, //retorno información útil para el frontend
-                    userid: user._id, //retorno información útil para el frontend
+                    email: user.email,
+                    tipoUsuario: user.tipoUsuario,
+                    userid: user._id,
                     token: unToken
                 })
             }
         }).catch(err => {
             if (err) {
-                res.json({
-                    status: 0,
-                    msg: 'error'
-                })
+                res.json({})
             }
         })
-
 }
 
 usuarioCtrl.editUsuario = async (req, res) => {
@@ -62,32 +46,18 @@ usuarioCtrl.editUsuario = async (req, res) => {
         const { id } = req.params;
         req.body;
         await Usuario.findByIdAndUpdate({ _id: id }, req.body, { new: true, });
-
-        res.json({
-            status: '1',
-            msg: 'Usuario Modifiado'
-        });
-
+        res.json({});
     } catch (err) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
-        })
+        res.status(400).json({})
     }
 };
 
 usuarioCtrl.deleteUsuario = async (req, res) => {
     try {
         await Usuario.deleteOne({ _id: req.params.id });
-        res.json({
-            status: '1',
-            msg: 'Usuario eliminado'
-        })
+        res.json({})
     } catch (error) {
-        res.status(400).json({
-            'status': '0',
-            'msg': 'Error procesando la operacion'
-        })
+        res.status(400).json({})
     }
 }
 
@@ -98,8 +68,21 @@ usuarioCtrl.recuperarContrasena = async (req, res) => {
         const usuario = await Usuario.findOne({ email, dniUsuario });
         res.json(usuario);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Error al buscar el usuario' });
+        res.status(500).json();
+    }
+};
+
+
+usuarioCtrl.mostrarUsuariosLogeados = async (req, res, next) => {
+    try {
+        const user = await Usuario.findById(req.userId);
+
+        if (!user)  return res.json({ 'status': '0', 'msg': 'Unauthorized request.' });
+
+        res.status(200).json({ 'status': '1'});
+    } catch (error) {
+
+        return res.json({ 'status': '0', 'msg': 'Unauthorized request.' });
     }
 };
 

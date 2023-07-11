@@ -11,6 +11,7 @@ import { ReservaService } from 'src/app/service/reserva/reserva.service';
   templateUrl: './mesa.component.html',
   styleUrls: ['./mesa.component.css']
 })
+
 export class MesaComponent {
 
   dtOptions: DataTables.Settings = {};
@@ -18,28 +19,26 @@ export class MesaComponent {
 
   mesas!: Array<Mesa>;
   mesasDisponibles!: Array<Mesa>;
-  usuario!:any;
-  reservas!:Array<Reserva>
-  constructor(private servicio: MesaService, private router: Router, private servicioR:ReservaService) {
+  usuario!: any;
+  reservas!: Array<Reserva>
+
+  constructor(private servicio: MesaService, private router: Router, private servicioR: ReservaService) {
     this.mesas = new Array<Mesa>();
     this.mesasDisponibles = new Array<Mesa>();
-    
   }
 
   ngOnInit() {
     this.dtOptions = {
-      pagingType : 'full_pages',
-      pageLength : 5,
+      pagingType: 'full_pages',
+      pageLength: 5,
     };
-    this.usuario = sessionStorage.getItem("user"); 
+    this.usuario = sessionStorage.getItem("user");
     this.obtenerMesas();
-    this.obtenerMesasDisp();
-    
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
-  } 
+  }
 
   public nuevaMesa() {
     this.router.navigate(["mesa-form", 0])
@@ -48,7 +47,6 @@ export class MesaComponent {
   obtenerMesas() {
     this.servicio.obtenerMesas().subscribe(
       result => {
-        console.log(result)
         this.dtTrigger.next(this.mesas);
         let unaMesa = new Mesa();
         result.forEach((element: any) => {
@@ -58,9 +56,7 @@ export class MesaComponent {
           this.ngOnDestroy()
         });
       },
-      error => {
-        console.log(error)
-      }
+      error => { }
     )
   }
 
@@ -71,33 +67,16 @@ export class MesaComponent {
   eliminarMesa(mesa: Mesa) {
     this.servicio.borrarMesa(mesa._id).subscribe(
       result => {
-        console.log('mesa eliminada correctamente');
         this.mesas = new Array<Mesa>();
-        this.obtenerMesas();
+        location.reload();
       },
-      error => {
-        alert('Error al eliminar la mesa:');
-      }
+      error => { }
     );
   }
 
-  obtenerMesasDisp() {
-    this.servicio.obtenerMesasDisponibles().subscribe(
-      result => {
-        console.log(result)
-        let unaMesa = new Mesa();
-        result.forEach((element: any) => {
-          Object.assign(unaMesa, element)
-          this.mesasDisponibles.push(unaMesa)
-          unaMesa = new Mesa();
-          
-        });
-      },
-
-      error => {
-        console.log(error)
-      }
-    )
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
   }
 
 }
