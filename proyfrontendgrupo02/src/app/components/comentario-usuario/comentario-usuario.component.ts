@@ -16,7 +16,6 @@ export class ComentarioUsuarioComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   listaComentarios: Array<Comentario>;
-  copiaListaComentario: Array<Comentario>;
   comentario!: Comentario;
   usuario!: any;
   filtroP!: number
@@ -24,7 +23,6 @@ export class ComentarioUsuarioComponent implements OnInit {
   constructor(private comentarioService: ComentarioService, public usuarioService: LoginService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
-    this.copiaListaComentario = new Array<Comentario>();
   }
 
   ngOnInit(): void {
@@ -65,9 +63,7 @@ export class ComentarioUsuarioComponent implements OnInit {
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result => {
-
           location.reload();
-        
       },
       error => { }
     )
@@ -78,9 +74,7 @@ export class ComentarioUsuarioComponent implements OnInit {
     console.log(this.comentario);
     this.comentarioService.modificarComentario(this.comentario).subscribe(
       result => {
-        if (result.status == 1) {
           location.reload();
-        }
       },
       error => { }
     )
@@ -95,9 +89,7 @@ export class ComentarioUsuarioComponent implements OnInit {
   eliminarComentario(comentario: Comentario) {
     this.comentarioService.eliminarComentario(comentario._id).subscribe(
       result => {
-        if (result.status == 1) {
           location.reload();
-        }
       },
       error => { }
     )
