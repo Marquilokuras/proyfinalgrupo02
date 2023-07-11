@@ -7,6 +7,7 @@ import { BebidaService } from 'src/app/service/bebida.service';
 import { ConversorService } from 'src/app/service/conversor/conversor.service';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
+import { PromocionService } from 'src/app/service/promocion/promocion.service';
 
 @Component({
   selector: 'app-pedido',
@@ -20,6 +21,14 @@ export class PedidoComponent implements OnInit {
   pedido = new Array();
   arrayPedido = new Array();
   arrayModificar = new Array();
+  promocion = new Array();
+  promocionBebidas = new Array();
+  promocionBebida = new Array();
+  bebidaPromocion = new Array();
+  imgBebida = new Array();
+  nombreBebida = new Array()
+  nombreBebidaPedido = new Array()
+  bebidaPedido  = new Array();
   numeros: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
 
   cantidadBebidas !: number;
@@ -37,8 +46,10 @@ export class PedidoComponent implements OnInit {
   totalConversion!: number;
   monedas: any;
   conversionHabilitada: boolean = false;
+  promoCantidad: number = 0;
+  totalPrecioPromo !: number
 
-  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService) {
+  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService, private promocionService: PromocionService) {
   }
 
   ngOnInit(): void {
@@ -53,6 +64,7 @@ export class PedidoComponent implements OnInit {
     });
     this.obtenerBebidas();
     this.obtenerMonedas();
+    this.obtenerPromociones();
   }
 
   habilitarConversion(): void {
@@ -74,10 +86,8 @@ export class PedidoComponent implements OnInit {
 
     if (tipo === 'origen') {
       this.codigoMonedaOrigen = codigoMoneda;
-      console.log('Código de moneda de origen seleccionado:', this.codigoMonedaOrigen);
     } else if (tipo === 'destino') {
       this.codigoMonedaDestino = codigoMoneda;
-      console.log('Código de moneda de destino seleccionado:', this.codigoMonedaDestino);
     }
   }
 
@@ -87,7 +97,6 @@ export class PedidoComponent implements OnInit {
         this.resultadoConversion = this.codigoMonedaDestino;
         const valorConversion = result[this.codigoMonedaDestino];
         this.totalConversion = valorConversion * this.total;
-        console.log(this.totalConversion)
       }
     );
   }
@@ -110,7 +119,6 @@ export class PedidoComponent implements OnInit {
   obtenerBebidas() {
     this.bebidaService.obtenerBebidasDisponibles().subscribe(
       result => {
-        console.log(result);
         this.carta = result.map((any: any) => ({
           ...any,
           cantidad: ""
@@ -162,6 +170,57 @@ export class PedidoComponent implements OnInit {
       result => { },
       error => { }
     )
+  }
+
+  obtenerPromociones() {
+    this.promocionService.obtenerPromocionesDisponibles().subscribe(
+      result => {
+        this.promocion = result
+        this.promocionBebidas = result
+        this.cantidadBebidas = this.promocionBebidas[0].bebidas.length
+        this.bebidaPromocion = this.promocionBebidas[0].bebidas
+        let idBebida = "";
+        for (let i = 0; i < this.cantidadBebidas; i++) {
+          idBebida = this.bebidaPromocion[i]
+          const vari = this.bebidaService.obtenerBebida(idBebida).subscribe(
+            result => {
+              this.promocionBebida = result;
+              this.imgBebida = result.imagenBebida;
+              result.nombreBebida;
+              this.nombreBebida.push(result.nombreBebida)
+            }
+          )
+        }
+      },
+      error => { }
+    )
+  }
+
+  public crearPedidoBebida() {
+    this.totalPrecioPromo = this.promocionBebidas[0].totalPrecioPromocion;
+    for (let i = 0; i < this.cantidadBebidas; i++) {
+      let idBebida = "";
+      idBebida = this.bebidaPromocion[i]
+      this.bebidaService.obtenerBebida(idBebida).subscribe(
+        result => {
+          this.promocionBebidas = result;
+          this.imgBebida = result.imagenBebida;
+        }
+      )
+      let nombre = this.nombreBebidaPedido;
+      let precioPorBebida = this.totalPrecioPromo/this.cantidadBebidas
+      let bebidaPedido = {
+        cantidadBebidas: 1,
+        precioDetalle: precioPorBebida,
+        bebida: idBebida,
+        nombreBebida: this.nombreBebida[i],
+      };
+
+      this.total = this.totalPrecioPromo;
+      this.arrayPedido.push(bebidaPedido)
+      this.pedidoSolicitado = true;  
+    }
+    
   }
 
 }

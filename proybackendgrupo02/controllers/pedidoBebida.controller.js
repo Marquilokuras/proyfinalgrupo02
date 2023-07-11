@@ -26,7 +26,6 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
         }
 
         pedido.totalPedido = precioPedido
-
         const emailUsuario = req.body.emailUsuario;
 
         //transportador del mensaje (quien lo envia en este caso un mail temporal)
@@ -54,8 +53,9 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
                 console.log('Correo electrónico enviado: ' + info.response);
             }
         });
-
+        
         pedido.save();
+        
         res.json({})
 
     } catch (error) {

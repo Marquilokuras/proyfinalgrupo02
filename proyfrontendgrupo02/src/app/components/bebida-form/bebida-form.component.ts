@@ -91,5 +91,4 @@ export class BebidaFormComponent {
       reader.readAsDataURL(file);
     }
   }
-
 }
