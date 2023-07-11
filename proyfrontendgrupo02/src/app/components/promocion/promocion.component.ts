@@ -26,6 +26,11 @@ export class PromocionComponent implements OnInit {
     this.obtenerPromociones();
   }
 
+   public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
+  }
+
   public obtenerPromociones() {
     this.promocionService.obtenerPromociones().subscribe(
       result => {
