@@ -14,7 +14,7 @@ export class ReservaComponent implements OnInit {
 
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
-
+  usuario!: any;
   reservas!: Array<Reserva>
   constructor(private router: Router, private servicioR: ReservaService) {
     this.reservas = new Array<Reserva>();
@@ -26,10 +26,19 @@ export class ReservaComponent implements OnInit {
       pageLength: 5,
     };
     this.obtenerReservas();
+    this.usuario = sessionStorage.getItem("user");
   }
 
   ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
+  }
+
+  public nuevaReserva() {
+    this.router.navigate(["reserva-form", 0])
+  }
+
+  public modificarReserva(reserva: Reserva) {
+    this.router.navigate(["reserva-form", reserva._id])
   }
 
   obtenerReservas() {
@@ -55,6 +64,11 @@ export class ReservaComponent implements OnInit {
       )
       location.reload();
     } catch (error) { }
+  }
+
+  public tipoLogged() {
+    var tipoUsuario = sessionStorage.getItem("tipoUsuario");
+    return tipoUsuario;
   }
 
 }

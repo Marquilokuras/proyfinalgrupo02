@@ -53,9 +53,10 @@ export class BebidaFormComponent {
     if (this.bebida.imagenBebida != null) {
       this.bebidaService.guardarBebida(this.bebida).subscribe(
         result => {
-          if (result.status == 1) {
             this.router.navigate(["bebida"])
-          }
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
         },
         error => { }
       )
@@ -67,26 +68,25 @@ export class BebidaFormComponent {
   public actualizarBebida() {
     this.bebidaService.actualizarBebida(this.bebida).subscribe(
       result => {
-        if (result.status == 1) {
           this.router.navigate(["bebida"])
-        }
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
       },
       error => { }
     )
   }
 
   onFileSelected(event: any) {
-    const file = event.target.files[0]; // Obtener solo el primer archivo seleccionado
+    const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = () => {
         let base64 = reader.result as string
         this.bebida.imagenBebida = base64;
         let safeurl: SafeUrl = this.domSanitizer.bypassSecurityTrustUrl(base64);
-        //this.files.push({ 'base64': base64, 'safeurl': safeurl });
         this.file.base64 = base64;
         this.file.safeurl = safeurl;
-        //console.log(this.bebida.imagenBebida)
       };
       reader.readAsDataURL(file);
     }

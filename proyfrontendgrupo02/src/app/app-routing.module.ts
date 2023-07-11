@@ -18,6 +18,7 @@ import { PromocionFormComponent } from './components/promocion-form/promocion-fo
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
 import { AuthGuard } from './auth/auth.guard';
+import { ReservaFormComponent } from './components/reserva-form/reserva-form.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -35,6 +36,8 @@ const routes: Routes = [
   {path: 'menu', component:MenuComponent},
   {path: 'pedido', component:PedidoComponent},
   {path: 'reserva', component:ReservaComponent,canActivate:[AuthGuard]},
+  {path: 'reserva-form/:id', component:ReservaFormComponent},
+  {path: 'reserva-form/0', component:ReservaFormComponent},
   {path: 'pedido/:id', component:PedidoComponent,canActivate:[AuthGuard]},
   {path: 'pedido-form', component:PedidoFormComponent,canActivate:[AuthGuard]},
   {path: 'promocion',component:PromocionComponent,canActivate:[AuthGuard]},   

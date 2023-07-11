@@ -148,7 +148,7 @@ export class PedidoComponent implements OnInit {
         this.arrayPedido = [];
         this.totalConversion = 0;
         this.conversionHabilitada = false;
-        this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito', {
+        this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito!', {
           closeButton: true,
           timeOut: 4000,
           progressBar: true
@@ -218,9 +218,9 @@ export class PedidoComponent implements OnInit {
 
       this.total = this.totalPrecioPromo;
       this.arrayPedido.push(bebidaPedido)
-      this.pedidoSolicitado = true;  
+      this.pedidoSolicitado = true;
     }
-    
+
   }
 
 }
