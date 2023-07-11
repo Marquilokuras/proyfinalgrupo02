@@ -72,4 +72,18 @@ usuarioCtrl.recuperarContrasena = async (req, res) => {
     }
 };
 
+
+usuarioCtrl.mostrarUsuariosLogeados = async (req, res, next) => {
+    try {
+        const user = await Usuario.findById(req.userId);
+
+        if (!user)  return res.json({ 'status': '0', 'msg': 'Unauthorized request.' });
+
+        res.status(200).json({ 'status': '1'});
+    } catch (error) {
+
+        return res.json({ 'status': '0', 'msg': 'Unauthorized request.' });
+    }
+};
+
 module.exports = usuarioCtrl;

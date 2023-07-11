@@ -136,7 +136,6 @@ export class LoginService {
     }
 
     const url = this.hostBase + `recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;
-    console.log(url)
     return this._http.get(url, httpOption);
   }
 }
