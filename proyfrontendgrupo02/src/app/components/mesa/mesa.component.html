@@ -1,3 +1,4 @@
+<div *ngIf="tipoLogged() == 'gestor' || tipoLogged() ==  ('administrador')">
 <div class="container-fluid">
     <h2>Gestion de Mesas </h2>
     <div class="table-responsive" >
@@ -20,11 +21,11 @@
             <td *ngIf="mesa.disponibilidadReserva === true">Disponible</td>
             <td *ngIf="mesa.disponibilidadReserva === false">No disponible</td>
             <td>
-        <button type="button" class="btn btn-secondary me-2" (click)="modificarMesa(mesa)"  *ngIf="tipoLogged() == 'gestor'">
+        <button type="button" class="btn btn-secondary me-2" (click)="modificarMesa(mesa)"  >
           <i class="fa-solid fa-pencil"></i>
         </button>
 
-         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)"  *ngIf="tipoLogged() == 'gestor'">
+         <button type="button" class="btn btn-danger" (click)="eliminarMesa(mesa)">
 
          <i class="fa-sharp fa-solid fa-trash"></i>
          </button>
@@ -33,5 +34,4 @@
         </tbody>
       </table>
     </div>
-
   </div>
