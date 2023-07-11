@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Mesa } from 'src/app/models/mesa';
 import { LoginService } from 'src/app/service/login/login.service';
 import { MesaService } from 'src/app/service/mesa.service';
@@ -15,7 +16,7 @@ export class MesaFormComponent {
   mesa!: Mesa;
   accion: string = "";
 
-  constructor(private servicio: MesaService, private router: Router, private activatedRoute: ActivatedRoute, public usuarioService: LoginService) {
+  constructor(private servicio: MesaService, private router: Router, private activatedRoute: ActivatedRoute, public usuarioService: LoginService, public toastrService:ToastrService) {
     this.mesa = new Mesa();
   }
 
@@ -48,6 +49,11 @@ export class MesaFormComponent {
     this.servicio.crearMesa(this.mesa).subscribe(
       (result: any) => {
         this.router.navigate(["mesa"])
+        this.toastrService.success(`Mesa número: ${this.mesa.numeroMesa}`, '¡Mesa creada con exito!', {
+          closeButton: true,
+          timeOut: 4000,
+          progressBar: true
+        });
       },
       error => { }
     )
