@@ -65,9 +65,9 @@ export class ComentarioUsuarioComponent implements OnInit {
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result => {
-        if (result.status == 1) {
+
           location.reload();
-        }
+        
       },
       error => { }
     )
