@@ -8,7 +8,9 @@ import {
   ApexStroke,
   ApexXAxis,
   ApexFill,
-  ApexTooltip
+  ApexTooltip,
+  ApexNonAxisChartSeries,
+  ApexResponsive
 } from "ng-apexcharts";
 
 import { LoginService } from 'src/app/service/login/login.service';
@@ -24,6 +26,12 @@ export type ChartOptions = {
   fill: ApexFill;
   tooltip: ApexTooltip;
   stroke: ApexStroke;
+};
+export type chartOptionsTorta = {
+  series: ApexNonAxisChartSeries | any[];
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
 };
 
 export type ChartOptionsPedido = {
@@ -47,6 +55,7 @@ export type ChartOptionsPedido = {
 export class EstadisticasComponent implements OnInit {
 
   chartOptions!: ChartOptions;
+  chartOptionsTorta!: chartOptionsTorta;
   chartOptionsPedido!: ChartOptionsPedido;
   contadorEdadCliente: number = 0;
   contadorEdadGestor: number = 0;
@@ -57,7 +66,6 @@ export class EstadisticasComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    //this.estadistica();
     this.obtenerEstadistica();
     this.obtenerEstadisticaPedido();
   }
@@ -122,7 +130,8 @@ export class EstadisticasComponent implements OnInit {
         ],
         chart: {
           type: "bar",
-          height: 350
+          height: 350,
+          width: 800
         },
         plotOptions: {
           bar: {
@@ -162,17 +171,40 @@ export class EstadisticasComponent implements OnInit {
           }
         }
       };
+
+       this.chartOptionsTorta = {
+          series: [totalClientes,totalAdmins,totalGestores],
+          chart: {
+            width: 380,
+            type: "pie"
+          },
+          labels: ["Cliente", "Administrador", "Gestor"],
+          responsive: [
+            {
+              breakpoint: 480,
+              options: {
+                chart: {
+                  width: 200
+                },
+                legend: {
+                  position: "bottom"
+                }
+              }
+            }
+          ]
+        };
+
     });
   }
   obtenerEstadisticaPedido() {
     this.pedido.mostrarPedido().subscribe(result => {
       const pedidos = result;
       this.total = 0;
-  
+
       for(let i = 0; i < pedidos.length; i++){
         this.total += pedidos[i].totalPedido;
       }
-  
+
       console.log(this.total);
       this.chartOptionsPedido = {
         series: [
@@ -233,7 +265,7 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
-  
+
 
 }
 
