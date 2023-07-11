@@ -34,7 +34,6 @@ export class MesaComponent {
     };
     this.usuario = sessionStorage.getItem("user");
     this.obtenerMesas();
-    this.obtenerMesasDisp();
   }
 
   ngOnDestroy(): void {
@@ -69,24 +68,10 @@ export class MesaComponent {
     this.servicio.borrarMesa(mesa._id).subscribe(
       result => {
         this.mesas = new Array<Mesa>();
-        this.obtenerMesas();
+        location.reload();
       },
       error => { }
     );
-  }
-
-  obtenerMesasDisp() {
-    this.servicio.obtenerMesasDisponibles().subscribe(
-      result => {
-        let unaMesa = new Mesa();
-        result.forEach((element: any) => {
-          Object.assign(unaMesa, element)
-          this.mesasDisponibles.push(unaMesa)
-          unaMesa = new Mesa();
-        });
-      },
-      error => { }
-    )
   }
 
   public tipoLogged() {

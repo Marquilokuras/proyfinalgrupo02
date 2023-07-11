@@ -34,6 +34,7 @@ import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
+import { ReservaFormComponent } from './components/reserva-form/reserva-form.component';
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ import { EstadisticasComponent } from './components/estadisticas/estadisticas.co
     PromocionFormComponent,
     ReservaComponent,
     EstadisticasComponent,
+    ReservaFormComponent,
   ],
 
   imports: [
