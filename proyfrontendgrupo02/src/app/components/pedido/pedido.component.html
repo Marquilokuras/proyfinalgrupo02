@@ -40,7 +40,7 @@
           <div class="card-body">
             <h5 class="card-title">Promo: {{promo.nombrePromocion}}</h5>
             <p class="card-text"><strong>Cantidad:</strong> {{cantidadBebidas}}</p>
-            <p class="card-text ingredients-color"><strong>Descuento:</strong> {{promo.descuento*100}}%</p>
+            <p class="card-text ingredients-color"><strong>Descuento:</strong> {{promo.descuento | percent}}</p>
             <p class="card-text"><strong>Fecha de Promocion:</strong> {{promo.fechaPromocion | date:'dd/MM/yyyy'}}</p>
             <p class="card-text"><strong>Precio con Descuento:</strong> {{promo.totalPrecioPromocion}}</p>
             <p class="card-text"><strong>Precio sin Descuento:</strong> {{promo.totalPrecioBebidasSinDescuento}}</p>
