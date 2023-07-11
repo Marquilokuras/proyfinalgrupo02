@@ -4,6 +4,7 @@ import { Subject } from 'rxjs';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { LoginService } from 'src/app/service/login/login.service';
 import * as ExcelJS from 'exceljs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-usuario',
@@ -18,7 +19,7 @@ export class UsuarioComponent implements OnInit {
 
   listUsuario: Usuario[] = [];
 
-  constructor(public loginService: LoginService, private activatedRoute: ActivatedRoute, private router: Router) {
+  constructor(public loginService: LoginService, private activatedRoute: ActivatedRoute, private router: Router,private toastrService:ToastrService) {
   }
 
   ngOnInit(): void {
@@ -82,7 +83,10 @@ export class UsuarioComponent implements OnInit {
   eliminarUsuario(id: string) {
     this.loginService.eliminarUsuario(id).subscribe(
       result => {
-        location.reload();
+        this.toastrService.error("Eliminando Usuario...");
+        setTimeout(() => {
+          location.reload();
+        }, 1000);
       },
       error => { }
     )

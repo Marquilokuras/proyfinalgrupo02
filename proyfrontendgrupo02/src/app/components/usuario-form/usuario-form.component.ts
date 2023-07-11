@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { LoginService } from 'src/app/service/login/login.service';
 
 @Component({
@@ -25,7 +26,7 @@ export class UsuarioFormComponent implements OnInit {
   usuarioNuevo: boolean = false;
   cambios: string = 'new';
 
-  constructor(public usuarioService: LoginService, private activatedRoute: ActivatedRoute, private router: Router) { }
+  constructor(public usuarioService: LoginService, private activatedRoute: ActivatedRoute, private router: Router, private toastrService:ToastrService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
@@ -60,6 +61,12 @@ export class UsuarioFormComponent implements OnInit {
   altaUsuario() {
     this.usuarioService.altaUsuario(this.emailUsuario, this.passwordUsuario, this.nombreUsuario, this.apellidoUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
       (result) => {
+
+        this.toastrService.success('Agregado Correctamente','Nuevo Usuario',{
+          progressBar:true,
+          closeButton:true
+        })
+
       }
     );
   }
@@ -70,7 +77,12 @@ export class UsuarioFormComponent implements OnInit {
 
   modificarUsuario() {
     this.usuarioService.modificarUsuario(this.idUsuario, this.apellidoUsuario, this.nombreUsuario, this.emailUsuario, this.passwordUsuario, this.dniUsuario, this.edadUsuario, this.tipoUsuarioCliente).subscribe(
-      result => { },
+      result => {
+        this.toastrService.info('','Usuario Modificado',{
+          progressBar:true,
+          closeButton:true
+        })
+       },
       error => { }
     )
   }
