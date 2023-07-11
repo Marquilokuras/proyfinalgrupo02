@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Bebida } from 'src/app/models/bebida';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { BebidaService } from 'src/app/service/bebida.service';
@@ -37,7 +38,7 @@ export class PedidoComponent implements OnInit {
   monedas: any;
   conversionHabilitada: boolean = false;
 
-  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService) {
+  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService, private toastrService:ToastrService) {
   }
 
   ngOnInit(): void {
@@ -138,6 +139,12 @@ export class PedidoComponent implements OnInit {
     this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario).subscribe(
       result => {
         this.arrayPedido = []
+        this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito', {
+          closeButton: true,
+          timeOut: 4000,
+          progressBar: true
+      });
+
       },
       error => { }
     )

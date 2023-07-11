@@ -1,4 +1,5 @@
-<div class="container">
+<div class="container-fluid">
+  <div class="container">
   <h1 *ngIf="accion == 'new'">Añadir Mesa</h1>
   <h1 *ngIf="accion == 'update'">Modificar Mesa</h1>
      <form>
@@ -33,8 +34,9 @@
             </div>
           </div>
         </div>
-       
+
         <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarMesa()">Guardar</button>
-        <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarMesa()">Modificar</button> 
+        <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarMesa()">Modificar</button>
       </form>
+    </div>
     </div>
