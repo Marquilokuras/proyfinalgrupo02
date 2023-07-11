@@ -13,6 +13,7 @@ export class AuthGuard implements CanActivate {
 
   canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
     return this.authService.verificarId().pipe(map((res: any) => {
+      console.log(res.status)
       if (res.status == '1') {
         return true;
       } else {
