@@ -1,58 +1,61 @@
-<div class="container">
-    <h2>Gestion de Bebidas</h2>
-    <br>
-    <button type="button" class="btn btn-primary" (click)="nuevoBebida()">Agregar Bebida</button>
-    <div *ngIf="tipoLogged()  == ('administrador')">
-      <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel</button>
-    </div>
-    <div class="table-responsive ">
-      <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col-2">Nombre</th>
-            <th scope="col-2">Ingredientes</th>
-            <th scope="col-2">Tipo de Vaso</th>
-            <th scope="col-2">Disponibilidad</th>
-            <th scope="col-2">Precio</th>
-            <th scope="col-2">Imagen</th>
-            <th scope="col-1">Opciones</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let bebida of listaBebida" class="bebida">
-            <td class="col-2 ">{{bebida.nombreBebida}}</td>
-            <td class="col-2 ">{{bebida.ingredientesBebida}}</td>
-            <td class="col-2 ">{{bebida.tipoVasoBebida}}</td>
-            <td class="col-2 ">
-              <button *ngIf="bebida.disponibilidadBebida==true" (click)="cambiarEstadoBebida(bebida)" class="btn btn-success btn-lg rounded-pill btn-block me-2 mt-5">
-                Disponible
-              </button>
-              <button *ngIf="bebida.disponibilidadBebida==false" (click)="cambiarEstadoBebida(bebida)" class="btn btn-danger btn-lg rounded-pill btn-block me-2 mt-5">
-                No Disponible
-              </button>
-            </td>
-            <td class="col-2">$ {{bebida.precioBebida}}</td>
-            <td class="col-2">
-              <img
-                [src]="bebida.imagenBebida"
-                class="img-thumbnail"
-                style="max-width: 150px"
-                alt="Aca una imagen"
-              />
-            </td>
-            <td class="col-1">
-              <div class="d-flex">
-                <button type="button" class="btn btn-primary btn-lg btn-block me-2 mt-5" (click)="actualizarBebida(bebida)">
-                  <i class="fa-solid fa-pencil"></i> Actualizar
-                </button>
-                <button type="button" class="btn btn-danger btn-lg btn-block mt-5" (click)="eliminarBebida(bebida)">
-                  <i class="fa-sharp fa-solid fa-trash"></i> Eliminar
-                </button>
-              </div>
-            </td>
+<div class="container-fluid">
+  <h2>Gestion de Bebidas</h2>
+  <br>
 
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <div class="table-responsive ">
+    <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
+      <thead>
+        <div class="btn-group">
+          <button type="button" class="btn btn-primary " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador'">Agregar Bebida</button>
+          <div *ngIf="tipoLogged() == 'administrador'">
+            <button type="button" class="btn btn-success" (click)="generarExcel()">Generar
+              Excel</button>
+          </div>
+          <br>
+        </div>
+        <tr>
+          <th scope="col-2">Nombre</th>
+          <th scope="col-2">Ingredientes</th>
+          <th scope="col-2">Tipo de Vaso</th>
+          <th scope="col-2">Disponibilidad</th>
+          <th scope="col-2">Precio</th>
+          <th scope="col-2">Imagen</th>
+          <th scope="col-1">Opciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let bebida of listaBebida" class="bebida">
+          <td class="col-2 ">{{bebida.nombreBebida}}</td>
+          <td class="col-2 ">{{bebida.ingredientesBebida}}</td>
+          <td class="col-2 ">{{bebida.tipoVasoBebida}}</td>
+          <td class="col-2 ">
+            <button *ngIf="bebida.disponibilidadBebida==true" (click)="cambiarEstadoBebida(bebida)"
+              class="btn btn-success btn-lg rounded-pill btn-block me-2 mt-5">
+              Disponible
+            </button>
+            <button *ngIf="bebida.disponibilidadBebida==false" (click)="cambiarEstadoBebida(bebida)"
+              class="btn btn-danger btn-lg rounded-pill btn-block me-2 mt-5">
+              No Disponible
+            </button>
+          </td>
+          <td class="col-2">$ {{bebida.precioBebida}}</td>
+          <td class="col-2">
+            <img [src]="bebida.imagenBebida" class="img-thumbnail" style="max-width: 150px" alt="Aca una imagen" />
+          </td>
+          <td class="col-1">
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary btn-lg btn-block me-2 mt-5"
+                (click)="actualizarBebida(bebida)">
+                <i class="fa-solid fa-pencil"></i> Actualizar
+              </button>
+              <button type="button" class="btn btn-danger btn-lg btn-block mt-5" (click)="eliminarBebida(bebida)">
+                <i class="fa-sharp fa-solid fa-trash"></i> Eliminar
+              </button>
+            </div>
+          </td>
+
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>

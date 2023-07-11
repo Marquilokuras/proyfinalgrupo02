@@ -9,33 +9,32 @@ import { ReservaService } from 'src/app/service/reserva/reserva.service';
   templateUrl: './reserva.component.html',
   styleUrls: ['./reserva.component.css']
 })
+
 export class ReservaComponent implements OnInit {
+
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
 
-  reservas!:Array<Reserva>
-  constructor( private router: Router, private servicioR:ReservaService) { 
+  reservas!: Array<Reserva>
+  constructor(private router: Router, private servicioR: ReservaService) {
     this.reservas = new Array<Reserva>();
-
   }
 
-  ngOnInit(): void {  
+  ngOnInit(): void {
     this.dtOptions = {
-    pagingType : 'full_pages',
-    pageLength : 5,
-  };
-  this.obtenerReservas(); 
+      pagingType: 'full_pages',
+      pageLength: 5,
+    };
+    this.obtenerReservas();
   }
 
-  ngOnDestroy():void{
+  ngOnDestroy(): void {
     this.dtTrigger.unsubscribe();
-  } 
+  }
 
- 
-  obtenerReservas(){
+  obtenerReservas() {
     this.servicioR.obtenerTodasLasReservas().subscribe(
-      result=>{
-        console.log(result)
+      result => {
         this.dtTrigger.next(this.reservas);
         let unaR = new Reserva();
         result.forEach((element: any) => {
@@ -43,27 +42,19 @@ export class ReservaComponent implements OnInit {
           this.reservas.push(unaR)
           unaR = new Reserva();
           this.ngOnDestroy()
-      });
-    },
-      error=>{
-       
-
-      }
+        });
+      },
+      error => { }
     )
   }
 
-  async eliminarReserva(reserva : Reserva) {
+  async eliminarReserva(reserva: Reserva) {
     try {
       this.servicioR.borrarReserva(reserva._id).subscribe(
-        result=>{
-
-        }
+        result => { }
       )
-        location.reload();
-     
-    } catch (error) {
-      console.error("Ocurrió un error al eliminar la reserva:", error);
-    }
+      location.reload();
+    } catch (error) { }
   }
 
 }

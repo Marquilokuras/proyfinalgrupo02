@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Bebida } from 'src/app/models/bebida';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { BebidaService } from 'src/app/service/bebida.service';
@@ -12,7 +13,9 @@ import { PedidoService } from 'src/app/service/pedido/pedido.service';
   templateUrl: './pedido.component.html',
   styleUrls: ['./pedido.component.css']
 })
+
 export class PedidoComponent implements OnInit {
+
   carta = new Array();
   pedido = new Array();
   arrayPedido = new Array();
@@ -25,46 +28,71 @@ export class PedidoComponent implements OnInit {
   pedidoSolicitado: boolean = false
   total: number = 0;
   cambios: string = 'new';
-  idPedido!:string;
+  idPedido!: string;
   emailUsuario !: string | null;
-  monedaOrigen:string = 'usd';
-  monedaDestino:string = 'ars';
   monedaSeleccionada: string = '';
-  tiposMonedas: any;
-  constructor(private pedidoService: PedidoService,private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService:ConversorService) {
+  codigoMonedaOrigen: string = "ars";
+  codigoMonedaDestino!: string;
+  resultadoConversion!: string;
+  totalConversion!: number;
+  monedas: any;
+  conversionHabilitada: boolean = false;
+
+  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService) {
   }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params => {
       if (params['id'].trim() === ":id") {
-        console.log(params['id']);
-
         this.cambios = "new";
-
       } else {
-
         this.cambios = "modificar";
-        this.idPedido= params['id'];
-        console.log(this.idPedido)
+        this.idPedido = params['id'];
         this.obtenerPedido(this.idPedido);
       }
     });
     this.obtenerBebidas();
+    this.obtenerMonedas();
+  }
 
+  habilitarConversion(): void {
+    this.conversionHabilitada = true;
+  }
+
+  obtenerMonedas(): void {
     this.conversorService.getAll().subscribe(
-      result=>{
-        this.tiposMonedas = result;
-        console.log(this.tiposMonedas),
-        console.log(this.tiposMonedas[1])
+      data => {
+        this.monedas = Object.entries(data).map(([key, value]) => ({ key, value }));
+      },
+      error => { }
+    );
+  }
+
+  // Método para manejar el evento de selección de moneda
+  seleccionarMoneda(event: any, tipo: string): void {
+    const codigoMoneda = event.target.value;
+
+    if (tipo === 'origen') {
+      this.codigoMonedaOrigen = codigoMoneda;
+      console.log('Código de moneda de origen seleccionado:', this.codigoMonedaOrigen);
+    } else if (tipo === 'destino') {
+      this.codigoMonedaDestino = codigoMoneda;
+      console.log('Código de moneda de destino seleccionado:', this.codigoMonedaDestino);
+    }
+  }
+
+  convertirMonedas() {
+    this.conversorService.getCurrencyValue(this.codigoMonedaOrigen, this.codigoMonedaDestino).subscribe(
+      result => {
+        this.resultadoConversion = this.codigoMonedaDestino;
+        const valorConversion = result[this.codigoMonedaDestino];
+        this.totalConversion = valorConversion * this.total;
+        console.log(this.totalConversion)
       }
-    )
+    );
   }
 
-  seleccionarMoneda(moneda: string): void {
-    this.monedaSeleccionada = moneda;
-  }
-
-  obtenerPedido(pedidoId:string) {
+  obtenerPedido(pedidoId: string) {
     this.pedidoSolicitado = true;
     this.pedidoService.mostrarPedido().subscribe(
       result => {
@@ -72,74 +100,68 @@ export class PedidoComponent implements OnInit {
         this.pedido.some(id => id === pedidoId);
         this.arrayModificar = this.pedido.find(item => item._id === pedidoId);
         if (this.arrayModificar) {
-
           this.pedido = this.pedido.filter(item => item._id !== pedidoId);
         }
       },
-      error => {
-      }
+      error => { }
     )
   }
 
   obtenerBebidas() {
-    this.bebidaService.obtenerBebidas().subscribe(
+    this.bebidaService.obtenerBebidasDisponibles().subscribe(
       result => {
         console.log(result);
         this.carta = result.map((any: any) => ({
           ...any,
-          cantidad: ""  // Agregar la propiedad cantidad con valor inicial de ""
+          cantidad: ""
         }));
       },
-      error => {
-        console.log(error);
-      }
+      error => { }
     );
   }
 
-  public crearPedido(identificador: string, precioDetalle: number,cantidad:number,nombreBebida:string) {
-
+  public crearPedido(identificador: string, precioDetalle: number, cantidad: number, nombreBebida: string) {
     const bebidaPedido = {
       cantidadBebidas: cantidad,
       precioDetalle: precioDetalle,
       bebida: identificador,
-      nombreBebida : nombreBebida,
+      nombreBebida: nombreBebida,
     };
     this.total = this.total + cantidad * precioDetalle
     this.arrayPedido.push(bebidaPedido)
     this.pedidoSolicitado = true;
-    this.conversorService.getCurrencyValue(this.monedaOrigen, this.monedaDestino).subscribe(
-      result=>{
-        console.log(result)
-      },
-      error => {
-        console.log('result')
-      }
-    )
   }
 
   public generarPedido() {
     this.total = 0;
-    this.emailUsuario= this.loginService.userLogged();
-    this.pedidoService.generarPedido(this.arrayPedido,this.emailUsuario).subscribe(
+    this.emailUsuario = this.loginService.userLogged();
+    this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario).subscribe(
       result => {
-        this.arrayPedido = []
+        this.arrayPedido = [];
+        this.totalConversion = 0;
+        this.conversionHabilitada = false;
+        this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito', {
+          closeButton: true,
+          timeOut: 4000,
+          progressBar: true
+        });
       },
-      error => {
-      }
+      error => { }
     )
   }
 
-  cancelarPedido(){
+  cancelarPedido() {
     this.arrayPedido = [];
     this.total = 0;
+    this.totalConversion = 0;
+    this.conversionHabilitada = false;
   }
 
-  modificarPedido(){
-     this.pedidoService.modificarPedido(this.idPedido,this.arrayModificar).subscribe(
-      result => {
-      },
-      error => {
-      }
+  modificarPedido() {
+    this.pedidoService.modificarPedido(this.idPedido, this.arrayModificar).subscribe(
+      result => { },
+      error => { }
     )
   }
+
 }

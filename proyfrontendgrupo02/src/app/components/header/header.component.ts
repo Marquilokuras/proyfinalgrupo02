@@ -7,6 +7,7 @@ import { LoginService } from 'src/app/service/login/login.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
+
 export class HeaderComponent implements OnInit {
 
   usuario !: string;
@@ -16,13 +17,11 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  //Se desloguea
   logout() {
     this.loginService.logout();
     this.router.navigate(['/login']);
   }
 
-  // Se obtiene el tipo de Usuario
   public tipoLogged() {
     var tipoUsuario = sessionStorage.getItem("tipoUsuario");
     return tipoUsuario;

@@ -1,20 +1,29 @@
 .container-fluid {
-  padding: 0;
+  padding: 10px;
+  background-color: #f5e7aa;
+  text-align: center;
 }
-
+/*
+Naranja:  #fa6816
+Amarillo: #f5e7aa
+Verde: #7fa38c
+Marron Clarito:  #494144
+Marron: #251a21
+*/
 .container {
-  padding: 40px;
+  padding: 2%;
 }
 
 h1 {
-  font-size: 32px;
+  font-size: 50px;
   font-weight: bold;
-  color: #fff;
+  color: #494144;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .card {
   border: none;
+  background-color: #7fa38c;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s ease-in-out;
 }
@@ -42,7 +51,7 @@ h1 {
 }
 
 .card-body {
-  background-color: #f8f9fa;
+  background-color: #7fa38c;
   padding: 20px;
 }
 
