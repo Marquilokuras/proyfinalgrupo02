@@ -8,7 +8,7 @@ var app = express();
 
 //middlewares
 //app.use(express.json());
-app.use(cors({ origin: 'https://proyfinalgrupo02-sco8.vercel.app' }));
+app.use(cors({ origin: 'https://proyfinalgrupo02.vercel.app' }));
 //app.use(cors({ origin: '*' }));
 
 app.use(bodyParser.json({ limit: '10mb' }));
