@@ -29,7 +29,8 @@ export class PedidoComponent implements OnInit {
   imgBebida = new Array();
   nombreBebida = new Array()
   nombreBebidaPedido = new Array()
-  bebidaPedido  = new Array();
+  bebidaPedido = new Array();
+  nombreBebidaPromo = new Array();
   numeros: number[] = Array.from({ length: 20 }, (_, i) => i + 1);
 
   cantidadBebidas !: number;
@@ -147,7 +148,7 @@ export class PedidoComponent implements OnInit {
     this.total = 0;
     this.emailUsuario = this.loginService.userLogged();
     let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
-    this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario,fechaActual).subscribe(
+    this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual).subscribe(
       result => {
         this.arrayPedido = [];
         this.totalConversion = 0;
@@ -180,6 +181,7 @@ export class PedidoComponent implements OnInit {
     this.promocionService.obtenerPromocionesDisponibles().subscribe(
       result => {
         this.promocion = result
+        console.log(this.promocion)
         this.promocionBebidas = result
         this.cantidadBebidas = this.promocionBebidas[0].bebidas.length
         this.bebidaPromocion = this.promocionBebidas[0].bebidas
@@ -190,7 +192,7 @@ export class PedidoComponent implements OnInit {
             result => {
               this.promocionBebida = result;
               this.imgBebida = result.imagenBebida;
-              result.nombreBebida;
+              this.nombreBebidaPromo = result.nombreBebida;
               this.nombreBebida.push(result.nombreBebida)
             }
           )
@@ -202,8 +204,9 @@ export class PedidoComponent implements OnInit {
 
   public crearPedidoBebida() {
     this.totalPrecioPromo = this.promocionBebidas[0].totalPrecioPromocion;
+    let idBebida = "";
     for (let i = 0; i < this.cantidadBebidas; i++) {
-      let idBebida = "";
+
       idBebida = this.bebidaPromocion[i]
       this.bebidaService.obtenerBebida(idBebida).subscribe(
         result => {
@@ -211,19 +214,36 @@ export class PedidoComponent implements OnInit {
           this.imgBebida = result.imagenBebida;
         }
       )
-      let nombre = this.nombreBebidaPedido;
-      let precioPorBebida = this.totalPrecioPromo/this.cantidadBebidas
+    }
+
+    if (this.nombreBebida.length === 1) {
+      let precioPorBebida = this.totalPrecioPromo / this.cantidadBebidas
       let bebidaPedido = {
-        cantidadBebidas: 1,
-        precioDetalle: precioPorBebida,
+        cantidadBebidas: this.cantidadBebidas,
+        precioDetalle: this.totalPrecioPromo,
         bebida: idBebida,
-        nombreBebida: this.nombreBebida[i],
+        nombreBebida: this.nombreBebida,
       };
 
       this.total = this.totalPrecioPromo;
       this.arrayPedido.push(bebidaPedido)
       this.pedidoSolicitado = true;
+    } else {
+      for (let i = 0; i < this.cantidadBebidas; i++) {
+        let precioPorBebida = this.totalPrecioPromo / this.cantidadBebidas
+        let bebidaPedido = {
+          cantidadBebidas: 1,
+          precioDetalle: precioPorBebida,
+          bebida: idBebida,
+          nombreBebida: this.nombreBebida[i],
+        };
+
+        this.total = this.totalPrecioPromo;
+        this.arrayPedido.push(bebidaPedido)
+        this.pedidoSolicitado = true;
+      }
     }
+
 
   }
 
