@@ -9,7 +9,7 @@ pedidoCtrl.getPedidoBebida = async (req, res) => {
 }
 
 pedidoCtrl.createPedidoBebida = async (req, res) => {
-    let pedido = new Pedido({ totalPedido: 0, bebidasPedido: [] })
+    let pedido = new Pedido({ totalPedido: 0, bebidasPedido: [], fechaPedido:"" })
     try {
         let cantidadBebidas = 0;
         let precioDetalle = 0;
@@ -26,6 +26,7 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
         }
 
         pedido.totalPedido = precioPedido
+        pedido.fechaPedido = req.body.fechaPedido
         const emailUsuario = req.body.emailUsuario;
 
         //transportador del mensaje (quien lo envia en este caso un mail temporal)

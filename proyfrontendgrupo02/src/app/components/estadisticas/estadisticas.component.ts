@@ -285,7 +285,7 @@ export class EstadisticasComponent implements OnInit {
       this.totalGaribaldi = 0;
       this.totalGin = 0;
       this.totalNegroni = 0;
-  
+
       for (let i = 0; i < pedidos.length; i++) {
         let pedido = pedidos[i].bebidasPedido;
         if (pedido) {
@@ -293,19 +293,19 @@ export class EstadisticasComponent implements OnInit {
             if (pedido[j] && pedido[j].bebida && pedido[j].bebida.nombreBebida) {
               switch (pedido[j].bebida.nombreBebida) {
                 case "Mojito":
-                  this.totalMojito++;
+                  this.totalMojito = this.totalMojito + pedido[j].cantidadBebidas;
                   break;
                 case "Gin Tonic":
-                  this.totalGin++;
+                  this.totalGin = this.totalGin + pedido[j].cantidadBebidas;
                   break;
                 case "Sex on the beach":
-                  this.totalBeach++;
+                  this.totalBeach = this.totalBeach + pedido[j].cantidadBebidas;
                   break;
                 case "Garibaldi":
-                  this.totalGaribaldi++;
+                  this.totalGaribaldi = this.totalGaribaldi + pedido[j].cantidadBebidas;
                   break;
                 case "Negroni":
-                  this.totalNegroni++;
+                  this.totalNegroni = this.totalNegroni + pedido[j].cantidadBebidas;
                   break;
                 default:
                   break;
@@ -314,7 +314,7 @@ export class EstadisticasComponent implements OnInit {
           }
         }
       }
-  
+
       this.chartOptionsPorPedido = {
         series: [
           {
@@ -374,5 +374,5 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
-  
+
 }
