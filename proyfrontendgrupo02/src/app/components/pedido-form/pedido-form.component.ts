@@ -43,6 +43,7 @@ export class PedidoFormComponent implements OnInit {
           bebida.bebida?.ingredientesBebida,
           bebida.precioDetalle,
           bebida.cantidadBebidas,
+          pedido.fechaPedido,
           pedido.totalPedido
         ]);
       }
