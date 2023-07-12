@@ -31,26 +31,28 @@
               Pedido</button>
           </div>
         </div>
-      </div>
     </div>
 
-      <div class="col-lg-6 col-md-6 col-sm-12 mb-5" *ngFor="let promo of promocion">
-          <div class="card-body">
-            <h5 class="card-title">Promo: {{promo.nombrePromocion}}</h5>
-            <p class="card-text"><strong>Cantidad:</strong> {{cantidadBebidas}}</p>
-            <p class="card-text ingredients-color"><strong>Descuento:</strong> {{promo.descuento | percent}}</p>
-            <p class="card-text"><strong>Fecha de Promocion:</strong> {{promo.fechaPromocion | date:'dd/MM/yyyy'}}</p>
-            <p class="card-text"><strong>Precio con Descuento:</strong> {{promo.totalPrecioPromocion}}</p>
-            <p class="card-text"><strong>Precio sin Descuento:</strong> {{promo.totalPrecioBebidasSinDescuento}}</p>
-            <p class="card-text"><strong>Nombre:</strong></p>
-            <div *ngFor="let nom of nombreBebida">
-              <p class="col-lg-6 col-md-6 col-sm-12 mb-5"> {{nom}} </p>
+    <div class="col-lg-6 col-md-6 col-sm-12 mb-5 texto2" *ngFor="let promo of promocion">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Promo: {{promo.nombrePromocion}}</h5>
+          <p class="card-text"><strong>Cantidad:</strong> {{cantidadBebidas}}</p>
+          <p class="card-text ingredients-color"><strong>Descuento:</strong> {{promo.descuento | percent}}</p>
+          <p class="card-text"><strong>Fecha de Promocion:</strong> {{promo.fechaPromocion | date:'dd/MM/yyyy'}}</p>
+          <p class="card-text"><strong>Precio con Descuento:</strong> {{promo.totalPrecioPromocion}}</p>
+          <p class="card-text"><strong>Precio sin Descuento:</strong> {{promo.totalPrecioBebidasSinDescuento}}</p>
+          <p class="card-text"><strong>Nombre:</strong></p>
+          <div *ngFor="let nom of nombreBebida">
+            <p class="col-lg-6 col-md-6 col-sm-12 mb-5"> {{nom}} </p>
           </div>
         </div>
-        <button class="btn btn-primary mx-5 mt-2 mb-2" (click)="crearPedidoBebida()">Agregar al
-          Pedido</button>
+        <div class="card-footer">
+          <button class="btn btn-primary mx-5 mt-2 mb-2" (click)="crearPedidoBebida()">Agregar al Pedido</button>
+        </div>
       </div>
-
+    </div>
+  </div>
     <div class="col-lg-6">
       <h1 class="menu mt-4">Pedido</h1>
       <button type="button" class="btn btn-primary" *ngIf=" cambios == 'new' && pedidoSolicitado===true"

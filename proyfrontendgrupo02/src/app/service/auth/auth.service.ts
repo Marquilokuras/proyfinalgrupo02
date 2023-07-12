@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
-  url="https://proygrupo02.onrender.com/api/usuario/auth/autenticacion";
-  //url="http://localhost:3000/api/usuario/auth/autenticacion";
+  //url="https://proygrupo02.onrender.com/api/usuario/auth/autenticacion";
+  url="http://localhost:3000/api/usuario/auth/autenticacion";
 
   isLoggedIn = false;
 
