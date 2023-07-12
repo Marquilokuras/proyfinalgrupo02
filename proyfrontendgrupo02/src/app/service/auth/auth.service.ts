@@ -8,8 +8,8 @@ import { Observable } from 'rxjs';
 
 export class AuthService {
 
-  //url="https://proygrupo02.onrender.com/api/usuario/auth/autenticacion";
-  url="http://localhost:3000/api/usuario/auth/autenticacion";
+  url="https://proygrupo02.onrender.com/api/usuario/auth/autenticacion";
+ // url="http://localhost:3000/api/usuario/auth/autenticacion";
 
   isLoggedIn = false;
 
@@ -20,8 +20,8 @@ export class AuthService {
     let httpOption = {
       headers: new HttpHeaders({
         'Content-type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
     };
     
     return this._http.get(this.url, httpOption);

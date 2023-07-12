@@ -33,8 +33,8 @@ export class GooService {
   getEvents(idCalendario: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        "Authorization": "Bearer " + this.getToken(),
-        "Accept": "application/json",
+/*         "Authorization": "Bearer " + this.getToken(),
+ */        "Accept": "application/json",
         "Content-Type": "application/json"
       }),
       params: new HttpParams({
@@ -50,8 +50,8 @@ export class GooService {
   createEvent(idCalendario: string, event: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        "Authorization": "Bearer " + this.getToken(),
-        "Accept": "application/json",
+/*         "Authorization": "Bearer " + this.getToken(),
+ */        "Accept": "application/json",
         "Content-Type": "application/json"
       }),
       params: new HttpParams({

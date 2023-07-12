@@ -9,16 +9,16 @@ import { Promocion } from 'src/app/models/promocion/promocion';
 })
 export class PromocionService {
 
-  //urlBase:string="https://proygrupo02.onrender.com/api/promocion/"
-  urlBase:string="http://localhost:3000/api/promocion/"
+  urlBase:string="https://proygrupo02.onrender.com/api/promocion/"
+  //urlBase:string="http://localhost:3000/api/promocion/"
 
   constructor(private _http: HttpClient) { }
 
   public obtenerPromociones():Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.get(this.urlBase,httpOptions);
@@ -27,8 +27,8 @@ export class PromocionService {
   public obtenerPromocion(id:string):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.get(this.urlBase+id,httpOptions);
@@ -37,8 +37,8 @@ export class PromocionService {
   public obtenerPromocionesDisponibles():Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     const url = this.urlBase+"disponibles"
@@ -50,8 +50,8 @@ export class PromocionService {
     const httpOptions={
       headers : new HttpHeaders({
         "Content-type":"application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     let body = JSON.stringify(promo)
@@ -62,8 +62,8 @@ export class PromocionService {
     const httpOptions={
       headers : new HttpHeaders({
         "Content-type":"application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     let body = JSON.stringify(promo)
@@ -73,8 +73,8 @@ export class PromocionService {
   public eliminarPromocion(promo:Promocion):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.delete(this.urlBase+promo._id,httpOptions);
@@ -83,8 +83,8 @@ export class PromocionService {
   public agregarBebida(promo:Promocion,bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.get(this.urlBase+promo._id+"/bebida/"+bebida._id)
@@ -93,8 +93,8 @@ export class PromocionService {
   public eliminarBebida(promo:Promocion,bebida:Bebida):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.delete(this.urlBase+promo._id+"/bebida/"+bebida._id)
