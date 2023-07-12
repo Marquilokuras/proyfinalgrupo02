@@ -54,7 +54,8 @@
     </div>
   </div>
     <div class="col-lg-6">
-      <h1 class="menu mt-4">Pedido</h1>
+      <h1 class="menu mt-4">Pedido </h1>
+      <h2 class="menu mt-4">Fecha: {{fechaPedido  | date: 'dd MMM yyyy HH:mm:ss'}}</h2>
       <button type="button" class="btn btn-primary" *ngIf=" cambios == 'new' && pedidoSolicitado===true"
         routerLink="/pedido" (click)="generarPedido()">Generar Pedido</button>
       <button type="button" class="btn btn-primary mx-2" *ngIf=" cambios == 'modificar'" routerLink="/pedido"

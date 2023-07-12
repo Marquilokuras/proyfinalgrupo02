@@ -6,6 +6,7 @@ const Promocion = require('./promocion');
 const PedidoSchema = new Schema({
     promocion: { type: Schema.Types.ObjectId, ref: Promocion },
     totalPedido: { type: Number , required: true },
+    fechaPedido: { type: String, required: true},
     bebidasPedido: [
         {
             cantidadBebidas: { type: Number, required: true },

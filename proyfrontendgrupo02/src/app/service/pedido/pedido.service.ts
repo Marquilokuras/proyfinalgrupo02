@@ -14,7 +14,7 @@ export class PedidoService {
     this.hostBase = "http://localhost:3000/api/pedido/";
   }
 
-  public generarPedido(bebidasPedido: Array<any>, email: string | null): Observable<any> {
+  public generarPedido(bebidasPedido: Array<any>, email: string | null, fechaPedido : string): Observable<any> {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
@@ -24,7 +24,8 @@ export class PedidoService {
 
     const body = {
       'bebidasPedido': bebidasPedido,
-      'emailUsuario': email
+      'emailUsuario': email,
+      'fechaPedido': fechaPedido
     };
 
     return this._http.post('http://localhost:3000/api/pedido/', body, httpOption);
