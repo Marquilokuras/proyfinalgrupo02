@@ -35,6 +35,13 @@ export type chartOptionsTorta = {
   labels: any;
 };
 
+export type chartOptionsTortaHorario = {
+  series: ApexNonAxisChartSeries | any[];
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};
+
 export type ChartOptionsPedido = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -81,6 +88,7 @@ export class EstadisticasComponent implements OnInit {
 
   chartOptions!: ChartOptions;
   chartOptionsTorta!: chartOptionsTorta;
+  chartOptionsTortaHorario!: chartOptionsTorta;
   chartOptionsPedido!: ChartOptionsPedido;
   chartOptionsPorPedido!: ChartOptionsPorPedido;
   chartOptionsPorMesPedido!: ChartOptionsPorMesPedido;
@@ -390,7 +398,7 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
-
+  
   obtenerEstadisticaPorMesPedido() {
     this.pedido.mostrarPedido().subscribe(result => {
       const pedidos = result;
@@ -406,10 +414,13 @@ export class EstadisticasComponent implements OnInit {
       let totalOctubre = 0;
       let totalNoviembre = 0;
       let totalDiciembre = 0;
+      let totalTarde = 0;
+      let totalNoche = 0;
+      let totalAnochecer = 0;
   
       for (let i = 0; i < pedidos.length; i++) {
         let pedido = pedidos[i];
-
+  
         if (pedido) {
           let partesFecha = pedido.fechaPedido.split(" ");
           let fechaSinHora = partesFecha[0];
@@ -456,13 +467,22 @@ export class EstadisticasComponent implements OnInit {
             default:
               break;
           }
+  
+          let hora = parseInt(partesFecha[1].split(":")[0]);
+          if ((hora >= 18 && hora <= 20) || (hora >= 20 && hora <= 23 && parseInt(partesFecha[1].split(":")[1]) >= 1)) {
+            totalTarde += pedido.totalPedido;
+          } else if (hora >= 0 && hora <= 4) {
+            totalAnochecer += pedido.totalPedido;
+          } else {
+            totalNoche += pedido.totalPedido;
+          }
         }
       }
   
       this.chartOptionsPorMesPedido = {
         series: [
           {
-            name: "Ganancia",
+            name: "Ganancia por Mes",
             data: [
               totalEnero,
               totalFebrero,
@@ -488,6 +508,7 @@ export class EstadisticasComponent implements OnInit {
             horizontal: false,
             columnWidth: "55%",
             borderRadius: 0,
+            distributed: true 
           },
         },
         dataLabels: {
@@ -525,13 +546,34 @@ export class EstadisticasComponent implements OnInit {
         tooltip: {
           y: {
             formatter: function (val) {
-              return "" + val + "";
+              return "$" + val + "";
             },
           },
         },
       };
+
+      this.chartOptionsTortaHorario = {
+        series: [totalTarde, totalNoche, totalAnochecer],
+        chart: {
+          width: 380,
+          type: "pie"
+        },
+        labels: ["Tarde", "Noche", "Anochecer"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
+      };
     });
   }
-  
 
 }

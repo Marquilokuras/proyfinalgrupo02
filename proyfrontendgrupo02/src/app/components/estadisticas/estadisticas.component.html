@@ -34,8 +34,13 @@
   <div class="grafico-por-pedido">
     <apx-chart [series]="chartOptionsPorMesPedido.series" [chart]="chartOptionsPorMesPedido.chart"
       [dataLabels]="chartOptionsPorMesPedido.dataLabels" [plotOptions]="chartOptionsPorMesPedido.plotOptions"
-      [yaxis]="chartOptionsPorMesPedido.yaxis" [xaxis]="chartOptionsPorMesPedido.xaxis" [fill]="chartOptionsPorMesPedido.fill"
-      [tooltip]="chartOptionsPorMesPedido.tooltip" [stroke]="chartOptionsPorMesPedido.stroke"></apx-chart>
+      [yaxis]="chartOptionsPorMesPedido.yaxis" [xaxis]="chartOptionsPorMesPedido.xaxis"
+      [fill]="chartOptionsPorMesPedido.fill" [tooltip]="chartOptionsPorMesPedido.tooltip"
+      [stroke]="chartOptionsPorMesPedido.stroke"></apx-chart>
+    <div class="col-md-4 torta" id="chart">
+      <apx-chart [series]="chartOptionsTortaHorario.series" [chart]="chartOptionsTortaHorario.chart"
+        [labels]="chartOptionsTortaHorario.labels" [responsive]="chartOptionsTortaHorario.responsive"></apx-chart>
+    </div>
   </div>
 
 </div>
