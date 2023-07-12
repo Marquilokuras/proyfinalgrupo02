@@ -1,5 +1,5 @@
 <div class="container-fluid" *ngIf="tipoLogged() ==  ('administrador') ">
-  <h3 class="text-center">Estadisticas de Usuarios</h3>
+  <h2 class="text-center">Estadisticas de Usuarios</h2>
   <div class="row">
     <div class="col-md-8" id="chart">
       <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
@@ -14,23 +14,28 @@
     </div>
   </div>
 
-
-  <h3 class="text-center">Total Recaudado</h3>
-
-  <div *ngIf="chartOptionsPedido" id="chart">
+  <h2 class="text-center">Estadísticas de Pedidos</h2>
+  <div class="grafico-pedido">
     <apx-chart [series]="chartOptionsPedido.series" [chart]="chartOptionsPedido.chart"
       [dataLabels]="chartOptionsPedido.dataLabels" [plotOptions]="chartOptionsPedido.plotOptions"
-      [yaxis]="chartOptionsPedido.yaxis" [fill]="chartOptionsPedido.fill" [stroke]="chartOptionsPedido.stroke"
-      [tooltip]="chartOptionsPedido.tooltip" [xaxis]="chartOptionsPedido.xaxis"></apx-chart>
+      [yaxis]="chartOptionsPedido.yaxis" [xaxis]="chartOptionsPedido.xaxis" [fill]="chartOptionsPedido.fill"
+      [tooltip]="chartOptionsPedido.tooltip" [stroke]="chartOptionsPedido.stroke"></apx-chart>
   </div>
 
-  <h3 class="text-center">Total Obtenido por Cada Bebida</h3>
-
-  <div id="chart">
+  <h2 class="text-center">Estadísticas por Tipo de Pedido</h2>
+  <div class="grafico-por-pedido">
     <apx-chart [series]="chartOptionsPorPedido.series" [chart]="chartOptionsPorPedido.chart"
       [dataLabels]="chartOptionsPorPedido.dataLabels" [plotOptions]="chartOptionsPorPedido.plotOptions"
-      [yaxis]="chartOptionsPorPedido.yaxis" [fill]="chartOptionsPorPedido.fill" [stroke]="chartOptionsPorPedido.stroke"
-      [tooltip]="chartOptionsPorPedido.tooltip" [xaxis]="chartOptionsPorPedido.xaxis"></apx-chart>
+      [yaxis]="chartOptionsPorPedido.yaxis" [xaxis]="chartOptionsPorPedido.xaxis" [fill]="chartOptionsPorPedido.fill"
+      [tooltip]="chartOptionsPorPedido.tooltip" [stroke]="chartOptionsPorPedido.stroke"></apx-chart>
+  </div>
+
+  <h2 class="text-center">Estadística Ganancia por Fecha</h2>
+  <div class="grafico-por-pedido">
+    <apx-chart [series]="chartOptionsPorPedido.series" [chart]="chartOptionsPorPedido.chart"
+      [dataLabels]="chartOptionsPorPedido.dataLabels" [plotOptions]="chartOptionsPorPedido.plotOptions"
+      [yaxis]="chartOptionsPorPedido.yaxis" [xaxis]="chartOptionsPorPedido.xaxis" [fill]="chartOptionsPorPedido.fill"
+      [tooltip]="chartOptionsPorPedido.tooltip" [stroke]="chartOptionsPorPedido.stroke"></apx-chart>
   </div>
 
 </div>

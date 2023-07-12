@@ -63,13 +63,12 @@ export type ChartOptionsPorPedido = {
   templateUrl: './estadisticas.component.html',
   styleUrls: ['./estadisticas.component.css']
 })
-
 export class EstadisticasComponent implements OnInit {
 
   chartOptions!: ChartOptions;
   chartOptionsTorta!: chartOptionsTorta;
   chartOptionsPedido!: ChartOptionsPedido;
-  chartOptionsPorPedido!: ChartOptionsPedido;
+  chartOptionsPorPedido!: ChartOptionsPorPedido;
   contadorEdadCliente: number = 0;
   contadorEdadGestor: number = 0;
   contadorEdadAdmin: number = 0;
@@ -191,28 +190,28 @@ export class EstadisticasComponent implements OnInit {
           }
         }
       };
-       this.chartOptionsTorta = {
-          series: [totalClientes,totalAdmins,totalGestores],
-          chart: {
-            width: 380,
-            type: "pie"
-          },
-          labels: ["Cliente", "Administrador", "Gestor"],
-          responsive: [
-            {
-              breakpoint: 480,
-              options: {
-                chart: {
-                  width: 200
-                },
-                legend: {
-                  position: "bottom"
-                }
+
+      this.chartOptionsTorta = {
+        series: [totalClientes, totalAdmins, totalGestores],
+        chart: {
+          width: 380,
+          type: "pie"
+        },
+        labels: ["Cliente", "Administrador", "Gestor"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
               }
             }
-          ]
-        };
-
+          }
+        ]
+      };
     });
   }
 
@@ -221,7 +220,7 @@ export class EstadisticasComponent implements OnInit {
       const pedidos = result;
       this.total = 0;
 
-      for(let i = 0; i < pedidos.length; i++){
+      for (let i = 0; i < pedidos.length; i++) {
         this.total += pedidos[i].totalPedido;
       }
 
@@ -281,23 +280,37 @@ export class EstadisticasComponent implements OnInit {
     this.pedido.mostrarPedido().subscribe(result => {
       const pedidos = result;
       this.total = 0;
+      this.totalMojito = 0;
+      this.totalBeach = 0;
+      this.totalGaribaldi = 0;
+      this.totalGin = 0;
+      this.totalNegroni = 0;
 
       for (let i = 0; i < pedidos.length; i++) {
-        let pedido = pedidos[i].bebidasPedido
-        for (let j = 0; j < pedido.length; j++) {
-          switch (pedido[j].bebida.nombreBebida) {
-            case "Mojito": this.totalMojito++;
-              break;
-            case "Gin Tonic": this.totalGin++;
-              break
-            case "Sex on the beach": this.totalBeach++;
-              break
-            case "Garibaldi": this.totalGaribaldi++;
-              break
-            case "Negroni": this.totalNegroni++;
-              break
-            default:
-              break;
+        let pedido = pedidos[i].bebidasPedido;
+        if (pedido) {
+          for (let j = 0; j < pedido.length; j++) {
+            if (pedido[j] && pedido[j].bebida && pedido[j].bebida.nombreBebida) {
+              switch (pedido[j].bebida.nombreBebida) {
+                case "Mojito":
+                  this.totalMojito = this.totalMojito + pedido[j].cantidadBebidas;
+                  break;
+                case "Gin Tonic":
+                  this.totalGin = this.totalGin + pedido[j].cantidadBebidas;
+                  break;
+                case "Sex on the beach":
+                  this.totalBeach = this.totalBeach + pedido[j].cantidadBebidas;
+                  break;
+                case "Garibaldi":
+                  this.totalGaribaldi = this.totalGaribaldi + pedido[j].cantidadBebidas;
+                  break;
+                case "Negroni":
+                  this.totalNegroni = this.totalNegroni + pedido[j].cantidadBebidas;
+                  break;
+                default:
+                  break;
+              }
+            }
           }
         }
       }
@@ -361,4 +374,5 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
+
 }
