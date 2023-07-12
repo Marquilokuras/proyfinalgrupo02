@@ -8,8 +8,8 @@ import { Comentario } from 'src/app/models/comentario/comentario';
 })
 
 export class ComentarioService {
-  //url="https://proygrupo02.onrender.com/api/comentario/";
-  url="http://localhost:3000/api/comentario/";
+  url="https://proygrupo02.onrender.com/api/comentario/";
+  //url="http://localhost:3000/api/comentario/";
 
   constructor(private _http : HttpClient) { }
 
@@ -25,8 +25,8 @@ export class ComentarioService {
   public obtenerComentario(id:string):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.get(this.url+id,httpOptions);
@@ -36,8 +36,8 @@ export class ComentarioService {
     const httpOptions={
       headers : new HttpHeaders({
         "Content-type":"application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
 
@@ -49,8 +49,8 @@ export class ComentarioService {
     const httpOptions={
       headers : new HttpHeaders({
         "Content-type":"application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
 
@@ -61,8 +61,8 @@ export class ComentarioService {
   public eliminarComentario(id:string):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.delete(this.url+id,httpOptions);
