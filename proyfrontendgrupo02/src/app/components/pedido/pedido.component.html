@@ -98,15 +98,16 @@
             <div *ngIf="pedido.nombreBebida">
               <p *ngIf="pedido.nombreBebida != null">Bebida: {{ pedido.nombreBebida }}</p>
             </div>
-            <div *ngIf="arrayPromo!=null">
-              <div *ngFor="let promo of arrayPromo">
-                <p>Precio Total de la Promo: {{ promo.totalPromocion }}</p>
-                <p>Nombre Promocion: {{ promo.nombrePromocion }}</p>
-              </div>
-            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngFor="let promo of arrayPromo">
+        <div class="card texto m-2">
+          <div class="card-body">
+            <p>Precio Total de la Promo: {{ promo.totalPromocion }}</p>
+            <p>Nombre Promocion: {{ promo.nombrePromocion }}</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>

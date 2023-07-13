@@ -34,7 +34,7 @@ export class PedidoFormComponent implements OnInit {
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Registro de Pedidos')
 
-    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas','Fecha de Pedido', 'Total Precio Pedido'])
+    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas','Fecha de Pedido', 'Total Precio Pedido','Nombre Promocion'])
 
     for (const pedido of this.pedidos) {
       for (const bebida of pedido.bebidasPedido) {
@@ -44,7 +44,8 @@ export class PedidoFormComponent implements OnInit {
           bebida.precioDetalle,
           bebida.cantidadBebidas,
           pedido.fechaPedido,
-          pedido.totalPedido
+          pedido.totalPedido,
+          pedido.promocion
         ]);
       }
     }
@@ -74,6 +75,7 @@ export class PedidoFormComponent implements OnInit {
         this.pedidos = result;
         this.bebidaPedido = result.bebidasPedido
         this.dtTrigger.next(this.pedidos);
+        console.log(this.pedidos)
       },
       error => { }
     )
