@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/disponibles', promocionCtrl.promocionesDiponibles);
+
 router.get('/',autCtrl.verifyToken, promocionCtrl.getPromociones); 
 router.post('/',autCtrl.verifyToken, promocionCtrl.crearPromocion); 
 router.get('/:id',autCtrl.verifyToken, promocionCtrl.getPromocion); 

@@ -10,7 +10,7 @@ export class LoginService {
   hostBase: string;
 
   constructor(private _http: HttpClient) {
-    //this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
+   // this.hostBase = "https://proygrupo02.onrender.com/api/usuario/";
     this.hostBase = "http://localhost:3000/api/usuario/";
   }
 
@@ -90,8 +90,8 @@ export class LoginService {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      })
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      })
     }
     return this._http.get(this.hostBase, httpOption);
   }
@@ -100,8 +100,8 @@ export class LoginService {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      })
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      })
     }
     return this._http.delete(this.hostBase + _id, httpOption);
   }
@@ -110,8 +110,8 @@ export class LoginService {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      })
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      })
     }
     const data = {
       'nombre': nombreUsuario,
@@ -131,8 +131,8 @@ export class LoginService {
     const httpOption = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      })
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      })
     }
 
     const url = this.hostBase + `recuperarContrasena?email=${email}&dniUsuario=${dniUsuario}`;

@@ -6,10 +6,9 @@
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
       <thead>
         <div class="btn-group">
-          <button type="button" class="btn btn-primary " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador'">Agregar Bebida</button>
+          <button type="button" class="btn btn-danger " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador'">Agregar Bebida <i class="fa-solid fa-plus"></i></button>
           <div *ngIf="tipoLogged() == 'administrador'">
-            <button type="button" class="btn btn-success" (click)="generarExcel()">Generar
-              Excel</button>
+            <button type="button" class="btn btn-success" (click)="generarExcel()">Generar Excel <i class="fa-solid fa-file-excel"></i></button>
           </div>
           <br>
         </div>
