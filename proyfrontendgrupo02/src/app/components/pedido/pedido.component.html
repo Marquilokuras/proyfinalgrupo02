@@ -66,6 +66,7 @@
         Pedido</button>
       <button class="btn btn-info" *ngIf=" cambios == 'new' && pedidoSolicitado===true" routerLink="/pedido"
         (click)="habilitarConversion()">Habilitar Conversión</button>
+
       <div *ngIf="cambios == 'new' && pedidoSolicitado === true && conversionHabilitada === true" routerLink="/pedido">
 
         <div>
@@ -97,11 +98,10 @@
             <div *ngIf="pedido.nombreBebida">
               <p *ngIf="pedido.nombreBebida != null">Bebida: {{ pedido.nombreBebida }}</p>
             </div>
-            <div *ngIf="pedido.bebidas">
-              <div *ngFor="let bebidaPedido of pedido.bebidas">
-                <p>Cantidad de bebidas: {{ bebidaPedido.cantidadBebidas }}</p>
-                <p>Precio de detalle: {{ bebidaPedido.precioDetalle }}</p>
-                <p>Bebida: {{ bebidaPedido.nombreBebida }}</p>
+            <div *ngIf="arrayPromo!=null">
+              <div *ngFor="let promo of arrayPromo">
+                <p>Precio Total de la Promo: {{ promo.totalPromocion }}</p>
+                <p>Nombre Promocion: {{ promo.nombrePromocion }}</p>
               </div>
             </div>
           </div>
