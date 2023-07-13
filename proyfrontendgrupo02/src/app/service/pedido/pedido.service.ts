@@ -30,7 +30,7 @@ export class PedidoService {
       'totalPedido': totalPedido
     };
 
-    return this._http.post('http://localhost:3000/api/pedido/', body, httpOption);
+    return this._http.post(this.hostBase , body, httpOption);
   }
 
   public mostrarPedido(): Observable<any> {
