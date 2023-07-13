@@ -8,16 +8,16 @@ import { Bebida } from '../models/bebida';
 })
 export class BebidaService {
 
-  //urlBase:string="https://proygrupo02.onrender.com/api/bebida/"
-  urlBase: string = "http://localhost:3000/api/bebida/"
+  urlBase:string="https://proygrupo02.onrender.com/api/bebida/"
+  //urlBase: string = "http://localhost:3000/api/bebida/"
 
   constructor(private _http: HttpClient) { }
 
   public obtenerBebidas(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase, httpOptions);
@@ -26,8 +26,8 @@ export class BebidaService {
   public obtenerBebidasDisponibles(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase + "disponibles", httpOptions);
@@ -36,8 +36,8 @@ export class BebidaService {
   public obtenerBebida(id: string): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase + id, httpOptions);
@@ -47,8 +47,8 @@ export class BebidaService {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-type": "application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     let body = JSON.stringify(bebida);
@@ -60,8 +60,8 @@ export class BebidaService {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-type": "application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     let body = JSON.stringify(bebida);
@@ -71,8 +71,8 @@ export class BebidaService {
   public eliminarBebida(bebida: Bebida): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.delete(this.urlBase + bebida._id, httpOptions);

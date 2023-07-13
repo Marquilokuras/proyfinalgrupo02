@@ -44,7 +44,7 @@ promocionCtrl.getPromocion = async (req, res) => {
 
 promocionCtrl.promocionesDiponibles = async (req, res) => {
     try {
-        const promociones = await Promocion.find({ disponibilidadPromocion: true })
+        const promociones = await Promocion.find({ disponibilidadPromocion: true }).populate('bebidas');
         res.json(promociones)
     } catch (error) {
         res.status(400).json({})

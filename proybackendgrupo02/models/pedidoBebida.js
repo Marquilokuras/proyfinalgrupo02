@@ -4,7 +4,8 @@ const Bebida = require('./bebida');
 const Promocion = require('./promocion');
 
 const PedidoSchema = new Schema({
-    promocion: { type: Schema.Types.ObjectId, ref: Promocion },
+    //promocion: { type: Schema.Types.ObjectId, ref: Promocion },
+    promocion: {type: String},
     totalPedido: { type: Number , required: true },
     fechaPedido: { type: String, required: true},
     bebidasPedido: [
