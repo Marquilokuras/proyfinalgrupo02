@@ -17,7 +17,6 @@ import { PromocionComponent } from './components/promocion/promocion.component';
 import { PromocionFormComponent } from './components/promocion-form/promocion-form.component';
 import { ReservaComponent } from './components/reserva/reserva/reserva.component';
 import { EstadisticasComponent } from './components/estadisticas/estadisticas.component';
-import { AuthGuard } from './auth/auth.guard';
 import { ReservaFormComponent } from './components/reserva-form/reserva-form.component';
 
 const routes: Routes = [

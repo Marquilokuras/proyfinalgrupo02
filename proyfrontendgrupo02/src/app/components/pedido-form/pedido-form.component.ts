@@ -57,6 +57,11 @@ export class PedidoFormComponent implements OnInit {
       a.download = 'registroPedidos.xlsx';
       a.click();
     });
+
+    this.toastrService.success(`Revisa tus descargas`, '¡Informe generado con éxito!', {
+      closeButton: true,
+      positionClass: 'toast-top-left',
+    });
   }
 
   ngOnDestroy(): void {
