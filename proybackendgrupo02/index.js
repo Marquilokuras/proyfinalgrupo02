@@ -19,9 +19,9 @@ app.use(morgan('dev'))
 app.use('/api/usuario', require('./routes/usuario.route.js'));
 app.use('/api/mesa', require('./routes/mesa.route.js'));
 app.use('/api/bebida',require('./routes/bebida.route.js'));
-app.use('/api/pedido',require('./routes/pedidoBebida.route.js'));
 app.use('/api/comentario',require('./routes/comentario.route.js'));
 app.use('/api/promocion',require('./routes/promocion.route.js'));
+app.use('/api/pedido',require('./routes/pedidoBebida.route.js'));
 app.use('/api/reserva',require('./routes/reserva.route.js'));
 
 app.set('port', process.env.PORT || 3000);
