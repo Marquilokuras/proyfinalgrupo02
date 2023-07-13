@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Comentario } from 'src/app/models/comentario/comentario';
+import { Usuario } from 'src/app/models/usuario/usuario';
 import { ComentarioService } from 'src/app/service/comentario/comentario.service';
 import { LoginService } from 'src/app/service/login/login.service';
 
@@ -17,11 +18,14 @@ export class ComentarioUsuarioComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
 
   listaComentarios: Array<Comentario>;
-  comentario!: Comentario;
+  comentario!:any;
   usuario!: any;
   filtroP!: number
 
-  constructor(private comentarioService: ComentarioService, public usuarioService: LoginService,private toastrService: ToastrService) {
+  listUsuario: Usuario[] = [];
+  emailBuscado:string=""
+
+  constructor(private comentarioService: ComentarioService, public usuarioService: LoginService, private toastrService: ToastrService) {
     this.comentario = new Comentario();
     this.listaComentarios = new Array<Comentario>();
   }
@@ -31,9 +35,9 @@ export class ComentarioUsuarioComponent implements OnInit {
       pagingType: 'full_pages',
       pageLength: 5,
     },
-      this.obtenerComentarios()
+    this.obtenerComentarios()
     this.fechaComentario()
-    this.usuarioRegistrado()
+    this.mostrarUsuario();
   }
 
   ngOnDestroy(): void {
@@ -49,48 +53,30 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentarioService.obtenerComentarios().subscribe(
       result => {
         this.listaComentarios = result;
+        console.log(this.listaComentarios);
         this.dtTrigger.next(this.listaComentarios);
       })
   }
-  filtroPuntaje() {
-    this.listaComentarios = new Array<Comentario>();
-    this.comentarioService.filtroPuntuacion(this.filtroP).subscribe(
-      result => {
-        this.listaComentarios = result;
-      },
-    )
-  }
+    filtroPuntaje() {
+      this.comentarioService.filtroPuntuacion(this.filtroP).subscribe(
+        result =>{
+          this.listaComentarios = result;
+          console.log(this.listaComentarios);
+          this.comentario.Usuario
+        },
+      )
+    }
 
   guardarComentario() {
     this.comentarioService.altaComentario(this.comentario).subscribe(
       result => {
-          this.toastrService.success('¡Gracias por Comentar!✨😄🎉');
-          setTimeout(() => {
-            location.reload();
-          }, 1000);
-      },
-      error => { }
-    )
-  }
-
-  modificarComentario() {
-
-    console.log(this.comentario);
-    this.comentarioService.modificarComentario(this.comentario).subscribe(
-      result => {
-        this.toastrService.info('Modificado Correctamente');
+        this.toastrService.success('¡Gracias por Comentar!✨😄🎉');
         setTimeout(() => {
           location.reload();
-        }, 1000);
+        }, 600);
       },
       error => { }
     )
-  }
-
-  cancelarComentario() {
-    this.comentario = new Comentario()
-    this.usuarioRegistrado();
-    this.fechaComentario();
   }
 
   eliminarComentario(comentario: Comentario) {
@@ -105,12 +91,24 @@ export class ComentarioUsuarioComponent implements OnInit {
     )
   }
 
-  obtenerComentario(id: string) {
-    this.comentarioService.obtenerComentario(id).subscribe(
+  mostrarUsuario() {
+    this.usuarioService.mostrarUsuario().subscribe(
       result => {
-        this.comentario = result
-        this.fechaComentario()
-      })
+        this.listUsuario = result;
+        console.log(this.listUsuario)
+        this.usuario = sessionStorage.getItem("user");
+        this.emailBuscado = this.usuario ; // Email que estás buscando
+        this.listUsuario.forEach(usuario => {
+          if (usuario.email == this.emailBuscado) {
+              console.log('email encontrado ' + usuario.email)
+              this.comentario.usuario = usuario.email
+            return; // Termina el bucle si se encuentra el email
+          }
+        });
+
+      },
+
+    )
   }
 
   evaluarPuntaje(puntaje: number) {
@@ -133,10 +131,4 @@ export class ComentarioUsuarioComponent implements OnInit {
     const fecha = new Date();
     this.comentario.fechaComentario = fecha.toLocaleString();
   }
-
-  usuarioRegistrado() {
-    this.usuario = sessionStorage.getItem("user");
-    this.comentario.usuario = this.usuario
-  }
-
 }

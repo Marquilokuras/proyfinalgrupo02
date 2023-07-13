@@ -9,6 +9,7 @@ import { Mesa } from '../models/mesa';
 export class MesaService {
 
   //urlBase:string="https://proygrupo02.onrender.com/api/mesa/"
+
   urlBase: string = "http://localhost:3000/api/mesa/"
 
   constructor(private _http: HttpClient) { }
@@ -16,8 +17,8 @@ export class MesaService {
   obtenerMesas(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase, httpOptions);
@@ -27,8 +28,8 @@ export class MesaService {
     const httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     let body = JSON.stringify(mesa)
@@ -39,8 +40,8 @@ export class MesaService {
     let httpOptions = {
       headers: new HttpHeaders({
         "Content-Type": "application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     let body = JSON.stringify(mesa);
@@ -50,8 +51,8 @@ export class MesaService {
   obtenerMesa(id: string): Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase + id, httpOptions);
@@ -60,8 +61,8 @@ export class MesaService {
   borrarMesa(id: string): Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.delete(this.urlBase + id, httpOptions);
@@ -70,8 +71,8 @@ export class MesaService {
   obtenerMesasDisponibles(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase + "disponible", httpOptions);
@@ -80,8 +81,8 @@ export class MesaService {
   obtenerMesasNoDisponibles(): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params: new HttpParams()
     }
     return this._http.get(this.urlBase + "noDisponible", httpOptions);

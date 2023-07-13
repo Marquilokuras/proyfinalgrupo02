@@ -1,4 +1,5 @@
 const Usuario = require('../models/usuario');
+const Comentario = require('../models/comentario');
 const jwt = require('jsonwebtoken');
 const usuarioCtrl = {}
 
@@ -54,7 +55,9 @@ usuarioCtrl.editUsuario = async (req, res) => {
 
 usuarioCtrl.deleteUsuario = async (req, res) => {
     try {
+        await Comentario.deleteMany({ usuario: req.params.id});
         await Usuario.deleteOne({ _id: req.params.id });
+        
         res.json({})
     } catch (error) {
         res.status(400).json({})

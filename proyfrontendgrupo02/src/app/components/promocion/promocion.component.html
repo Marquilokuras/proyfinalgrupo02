@@ -1,6 +1,8 @@
 <div class="container-fluid">
     <h2 class="mt-3">Gestion de Promociones</h2>
+
     <button type="button" class="btn btn-primary" (click)="nuevoPromocion()"  *ngIf="tipoLogged() == 'administrador' || tipoLogged() == 'gestor'">Agregar Promocion</button>
+
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
@@ -46,10 +48,10 @@
 
                     <td class="col-1">
                         <div class="d-flex">
-                          <button type="button" class="btn btn-primary me-2" (click)="actualizarPromocion(promo)">
+                          <button type="button" class="btn btn-primary btn-lg btn-block me-2 mt-5" (click)="actualizarPromocion(promo)">
                             <i class="fa-solid fa-pencil"></i>
                           </button>
-                          <button type="button" class="btn btn-danger" (click)="eliminarPromocion(promo)">
+                          <button type="button" class="btn btn-danger btn-lg btn-block me-2 mt-5" (click)="eliminarPromocion(promo)">
                             <i class="fa-sharp fa-solid fa-trash"></i>
                           </button>
                         </div>
