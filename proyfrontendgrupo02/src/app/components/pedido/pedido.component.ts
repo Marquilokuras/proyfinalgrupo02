@@ -159,7 +159,7 @@ export class PedidoComponent implements OnInit {
      if(this.arrayPedido.length>0){
       this.emailUsuario = this.loginService.userLogged();
       let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
-      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual,this.nombrePromo,this.total).subscribe(
+      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual,this.arrayPromo,this.total).subscribe(
         result => {
           this.arrayPedido = [];
           this.arrayPromo = [];

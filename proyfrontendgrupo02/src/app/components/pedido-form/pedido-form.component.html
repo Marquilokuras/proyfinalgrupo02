@@ -46,7 +46,11 @@
                     </td>
                     <td>{{ pedido.fechaPedido }}</td>
                     <td>${{ pedido.totalPedido }}</td>
-                    <td>{{pedido.promocion}}</td>
+                    <td>
+                        <div *ngFor="let promo of pedido.promo">
+                            <td>{{promo.promocion}}</td>
+                        </div>
+                    </td>
                     <td>
                         <button type="button" class="btn btn-primary" (click)="modificarPedido(pedido._id)"
                             style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
