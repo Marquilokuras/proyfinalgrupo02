@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { format } from 'date-fns'
+import { format, set } from 'date-fns'
 import { Bebida } from 'src/app/models/bebida';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { BebidaService } from 'src/app/service/bebida.service';
@@ -9,6 +9,7 @@ import { ConversorService } from 'src/app/service/conversor/conversor.service';
 import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import { PromocionService } from 'src/app/service/promocion/promocion.service';
+import { Promocion } from 'src/app/models/promocion/promocion';
 
 @Component({
   selector: 'app-pedido',
@@ -49,10 +50,13 @@ export class PedidoComponent implements OnInit {
   monedas: any;
   conversionHabilitada: boolean = false;
   promoCantidad: number = 0;
-  totalPrecioPromo !: number
+  totalPrecioPromo: number = 0;
   fechaPedido !: Date;
+  habilitacionPedido: boolean = false;
+  cantidadBebidaPromo: number = 0;
 
-  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService, private promocionService: PromocionService) {
+
+  constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService, private promocionService: PromocionService, private router: Router) {
     this.fechaPedido = new Date();
   }
 
@@ -133,6 +137,7 @@ export class PedidoComponent implements OnInit {
   }
 
   public crearPedido(identificador: string, precioDetalle: number, cantidad: number, nombreBebida: string) {
+    this.habilitacionPedido = true
     const bebidaPedido = {
       cantidadBebidas: cantidad,
       precioDetalle: precioDetalle,
@@ -145,22 +150,30 @@ export class PedidoComponent implements OnInit {
   }
 
   public generarPedido() {
-    this.total = 0;
-    this.emailUsuario = this.loginService.userLogged();
-    let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
-    this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual).subscribe(
-      result => {
-        this.arrayPedido = [];
-        this.totalConversion = 0;
-        this.conversionHabilitada = false;
-        this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito!', {
-          closeButton: true,
-          timeOut: 4000,
-          progressBar: true
-        });
-      },
-      error => { }
-    )
+    if (this.habilitacionPedido === true) {
+      this.total = 0;
+      this.emailUsuario = this.loginService.userLogged();
+      let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
+      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual).subscribe(
+        result => {
+          this.arrayPedido = [];
+          this.totalConversion = 0;
+          this.conversionHabilitada = false;
+          this.toastrService.success(`Revisa tu email para ver el total a pagar`, '¡Pedido realizado con exito!', {
+            closeButton: true,
+            timeOut: 4000,
+            progressBar: true
+          });
+        },
+        error => { }
+      )
+    } else {
+      this.toastrService.warning(`El pedido no ha sido creado`, 'Debe agregar bebidas al pedido', {
+        closeButton: true,
+        timeOut: 4000,
+        progressBar: true
+      });
+    }
   }
 
   cancelarPedido() {
@@ -168,6 +181,10 @@ export class PedidoComponent implements OnInit {
     this.total = 0;
     this.totalConversion = 0;
     this.conversionHabilitada = false;
+    this.habilitacionPedido = false;
+    if (this.cambios == "modificar") {
+      this.router.navigate(["pedido-form"])
+    }
   }
 
   modificarPedido() {
@@ -180,71 +197,56 @@ export class PedidoComponent implements OnInit {
   obtenerPromociones() {
     this.promocionService.obtenerPromocionesDisponibles().subscribe(
       result => {
-        this.promocion = result
-        console.log(this.promocion)
-        this.promocionBebidas = result
-        this.cantidadBebidas = this.promocionBebidas[0].bebidas.length
-        this.bebidaPromocion = this.promocionBebidas[0].bebidas
-        let idBebida = "";
-        for (let i = 0; i < this.cantidadBebidas; i++) {
-          idBebida = this.bebidaPromocion[i]
-          const vari = this.bebidaService.obtenerBebida(idBebida).subscribe(
-            result => {
-              this.promocionBebida = result;
-              this.imgBebida = result.imagenBebida;
-              this.nombreBebidaPromo = result.nombreBebida;
-              this.nombreBebida.push(result.nombreBebida)
-            }
-          )
-        }
+        let unaPromocion = new Promocion()
+        result.forEach((element: any) => {
+          Object.assign(unaPromocion, element)
+          this.promocionBebida.push(unaPromocion)
+          unaPromocion = new Promocion();
+        });
+
+
       },
       error => { }
     )
   }
 
-  public crearPedidoBebida() {
-    this.totalPrecioPromo = this.promocionBebidas[0].totalPrecioPromocion;
-    let idBebida = "";
-    for (let i = 0; i < this.cantidadBebidas; i++) {
+  public crearPedidoBebida(id: string, totalPromo: number, nombrePromo: string) {
+    this.habilitacionPedido = true
 
-      idBebida = this.bebidaPromocion[i]
-      this.bebidaService.obtenerBebida(idBebida).subscribe(
-        result => {
-          this.promocionBebidas = result;
-          this.imgBebida = result.imagenBebida;
+    let idBebida: any;
+    for (let i = 0; i < this.promocionBebida.length; i++) {
+
+      idBebida = this.promocionBebida[i]
+      if (idBebida._id.toString() == id) {
+        const bebidasSinDuplicados = idBebida.bebidas.reduce((acumulador: any, bebida: any) => {
+          const existente = acumulador.find((item: any) => item.nombreBebida === bebida.nombreBebida);
+          if (existente) {
+            existente.cantidad++;
+          } else {
+            acumulador.push({ ...bebida, cantidad: 1 });
+          }
+          return acumulador;
+        }, []);
+
+        const pedido : any = {};
+        pedido.bebidas = [];
+        for (let j = 0; j < bebidasSinDuplicados.length; j++) {
+          let total = totalPromo / bebidasSinDuplicados[j].cantidad
+          const bebidaPedido = {
+            cantidadBebidas: bebidasSinDuplicados[j].cantidad,
+            precioDetalle: total,
+            bebida: bebidasSinDuplicados[0]._id
+          };
+          pedido.bebidas.push(bebidaPedido);
         }
-      )
-    }
 
-    if (this.nombreBebida.length === 1) {
-      let precioPorBebida = this.totalPrecioPromo / this.cantidadBebidas
-      let bebidaPedido = {
-        cantidadBebidas: this.cantidadBebidas,
-        precioDetalle: this.totalPrecioPromo,
-        bebida: idBebida,
-        nombreBebida: this.nombreBebida,
-      };
-
-      this.total = this.totalPrecioPromo;
-      this.arrayPedido.push(bebidaPedido)
-      this.pedidoSolicitado = true;
-    } else {
-      for (let i = 0; i < this.cantidadBebidas; i++) {
-        let precioPorBebida = this.totalPrecioPromo / this.cantidadBebidas
-        let bebidaPedido = {
-          cantidadBebidas: 1,
-          precioDetalle: precioPorBebida,
-          bebida: idBebida,
-          nombreBebida: this.nombreBebida[i],
-        };
-
-        this.total = this.totalPrecioPromo;
-        this.arrayPedido.push(bebidaPedido)
+        this.total = this.total + totalPromo
+        console.log(pedido.bebidas)
+        this.arrayPedido.push(pedido)
         this.pedidoSolicitado = true;
+
       }
     }
-
-
   }
 
 }
