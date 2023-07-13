@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { format, set } from 'date-fns'
+import { format } from 'date-fns'
 import { Bebida } from 'src/app/models/bebida';
 import { Usuario } from 'src/app/models/usuario/usuario';
 import { BebidaService } from 'src/app/service/bebida.service';
@@ -171,6 +171,9 @@ export class PedidoComponent implements OnInit {
             timeOut: 4000,
             progressBar: true
           });
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
         },
         error => { }
       )
