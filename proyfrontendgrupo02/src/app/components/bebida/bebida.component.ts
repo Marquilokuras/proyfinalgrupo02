@@ -19,6 +19,7 @@ export class BebidaComponent {
   dtTrigger: Subject<any> = new Subject<any>();
   mensaje!: String;
   listaBebida: Array<Bebida>
+  bebidaSeleccionada!:Bebida;
 
   public constructor(private loginService: LoginService, private bebidaService: BebidaService, private router: Router, private toastrService:ToastrService) {
     this.listaBebida = new Array<Bebida>();
@@ -89,6 +90,7 @@ export class BebidaComponent {
       error => { }
     )
   }
+ 
 
   public nuevoBebida() {
     this.router.navigate(["bebida-form", 0])
@@ -101,11 +103,14 @@ export class BebidaComponent {
   public eliminarBebida(bebida: Bebida) {
     this.bebidaService.eliminarBebida(bebida).subscribe(
       result => {
-          this.listaBebida = new Array<Bebida>();
-          this.obtenerBebidas();
+          
           this.toastrService.error(`Se ha eliminado ${bebida.nombreBebida}`, '¡Bebida eliminada con éxito!', {
             closeButton: true,
           });
+          setTimeout(() => {
+          location.reload();
+        }, 1000);
+          
       },
       error => { }
     )
@@ -114,7 +119,7 @@ export class BebidaComponent {
   public cambiarEstadoBebida(bebida: Bebida) {
     bebida.disponibilidadBebida = !bebida.disponibilidadBebida;
     this.bebidaService.actualizarBebida(bebida).subscribe()
-    this.obtenerBebidas()
+   
     if(bebida.disponibilidadBebida == true){
       this.mensaje = "Disponible";
     }
@@ -126,6 +131,13 @@ export class BebidaComponent {
       timeOut: 4000,
       progressBar: true
     });
+    setTimeout(() => {
+      location.reload();
+    }, 1000);
+  }
+
+  public seleccionarBebida(bebida:Bebida){
+    this.bebidaSeleccionada=bebida;
   }
 
 }

@@ -18,7 +18,7 @@ export class PromocionFormComponent implements OnInit {
   accion: string = "";
   listaBebida: Array<Bebida>
   today: Date
-
+  bandera!:boolean;
   constructor(private activatedRoute: ActivatedRoute,
     private promocionService: PromocionService,
     private router: Router,
@@ -38,7 +38,8 @@ export class PromocionFormComponent implements OnInit {
       } else {
         this.accion = "update";
         this.cargarPromocion(params['id']);
-        this.formatDate(this.promocion.fechaPromocion)
+        //this.formatDate(this.promocion.fechaPromocion)
+       
       }
     })
   }
@@ -57,10 +58,11 @@ export class PromocionFormComponent implements OnInit {
     )
   }
 
-  cargarPromocion(id: string) {
-    this.promocionService.obtenerPromocion(id).subscribe(
+   cargarPromocion(id: string) {
+  this.promocionService.obtenerPromocion(id).subscribe(
       result => {
         Object.assign(this.promocion, result)
+        this.bandera=this.verificarDisponibilidad();
       },
       error => { }
     )
@@ -83,9 +85,9 @@ export class PromocionFormComponent implements OnInit {
     if (this.promocion.bebidas.length != 0) {
       this.promocionService.actualizarPromocion(this.promocion).subscribe(
         result => {
-          if (result.status == 1) {
+          
             this.router.navigate(['promocion'])
-          }
+          
         },
         error => {}
       )
@@ -145,4 +147,24 @@ export class PromocionFormComponent implements OnInit {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
     return date.toLocaleDateString('es-ES', options as Intl.DateTimeFormatOptions);
   }
+
+  verificarDisponibilidad():boolean {
+    let bandera: boolean=true;
+    if (this.promocion.bebidas.length>0) {
+      this.promocion.bebidas.forEach((element: Bebida) => {
+        if (element.disponibilidadBebida == false) {
+          bandera=false;
+        }
+      });
+    } 
+    this.promocion.fechaPromocion = new Date(this.promocion.fechaPromocion);
+    console.log("fecha de mi promo"+this.promocion.fechaPromocion)
+    console.log("fecha actual"+new Date())
+    if (this.promocion.fechaPromocion < new Date()) {
+    bandera=false
+   }
+   this.promocion.fechaPromocion = new Date(this.promocion.fechaPromocion);
+    return bandera;
+  }
+  
 }
