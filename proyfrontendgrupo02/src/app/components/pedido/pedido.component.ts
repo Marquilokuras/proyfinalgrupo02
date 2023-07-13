@@ -159,9 +159,10 @@ export class PedidoComponent implements OnInit {
      if(this.arrayPedido.length>0){
       this.emailUsuario = this.loginService.userLogged();
       let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
-      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual,this.nombrePromo,this.total).subscribe(
+      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual,this.arrayPromo,this.total).subscribe(
         result => {
           this.arrayPedido = [];
+          this.arrayPromo = [];
           this.total=0;
           this.totalConversion = 0;
           this.conversionHabilitada = false;
@@ -227,7 +228,6 @@ export class PedidoComponent implements OnInit {
 
   public crearPedidoBebida(id: string, totalPromo: number, nombrePromo: string) {
     this.nombrePromo = nombrePromo;
-    
     this.habilitacionPedido = true
     const promo = {
       idPromo: id,
@@ -236,41 +236,7 @@ export class PedidoComponent implements OnInit {
     };
     this.total = this.total + totalPromo
     this.arrayPromo.push(promo)
-    this.pedidoSolicitado = true;
-   /*  let idBebida: any;
-    for (let i = 0; i < this.promocionBebida.length; i++) {
-
-      idBebida = this.promocionBebida[i]
-      if (idBebida._id.toString() == id) {
-        const bebidasSinDuplicados = idBebida.bebidas.reduce((acumulador: any, bebida: any) => {
-          const existente = acumulador.find((item: any) => item.nombreBebida === bebida.nombreBebida);
-          if (existente) {
-            existente.cantidad++;
-          } else {
-            acumulador.push({ ...bebida, cantidad: 1 });
-          }
-          return acumulador;
-        }, []);
-
-        const pedido : any = {};
-        pedido.bebidas = [];
-        for (let j = 0; j < bebidasSinDuplicados.length; j++) {
-          let total = totalPromo / bebidasSinDuplicados[j].cantidad
-          const bebidaPedido = {
-            cantidadBebidas: bebidasSinDuplicados[j].cantidad,
-            precioDetalle: total,
-            bebida: bebidasSinDuplicados[0]._id
-          };
-          pedido.bebidas.push(bebidaPedido);
-        }
-
-        this.total = this.total + totalPromo
-        console.log(pedido.bebidas)
-        this.arrayPedido.push(pedido)
-        this.pedidoSolicitado = true;
-
-      } 
-    }*/
+    this.pedidoSolicitado = true;  
   }
 
 }

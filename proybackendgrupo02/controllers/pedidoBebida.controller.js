@@ -9,7 +9,7 @@ pedidoCtrl.getPedidoBebida = async (req, res) => {
 }
 
 pedidoCtrl.createPedidoBebida = async (req, res) => {
-    let pedido = new Pedido({ totalPedido: 0, bebidasPedido: [], fechaPedido:"",nombrePromo:"" })
+    let pedido = new Pedido({ totalPedido: 0, bebidasPedido: [], fechaPedido: "", arrayPromo: [] })
     try {
         let cantidadBebidas = 0;
         let precioDetalle = 0;
@@ -25,9 +25,16 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
             precioPedido = precioPedido + precioDetalle * cantidadBebidas;
         }
 
+        let promocion = "";
+        const arrayPromocion = req.body.arrayPromo
+        for (let i = 0; i < req.body.arrayPromo.length; i++) {
+            promocion = arrayPromocion[i].nombrePromocion;
+            pedido.promo.push({ promocion })
+        }
+
         pedido.totalPedido = req.body.totalPedido
         pedido.fechaPedido = req.body.fechaPedido
-        pedido.promocion = req.body.promocion;
+
         const emailUsuario = req.body.emailUsuario;
 
         //transportador del mensaje (quien lo envia en este caso un mail temporal)
@@ -55,9 +62,9 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
                 console.log('Correo electrónico enviado: ' + info.response);
             }
         });
-        
+
         pedido.save();
-        
+
         res.json({})
 
     } catch (error) {

@@ -8,8 +8,8 @@ import { Comentario } from 'src/app/models/comentario/comentario';
 })
 
 export class ComentarioService {
-  url="https://proygrupo02.onrender.com/api/comentario/";
-  //url="http://localhost:3000/api/comentario/";
+  //url="https://proygrupo02.onrender.com/api/comentario/";
+  url="http://localhost:3000/api/comentario/";
 
   constructor(private _http : HttpClient) { }
 
@@ -40,6 +40,7 @@ export class ComentarioService {
  */      }),
       params : new HttpParams()
     }
+    comentario.usuario = sessionStorage.getItem('userid')
 
     let body = JSON.stringify(comentario);
     return this._http.post(this.url,body,httpOptions);
