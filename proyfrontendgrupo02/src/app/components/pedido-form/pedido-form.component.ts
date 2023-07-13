@@ -19,7 +19,7 @@ export class PedidoFormComponent implements OnInit {
   pedidos = new Array();
   bebidaPedido = new Array()
 
-  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router, private toastrService:ToastrService) { }
+  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router, private toastrService: ToastrService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -34,7 +34,7 @@ export class PedidoFormComponent implements OnInit {
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Registro de Pedidos')
 
-    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas','Fecha de Pedido', 'Total Precio Pedido'])
+    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas', 'Fecha de Pedido', 'Total Precio Pedido', 'Nombre Promocion'])
 
     for (const pedido of this.pedidos) {
       for (const bebida of pedido.bebidasPedido) {
@@ -44,7 +44,8 @@ export class PedidoFormComponent implements OnInit {
           bebida.precioDetalle,
           bebida.cantidadBebidas,
           pedido.fechaPedido,
-          pedido.totalPedido
+          pedido.totalPedido,
+          pedido.promocion
         ]);
       }
     }
