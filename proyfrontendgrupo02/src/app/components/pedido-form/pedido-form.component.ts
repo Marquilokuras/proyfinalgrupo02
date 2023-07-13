@@ -34,7 +34,7 @@ export class PedidoFormComponent implements OnInit {
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Registro de Pedidos')
 
-    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas', 'Total Precio Pedido'])
+    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas','Fecha de Pedido', 'Total Precio Pedido'])
 
     for (const pedido of this.pedidos) {
       for (const bebida of pedido.bebidasPedido) {

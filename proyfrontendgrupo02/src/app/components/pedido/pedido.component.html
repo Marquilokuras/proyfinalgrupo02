@@ -31,31 +31,33 @@
               Pedido</button>
           </div>
         </div>
-    </div>
+      </div>
 
-    <div class="col-lg-6 col-md-6 col-sm-12 mb-5 texto2" *ngFor="let promo of promocion">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Promo: {{promo.nombrePromocion}}</h5>
-          <p class="card-text"><strong>Cantidad:</strong> {{cantidadBebidas}}</p>
-          <p class="card-text ingredients-color"><strong>Descuento:</strong> {{promo.descuento | percent}}</p>
-          <p class="card-text"><strong>Fecha de Promocion:</strong> {{promo.fechaPromocion | date:'dd/MM/yyyy'}}</p>
-          <p class="card-text"><strong>Precio con Descuento:</strong> {{promo.totalPrecioPromocion}}</p>
-          <p class="card-text"><strong>Precio sin Descuento:</strong> {{promo.totalPrecioBebidasSinDescuento}}</p>
-          <p class="card-text"><strong>Nombre:</strong></p>
-          <div *ngFor="let nom of nombreBebida">
-            <p class="col-lg-6 col-md-6 col-sm-12 mb-5"> {{nom}} </p>
+      <div class="col-lg-6 col-md-6 col-sm-12 mb-5 texto2" *ngFor="let promo of promocionBebida">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Promo: {{promo.nombrePromocion}}</h5>
+            <p class="card-text ingredients-color"><strong>Descuento:</strong> {{promo.descuento | percent}}</p>
+            <p class="card-text"><strong>Fecha de Promocion:</strong> {{promo.fechaPromocion | date:'dd/MM/yyyy'}}</p>
+            <p class="card-text"><strong>Precio con Descuento:</strong> {{promo.totalPrecioPromocion}}</p>
+            <p class="card-text"><strong>Precio sin Descuento:</strong> {{promo.totalPrecioBebidasSinDescuento}}</p>
+            <p class="card-text"><strong>Bebida en Promocion:</strong></p>
+            <div *ngFor="let bebida of promo.bebidas">
+              <p class="col-lg-6 col-md-6 col-sm-12 mb-5"> {{bebida.nombreBebida}} </p>
+              <img [src]="bebida.imagenBebida" class="card-img-top" alt="Imagen bebida">
+            </div>
           </div>
-        </div>
-        <div class="card-footer">
-          <button class="btn btn-primary mx-5 mt-2 mb-2" (click)="crearPedidoBebida()">Agregar al Pedido</button>
+          <div class="card-footer">
+            <button class="btn btn-primary mx-5 mt-2 mb-2"
+              (click)="crearPedidoBebida(promo._id,promo.totalPrecioPromocion,promo.nombrePromocion)">Agregar promo al
+              Pedido</button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
     <div class="col-lg-6">
       <h1 class="menu mt-4">Pedido </h1>
-      <h2 class="menu mt-4">Fecha: {{fechaPedido  | date: 'dd MMM yyyy HH:mm:ss'}}</h2>
+      <h2 class="menu mt-4">Fecha: {{fechaPedido | date: 'dd MMM yyyy'}}</h2>
       <button type="button" class="btn btn-primary" *ngIf=" cambios == 'new' && pedidoSolicitado===true"
         routerLink="/pedido" (click)="generarPedido()">Generar Pedido</button>
       <button type="button" class="btn btn-primary mx-2" *ngIf=" cambios == 'modificar'" routerLink="/pedido"
@@ -64,6 +66,7 @@
         Pedido</button>
       <button class="btn btn-info" *ngIf=" cambios == 'new' && pedidoSolicitado===true" routerLink="/pedido"
         (click)="habilitarConversion()">Habilitar Conversión</button>
+
       <div *ngIf="cambios == 'new' && pedidoSolicitado === true && conversionHabilitada === true" routerLink="/pedido">
 
         <div>
@@ -90,9 +93,17 @@
       <div *ngFor="let pedido of arrayPedido">
         <div class="card texto m-2">
           <div class="card-body">
-            <p>Cantidad de bebidas: {{ pedido.cantidadBebidas }}</p>
-            <p>Precio de detalle: {{ pedido.precioDetalle }}</p>
-            <p>Bebida: {{ pedido.nombreBebida }}</p>
+            <p *ngIf="pedido.cantidadBebidas != null">Cantidad de bebidas: {{ pedido.cantidadBebidas }}</p>
+            <p *ngIf="pedido.precioDetalle != null">Precio de detalle: {{ pedido.precioDetalle }}</p>
+            <div *ngIf="pedido.nombreBebida">
+              <p *ngIf="pedido.nombreBebida != null">Bebida: {{ pedido.nombreBebida }}</p>
+            </div>
+            <div *ngIf="arrayPromo!=null">
+              <div *ngFor="let promo of arrayPromo">
+                <p>Precio Total de la Promo: {{ promo.totalPromocion }}</p>
+                <p>Nombre Promocion: {{ promo.nombrePromocion }}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

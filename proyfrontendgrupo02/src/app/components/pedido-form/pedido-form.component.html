@@ -18,6 +18,7 @@
                     <th scope="col">Cantidad de Bebidas</th>
                     <th scope="col">Fecha de Pedido</th>
                     <th scope="col">Total Precio Pedido</th>
+                    <th scope="col">Nombre Promocion</th>
                     <th scope="col">Opciones</th>
                 </tr>
             </thead>
@@ -43,8 +44,9 @@
                             {{ bebida.cantidadBebidas }}
                         </div>
                     </td>
-                    <td>${{ pedido.fechaPedido }}</td>
+                    <td>{{ pedido.fechaPedido }}</td>
                     <td>${{ pedido.totalPedido }}</td>
+                    <td>{{pedido.promocion}}</td>
                     <td>
                         <button type="button" class="btn btn-primary" (click)="modificarPedido(pedido._id)"
                             style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
