@@ -1,87 +1,87 @@
 <div class="container"> 
   <br> 
   <form #promocionForm="ngForm">
-        <div class="row">
-          
-          
-            <div class="col-6">
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Nombre de promocion:</label>
-                    <input type="text" class="form-control rounded-pill form-control-sm" id="nombre" name="nombre" [(ngModel)]="promocion.nombrePromocion"  required #nombre="ngModel">
-                    <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
-                      <div *ngIf="nombre.errors?.['required']">
-                        Nombre es requerido 
-                      </div>
-                    </div>
-                
-                </div>
-
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Precio de la promocion:</label>
-                    <input type="number"class="form-control rounded-pill form-control-sm" id="precioPromocion" name="precioPromocion" [(ngModel)]="promocion.totalPrecioPromocion" disabled>
-                </div>
-
-                <div class="mb-3">
-                    <label for="nombre" class="form-label">Precio sin descuento:</label>
-                    <input type="number"class="form-control rounded-pill form-control-sm" id="precioDescuento" name="precioDescuento" [(ngModel)]="promocion.totalPrecioBebidasSinDescuento" disabled>
-                </div>
-
-                <div class="mb-3">
-                  <label for="nombre" class="form-label">Descuento:</label>
-                  <input type="number"class="form-control rounded-pill form-control-sm" id="descuento" name="descuento" [(ngModel)]="promocion.descuento" (input)="actualizarPrecio()" required [min]="0.0001" #descuento="ngModel">
-                  <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
-                    <div *ngIf="descuento.errors?.['required']">
-                      Descuento es requerido 
-                    </div>
-          
-                    <div *ngIf="descuento.errors?.['min']">
-                      Descuento debe ser mayor a 0
-                  </div>
-                  </div> 
-                </div>
-            
-                <div class="mb-3">
-                  <label for="nombre" class="form-label">Valida hasta:</label>
-                  <input type="date"class="form-control rounded-pill form-control-sm" id="fecha" name="fecha"  [ngModel]="promocion.fechaPromocion | date:'yyyy-MM-dd': 'utc'"  (ngModelChange)="promocion.fechaPromocion = $event"  required #fecha="ngModel">
-                  <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="alert alert-danger">
-                    <div *ngIf="fecha.errors?.['required']">
-                      Fecha es requerido 
-                    </div>
-          
-                  </div> 
-                </div>
-
-                <div class="mb-3">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="disponibilidad" name="disponibilidad" [(ngModel)]="promocion.disponibilidadPromocion">
-                      <label class="form-check-label" for="disponibilidad">Disponible</label>
-                    </div>
-                  </div>
-                </div>
-
-            <div class="col-6">
-              <div>
-                <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar bebida</button>
-              </div>
-                <br>
-                <div class="d-flex flex-wrap">
-                  
-                    <div class="mr-2" style="max-width: 150px;" *ngFor="let bebida of promocion.bebidas">
-                        <div class="card h-100 card-color">
-                            <img [src]="bebida.imagenBebida" class="card-img-top img-fluid" alt="Imagen bebida">
-                            <div class="card-body">
-                            <h5 class="card-title title-color">{{bebida.nombreBebida}}</h5>
-                            <p class="card-text price-color"><strong>Precio:</strong> $ {{bebida.precioBebida}}</p>
-                            </div>
-                            <button  class="btn btn-danger" type="submit" (click)="eliminarBebida(bebida._id)">Eliminar</button>
-                        </div>
-                        
-                    </div>
-                </div>
-
+    <div class="row">
+      
+      
+      <div class="col-6">
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Nombre de promocion:</label>
+          <input type="text" class="form-control rounded-pill form-control-sm" id="nombre" name="nombre" [(ngModel)]="promocion.nombrePromocion"  required #nombre="ngModel">
+          <div *ngIf="nombre.invalid && (nombre.dirty || nombre.touched)" class="alert alert-danger">
+            <div *ngIf="nombre.errors?.['required']">
+              Nombre es requerido 
             </div>
-            
+          </div>
+        
         </div>
+
+
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Descuento:</label>
+          <input type="number"class="form-control rounded-pill form-control-sm" id="descuento" name="descuento" [(ngModel)]="promocion.descuento" (input)="actualizarPrecio()" required [min]="0.0001" #descuento="ngModel">
+          <div *ngIf="descuento.invalid && (descuento.dirty || descuento.touched)" class="alert alert-danger">
+            <div *ngIf="descuento.errors?.['required']">
+              Descuento es requerido 
+            </div>
+
+            <div *ngIf="descuento.errors?.['min']">
+              Descuento debe ser mayor a 0
+          </div>
+          </div> 
+        </div>
+    
+        <div class="mb-3">
+          <label for="nombre" class="form-label">Valida hasta:</label>
+          <input type="date"class="form-control rounded-pill form-control-sm" id="fecha" name="fecha"  [ngModel]="promocion.fechaPromocion | date:'yyyy-MM-dd': 'utc'"  (ngModelChange)="promocion.fechaPromocion = $event"  required #fecha="ngModel" >
+          <div *ngIf="fecha.invalid && (fecha.dirty || fecha.touched)" class="alert alert-danger">
+            <div *ngIf="fecha.errors?.['required']">
+              Fecha es requerido 
+            </div>
+
+          </div> 
+        </div>
+
+        <div class="mb-3" *ngIf="bandera">
+          <div class="form-check form-switch">
+            <input class="form-check-input" type="checkbox" id="disponibilidad" name="disponibilidad" [(ngModel)]="promocion.disponibilidadPromocion" >
+            <label class="form-check-label" for="disponibilidad">Disponible</label>
+          </div>
+        </div>
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Precio de la promocion:</label>
+            <input type="number"class="form-control rounded-pill form-control-sm" id="precioPromocion" name="precioPromocion" [(ngModel)]="promocion.totalPrecioPromocion" disabled>
+        </div>
+
+        <div class="mb-3">
+            <label for="nombre" class="form-label">Precio sin descuento:</label>
+            <input type="number"class="form-control rounded-pill form-control-sm" id="precioDescuento" name="precioDescuento" [(ngModel)]="promocion.totalPrecioBebidasSinDescuento" disabled>
+        </div>
+      </div>
+
+      <div class="col-6">
+        <div>
+          <button  type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Agregar bebida</button>
+        </div>
+          <br>
+          <div class="d-flex flex-wrap">
+            
+            <div class="mr-2" style="max-width: 150px;" *ngFor="let bebida of promocion.bebidas">
+              <div class="card h-100 card-color">
+                <img [src]="bebida.imagenBebida" class="card-img-top img-fluid" alt="Imagen bebida">
+                <div class="card-body">
+                <h5 class="card-title title-color">{{bebida.nombreBebida}}</h5>
+                <p class="card-text price-color"><strong>Precio:</strong> $ {{bebida.precioBebida}}</p>
+                </div>
+                <button  class="btn btn-danger" type="submit" (click)="eliminarBebida(bebida._id)">Eliminar</button>
+              </div>
+                
+            </div>
+          </div>
+
+      </div>
+        
+    </div>
         <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary " (click)="guardarPromocion()" [disabled]="!promocionForm.form.valid">Guardar</button>
         <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary " (click)="actualizarPromocion()" [disabled]="!promocionForm.form.valid">Modificar</button>
     </form>

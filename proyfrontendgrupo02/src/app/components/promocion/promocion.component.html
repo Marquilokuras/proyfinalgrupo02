@@ -1,17 +1,13 @@
 <div class="container-fluid">
     <h2 class="mt-3">Gestion de Promociones</h2>
-    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()"  *ngIf="tipoLogged() == 'administrador'">Agregar Promocion</button>
+    <button type="button" class="btn btn-primary" (click)="nuevoPromocion()"  *ngIf="tipoLogged() == 'administrador' || tipoLogged() == 'gestor'">Agregar Promocion</button>
     <div class="table-responsive">
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col-auto">Promocion</th>
                     <th scope="col-auto">Bebidas incluidas</th>
-                    <!--<th scope="col-auto">Precio sin Descuento</th>
-                    <th scope="col-auto">Descuento</th>
-                    <th scope="col-auto">Fecha Promocion</th>
-                    <th scope="col-auto">Disponibilidad</th>
-                    <th scope="col-auto">Bebidas Incluidas</th>-->
+                    
                     <th scope="col-auto">Opciones</th>
                 </tr>
             </thead>
@@ -23,7 +19,6 @@
                         <p style="text-decoration: line-through;">Precio sin descuento: {{promo.totalPrecioBebidasSinDescuento}}</p>
                         <p style="font-style: italic;">Descuento: {{promo.descuento}}</p>
                         <p>Valido hasta: {{promo.fechaPromocion | date:'dd-MM-yyyy': 'utc' }}</p>
-                        <p style="font-weight: bold;">Disponibilidad: {{promo.disponibilidadPromocion}}</p>
                         <button *ngIf="promo.disponibilidadPromocion==true" (click)="cambiarEstadoPromocion(promo)" class="btn btn-success btn-sm rounded-pill">
                             Disponible
                           </button>
@@ -32,11 +27,7 @@
                           </button>
                       </td>
 
-                    <!--<td class="col-auto">{{promo.totalPrecioPromocion}}</td>
-                    <td class="col-auto">{{promo.totalPrecioBebidasSinDescuento}}</td>
-                    <td class="col-auto">{{promo.descuento}}</td>
-                    <td class="col-auto">{{promo.fechaPromocion}}</td>
-                    <td class="col-auto">{{promo.disponibilidadPromocion}}</td>-->
+                  
 
                     <td class="col-auto">
                         <div class="d-flex flex-wrap">

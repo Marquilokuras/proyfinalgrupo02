@@ -6,7 +6,7 @@
     <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
       <thead>
         <div class="btn-group">
-          <button type="button" class="btn btn-primary " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador'">Agregar Bebida</button>
+          <button type="button" class="btn btn-primary " (click)="nuevoBebida()"  *ngIf="tipoLogged() == 'administrador' || tipoLogged() == 'gestor'">Agregar Bebida</button>
           <div *ngIf="tipoLogged() == 'administrador'">
             <button type="button" class="btn btn-success" (click)="generarExcel()">Generar
               Excel</button>
@@ -48,14 +48,34 @@
                 (click)="actualizarBebida(bebida)">
                 <i class="fa-solid fa-pencil"></i> Actualizar
               </button>
-              <button type="button" class="btn btn-danger btn-lg btn-block mt-5" (click)="eliminarBebida(bebida)">
+              
+              <button type="button" class="btn btn-danger btn-lg btn-block mt-5" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="seleccionarBebida(bebida)">
                 <i class="fa-sharp fa-solid fa-trash"></i> Eliminar
               </button>
             </div>
           </td>
-
         </tr>
       </tbody>
     </table>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Eliminar Bebida</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       Se borrara todas las promociones asociadas con esta bebida...
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-danger btn-lg btn-block "(click)="eliminarBebida(bebidaSeleccionada)" data-bs-dismiss="modal">Eliminar</button>
+        <button type="button" class="btn btn-secondary btn-lg btn-block " data-bs-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>
+

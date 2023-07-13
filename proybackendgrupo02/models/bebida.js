@@ -10,7 +10,7 @@ const BebidaSchema = new Schema ({
     imagenBebida: {type:String,require:true},   
 })
 
-BebidaSchema.pre("deleteOne", async function(next){
+/*BebidaSchema.pre("deleteOne", async function(next){
     const Promocion = require('./promocion')
     const idBebida = this.getFilter()['_id'];
 
@@ -18,7 +18,7 @@ BebidaSchema.pre("deleteOne", async function(next){
     if(promociones.length>0){
         return next(new Error("error al intentar eliminar bebida que esta siendo usada en una promocion"))
     }
-})
+})*/
 
 
 module.exports = mongoose.models.Bebida || mongoose.model('Bebida',BebidaSchema);
