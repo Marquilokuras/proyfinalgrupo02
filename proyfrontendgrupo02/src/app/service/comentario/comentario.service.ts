@@ -40,6 +40,7 @@ export class ComentarioService {
  */      }),
       params : new HttpParams()
     }
+    comentario.usuario = sessionStorage.getItem('userid')
 
     let body = JSON.stringify(comentario);
     return this._http.post(this.url,body,httpOptions);
