@@ -11,5 +11,6 @@ router.put('/:id',autCtrl.verifyToken, promocionCtrl.editarPromocion);
 router.delete('/:id',autCtrl.verifyToken, promocionCtrl.eliminarPromocion);
 router.get('/:idpromocion/bebida/:idbebida',autCtrl.verifyToken, promocionCtrl.agregarBebida);
 router.delete('/:idpromocion/bebida/:idbebida',autCtrl.verifyToken,promocionCtrl.eliminarBebida);
+router.get('/idPromo/:nombrePromo',autCtrl.verifyToken, promocionCtrl.buscarPromocion);
 
 module.exports = router;
