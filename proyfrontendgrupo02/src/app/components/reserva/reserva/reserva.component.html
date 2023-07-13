@@ -2,10 +2,10 @@
 <div class="container-fluid">
   <div class="container">
     <h2>Gestion de reservas </h2>
+    <button type="button" class="btn btn-primary" (click)="nuevaReserva()" >Agregar Reserva <i class="fa-solid fa-plus"></i></button>
     <div class="table table-responsive" style="max-width: 1300px;">
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
         <thead>
-          <button type="button" class="btn btn-primary" (click)="nuevaReserva()" >Agregar Reserva</button>
           <tr>
             <th scope="col">Numero de mesa</th>
             <th scope="col">Usuario</th>
@@ -24,13 +24,13 @@
             <td>{{reserva.cantidadSilla}}</td>
             <td>{{reserva.fecha | date:'yyyy-MM-dd'}}</td>
             <td>{{reserva.hora}}</td>
-            <td>   
+            <td>
                 <button type="button" class="btn btn-secondary me-2" (click)="modificarReserva(reserva)" >
                   <i class="fa-solid fa-pencil"></i>
                 </button>
-                
+
                  <button type="button" class="btn btn-danger" (click)="eliminarReserva(reserva)" >
-        
+
                  <i class="fa-sharp fa-solid fa-trash"></i>
                  </button>
                     </td>
@@ -38,6 +38,6 @@
         </tbody>
       </table>
     </div>
-  </div> 
+  </div>
   </div>
 </div>

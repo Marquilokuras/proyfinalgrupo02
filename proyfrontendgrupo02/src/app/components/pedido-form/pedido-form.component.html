@@ -5,10 +5,9 @@
         <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
             <thead>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-primary mb-2" (click)="agregarPedido()" *ngIf="tipoLogged() == 'gestor'">Agregar Pedido</button>
+                    <button type="button" class="btn btn-primary mb-2" (click)="agregarPedido()" *ngIf="tipoLogged() == 'gestor'">Agregar Pedido <i class="fa-solid fa-plus"></i></button>
                     <div *ngIf="tipoLogged() == 'administrador'">
-                        <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
-                            Excel</button>
+                        <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar Excel <i class="fa-solid fa-file-excel"></i></button>
                     </div>
                 </div>
                 <tr>

@@ -1,71 +1,77 @@
 <div class="container-fluid">
-    <div class="container">
-    <h1 *ngIf="accion == 'new'">Añadir Reserva</h1>
-    <h1 *ngIf="accion == 'update'">Modificar Reserva</h1>
+  <h2 *ngIf="accion == 'new'">Añadir Reserva</h2>
+  <h2 *ngIf="accion == 'update'">Modificar Reserva</h2>
+  <div class="container fondo card texto2">
     <form #mesaForm="ngForm">
-        <div class="row">
-            <div class="col-md-6">
-                <div class="mb-3">
-                    <label for="usaurio" class="form-label">Usuario</label>
-                    <input type="text" class="form-control" id="usuario" name="usuario" [(ngModel)]="reserva.usuario"required #u="ngModel" >
-                  </div>
-                  <div *ngIf="u.invalid && (u.dirty || u.touched)" class="alert alert-danger">
-                    <div *ngIf="u.errors?.['required']">
-                      El usuario es requerido.
-                    </div>
-                  </div> 
-              </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="numero" class="form-label">Número de mesa</label>
-                <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="reserva.numeroMesa" required #numerom="ngModel">
-                <div *ngIf="numerom.invalid && (numerom.dirty || numerom.touched)" class="alert alert-danger">
-                  <div *ngIf="numerom.errors?.['required']">
-                   El numero de mesa es requerido.
-                  </div>
-                </div> 
-              </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="usaurio" class="form-label mt-3">Usuario</label>
+            <input type="text" class="form-control" id="usuario" name="usuario" [(ngModel)]="reserva.usuario" required
+              #u="ngModel" />
           </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-              <label for="sillas" class="form-label">Cantidad de sillas</label>
-              <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="reserva.cantidadSilla" required #cantidadS="ngModel">
+          <div *ngIf="u.invalid && (u.dirty || u.touched)" class="alert alert-danger">
+            <div *ngIf="u.errors?.['required']">El usuario es requerido.</div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="numero" class="form-label mt-3">Número de mesa</label>
+            <input type="number" class="form-control" id="numero" name="numero" [(ngModel)]="reserva.numeroMesa"
+              required #numerom="ngModel" />
+            <div *ngIf="numerom.invalid && (numerom.dirty || numerom.touched)" class="alert alert-danger">
+              <div *ngIf="numerom.errors?.['required']">
+                El numero de mesa es requerido.
+              </div>
             </div>
-            <div *ngIf="cantidadS.invalid && (cantidadS.dirty || cantidadS.touched)" class="alert alert-danger">
-              <div *ngIf="cantidadS.errors?.['required']">
-                La cantidad de sillas es requerida.
-              </div>
-            </div> 
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="mesa" class="form-label">Cantidad de mesas</label>
-                <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="reserva.cantidadMesa"required #cantidadm="ngModel" >
-              </div>
-              <div *ngIf="cantidadm.invalid && (cantidadm.dirty || cantidadm.touched)" class="alert alert-danger">
-                <div *ngIf="cantidadm.errors?.['required']">
-                  La cantidad de mesas es requerida.
-                </div>
-              </div> 
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="sillas" class="form-label">Cantidad de sillas</label>
+            <input type="number" class="form-control" id="sillas" name="sillas" [(ngModel)]="reserva.cantidadSilla"
+              required #cantidadS="ngModel" />
           </div>
-          <div class="col-md-6">
-            <div class="mb-3">
-                <label for="hora" class="form-label">Horario</label>
-                <input type="text" class="form-control" id="hora" name="hora" [(ngModel)]="reserva.hora"required #hora="ngModel" >
-              </div>
-              <div *ngIf="hora.invalid && (hora.dirty || hora.touched)" class="alert alert-danger">
-                <div *ngIf="hora.errors?.['required']">
-                  La hora es requerida.
-                </div>
-              </div> 
+          <div *ngIf="cantidadS.invalid && (cantidadS.dirty || cantidadS.touched)" class="alert alert-danger">
+            <div *ngIf="cantidadS.errors?.['required']">
+              La cantidad de sillas es requerida.
+            </div>
           </div>
         </div>
-       
-        <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarReserva()" [disabled]="mesaForm.invalid">Guardar</button>
-        <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarReserva()">Modificar</button> 
-      </form>
       </div>
+      <div class="row">
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="mesa" class="form-label">Cantidad de mesas</label>
+            <input type="number" class="form-control" id="mesa" name="mesa" [(ngModel)]="reserva.cantidadMesa" required
+              #cantidadm="ngModel" />
+          </div>
+          <div *ngIf="cantidadm.invalid && (cantidadm.dirty || cantidadm.touched)" class="alert alert-danger">
+            <div *ngIf="cantidadm.errors?.['required']">
+              La cantidad de mesas es requerida.
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="hora" class="form-label">Horario</label>
+            <input type="text" class="form-control" id="hora" name="hora" [(ngModel)]="reserva.hora" required
+              #hora="ngModel" />
+          </div>
+          <div *ngIf="hora.invalid && (hora.dirty || hora.touched)" class="alert alert-danger">
+            <div *ngIf="hora.errors?.['required']">La hora es requerida.</div>
+          </div>
+        </div>
       </div>
-  
+      <div class="mb-4">
+        <button *ngIf="accion == 'new'" type="submit" class="btn btn-primary" (click)="guardarReserva()"
+          [disabled]="mesaForm.invalid">
+          Guardar
+        </button>
+        <button *ngIf="accion == 'update'" type="submit" class="btn btn-primary" (click)="actualizarReserva()">
+          Modificar
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
