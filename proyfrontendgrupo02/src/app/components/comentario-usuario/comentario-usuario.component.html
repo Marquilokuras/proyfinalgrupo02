@@ -16,7 +16,7 @@
           </thead>
           <tbody>
             <tr *ngFor="let div of listaComentarios"  class="">
-              <td class="col-2">{{div.usuario}}</td>
+              <td class="col-2">{{div.usuario.email}}</td>
               <td class="col-2">{{div.fechaComentario}}</td>
               <td class="col-2">
                 <div class="fw-bold">
@@ -82,10 +82,6 @@
 
             <button type="submit"  *ngIf="!comentario._id" (click)="guardarComentario()"
               class="btn btn-primary">Comentar</button>
-            <button type="submit" *ngIf="comentario._id" (click)="modificarComentario()"
-              class="btn btn-primary">Modificar</button>
-            <button type="submit" *ngIf="comentario._id" (click)="cancelarComentario()"
-              class="btn btn-primary">Cancelar</button>
           </form>
         </div>
 
@@ -107,7 +103,7 @@
           </div>
           <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
             <div class=" ms-2 me-auto">
-              <div class="fw-bold"><i class="fa-solid fa-user"></i>{{div.usuario}}
+              <div class="fw-bold"><i class="fa-solid fa-user"></i>{{div.usuario.email}}
                 <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Alto'" class="badge bg-success rounded-pill"><i class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
                 <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Medio'" class="badge bg-warning rounded-pill"><i class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
                 <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Bajo'" class="badge bg-danger rounded-pill"><i class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
@@ -115,10 +111,10 @@
               <div class="fechacom">{{div.fechaComentario}}</div>
               <div class=" descripcion-comentario ps-4">{{div.descripcionComentario}}</div>
             </div>
-            <button *ngIf="div.usuario==usuario" type="submit" (click)="eliminarComentario(div)" class="btn btn-danger custom-btn"><i
+
+
+            <button *ngIf="div.usuario.email==usuario" type="submit" (click)="eliminarComentario(div)" class="btn btn-danger custom-btn"><i
               class="bi bi-x"></i></button>
-          <button *ngIf="div.usuario==usuario" type="submit" (click)="obtenerComentario(div._id)" class="btn btn-primary custom-btn"><i
-              class="bi bi-pencil-fill"></i></button>
           </li>
         </ol>
       </div>
@@ -132,7 +128,7 @@
     <ol class="list-group">
       <li class="list-group-item d-flex justify-content-between align-items-start" *ngFor="let div of listaComentarios">
         <div class=" ms-2 me-auto">
-          <div class="fw-bold"><i class="fa-solid fa-user"></i>{{div.usuario}}
+          <div class="fw-bold"><i class="fa-solid fa-user"></i>{{div.usuario.email}}
             <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Alto'" class="badge bg-success rounded-pill"><i class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
             <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Medio'" class="badge bg-warning rounded-pill"><i class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
             <span *ngIf="evaluarPuntaje(div.puntajeComentario) == 'Bajo'" class="badge bg-danger rounded-pill"><i class="bi bi-star-fill"></i>{{div.puntajeComentario}}</span>
