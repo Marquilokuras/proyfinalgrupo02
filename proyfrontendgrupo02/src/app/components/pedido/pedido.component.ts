@@ -141,7 +141,7 @@ export class PedidoComponent implements OnInit {
     this.pedidoService.mostrarPedido().subscribe(
       result => {
         this.pedido = result;
-        this.numeroPedido = this.pedido.length+1;
+        this.numeroPedido = this.pedido[this.pedido.length-1].numeroPedido+1;
       },
       error => { }
     )
