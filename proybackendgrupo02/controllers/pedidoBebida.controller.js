@@ -65,7 +65,6 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
         });
 
         pedido.save();
-
         res.json({})
 
     } catch (error) {
