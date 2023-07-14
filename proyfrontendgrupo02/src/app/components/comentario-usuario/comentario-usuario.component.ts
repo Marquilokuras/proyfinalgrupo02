@@ -93,7 +93,6 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.usuarioService.mostrarUsuario().subscribe(
       result => {
         this.listUsuario = result;
-        console.log(this.listUsuario)
         this.usuario = sessionStorage.getItem("user");
         this.emailBuscado = this.usuario ; 
         this.listUsuario.forEach(usuario => {
