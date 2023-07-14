@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Subject } from 'rxjs';
 import { Mesa } from 'src/app/models/mesa';
 import { Reserva } from 'src/app/models/reserva/reserva';
@@ -22,7 +23,7 @@ export class MesaComponent {
   usuario!: any;
   reservas!: Array<Reserva>
 
-  constructor(private servicio: MesaService, private router: Router, private servicioR: ReservaService) {
+  constructor(private servicio: MesaService, private router: Router, private servicioR: ReservaService,private toastrService:ToastrService) {
     this.mesas = new Array<Mesa>();
     this.mesasDisponibles = new Array<Mesa>();
   }
@@ -68,7 +69,10 @@ export class MesaComponent {
     this.servicio.borrarMesa(mesa._id).subscribe(
       result => {
         this.mesas = new Array<Mesa>();
-        location.reload();
+        this.toastrService.success('¡Mesa eliminada con exito!');
+          setTimeout(() => {
+            location.reload();
+          }, 1000);
       },
       error => { }
     );

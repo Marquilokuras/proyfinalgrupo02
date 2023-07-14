@@ -1,58 +1,103 @@
 <div class="container-fluid">
-  <div class="container">
-    <h2 class="mt-3">Gestión de Pedidos</h2>
-  <div class="table-responsive">
-        <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
-            <thead>
-                <div class="btn-group">
-                    <button type="button" class="btn btn-primary mb-2" (click)="agregarPedido()" *ngIf="tipoLogged() == 'gestor'">Agregar Pedido</button>
-                    <div *ngIf="tipoLogged() == 'administrador'">
-                        <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
-                            Excel</button>
+    <div class="container">
+        <h2 class="mt-3">Gestión de Pedidos</h2>
+        <div class="table-responsive">
+            <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped">
+                <thead>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary mb-2" (click)="agregarPedido()"
+                            *ngIf="tipoLogged() == 'gestor'">Agregar Pedido</button>
+                        <div *ngIf="tipoLogged() == 'administrador'">
+                            <button type="button" class="btn btn-success mx-2" (click)="generarExcel()">Generar
+                                Excel</button>
+                        </div>
                     </div>
-                </div>
-                <tr>
-                    <th scope="col">Nombre Bebida</th>
-                    <th scope="col">Ingredientes Bebida</th>
-                    <th scope="col">Precio por Bebida</th>
-                    <th scope="col">Cantidad de Bebidas</th>
-                    <th scope="col">Fecha de Pedido</th>
-                    <th scope="col">Total Precio Pedido</th>
-                    <th scope="col">Opciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let pedido of pedidos">
-                    <td>
-                        <div *ngFor="let bebida of pedido.bebidasPedido">
-                            {{ bebida.bebida?.nombreBebida }}
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let bebida of pedido.bebidasPedido">
-                            {{ bebida.bebida?.ingredientesBebida }}
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let bebida of pedido.bebidasPedido">
-                            {{ bebida.precioDetalle }}
-                        </div>
-                    </td>
-                    <td>
-                        <div *ngFor="let bebida of pedido.bebidasPedido">
-                            {{ bebida.cantidadBebidas }}
-                        </div>
-                    </td>
-                    <td>${{ pedido.totalPedido }}</td>
-                    <td>
-                        <button type="button" class="btn btn-primary" (click)="modificarPedido(pedido._id)"
-                            style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
-                        <button type="button" class="btn btn-danger" (click)="eliminarPedido(pedido._id)"><i
-                                class="fa-sharp fa-solid fa-trash"></i></button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+                    <tr>
+                        <th scope="col">Numero de Pedido</th>
+                        <th scope="col">Nombre Bebida</th>
+                        <th scope="col">Ingredientes Bebida</th>
+                        <th scope="col">Precio por Bebida</th>
+                        <th scope="col">Cantidad de Bebidas</th>
+                        <th scope="col">Fecha de Pedido</th>
+                        <th scope="col">Total Precio Pedido</th>
+                        <th scope="col">Nombre Promocion</th>
+                        <th scope="col">Opciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let pedido of pedidos">
+                        <td>{{pedido.numeroPedido}}</td>
+                        <td>
+                            <div *ngFor="let bebida of pedido.bebidasPedido">
+                                {{ bebida.bebida?.nombreBebida }}
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let bebida of pedido.bebidasPedido">
+                                {{ bebida.bebida?.ingredientesBebida }}
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let bebida of pedido.bebidasPedido">
+                                {{ bebida.precioDetalle }}
+                            </div>
+                        </td>
+                        <td>
+                            <div *ngFor="let bebida of pedido.bebidasPedido">
+                                {{ bebida.cantidadBebidas }}
+                            </div>
+                        </td>
+                        <td>{{ pedido.fechaPedido }}</td>
+                        <td>${{ pedido.totalPedido }}</td>
+                        <td>
+                            <div *ngFor="let promo of pedido.promo">
+
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#exampleModal" (click)="buscarPromocionId(promo.promocion)">
+                                    {{promo.promocion}}
+                                </button>
+                            </div>
+
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content" *ngFor="let detalle of pedido.promo">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">{{detalle.promocion}}</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+
+                                            <h5>Descuento: {{descuentoPromo}}</h5>
+                                            <h5>Fecha Promocion: {{fechaPromocion | date : "dd/MM/yyyy"}}
+                                            </h5>
+                                            <h5>Total sin Descuento: {{totalPrecioBebidasSinDescuento}}
+                                            </h5>
+                                            <h5>Total con Descuento: {{totalPrecioPromocion}}</h5>
+                                            <h5>Bebidas:
+                                                <div *ngFor="let nomBebebida of nombreBebidas">
+                                                    {{nomBebebida.nombreBebida}}
+                                                </div>
+                                            </h5>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Cerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary" (click)="modificarPedido(pedido._id)"
+                                style="margin-right: 10px;"><i class="fa-solid fa-pencil"></i></button>
+                            <button type="button" class="btn btn-danger" (click)="eliminarPedido(pedido._id)"><i
+                                    class="fa-sharp fa-solid fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
     </div>
-    <br>
-</div>

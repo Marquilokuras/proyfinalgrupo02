@@ -38,13 +38,18 @@ promocionCtrl.eliminarPromocion = async (req, res) => {
 }
 
 promocionCtrl.getPromocion = async (req, res) => {
-    const promocion = await Promocion.findById(req.params.id).populate('bebidas');
+    const promocion = await Promocion.findById(req.params.id).populate('bebidas')
+    res.json(promocion)
+}
+
+promocionCtrl.buscarPromocion = async (req, res) => {
+    const promocion = await Promocion.findOne({nombrePromocion : req.params.nombrePromo}).populate('bebidas')
     res.json(promocion)
 }
 
 promocionCtrl.promocionesDiponibles = async (req, res) => {
     try {
-        const promociones = await Promocion.find({ disponibilidadPromocion: true })
+        const promociones = await Promocion.find({ disponibilidadPromocion: true }).populate('bebidas');
         res.json(promociones)
     } catch (error) {
         res.status(400).json({})

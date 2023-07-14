@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { format } from 'date-fns';
 import { ToastrService } from 'ngx-toastr';
 import { Bebida } from 'src/app/models/bebida';
 import { Promocion } from 'src/app/models/promocion/promocion';
@@ -37,14 +38,21 @@ export class PromocionComponent implements OnInit {
         let unaPromocion = new Promocion()
         result.forEach((element: any) => {
           Object.assign(unaPromocion, element)
-          this.verificar(unaPromocion)
-          this.listaPromocion.push(unaPromocion)
+          if(unaPromocion.bebidas.length == 0){
+            this.promocionService.eliminarPromocion(unaPromocion)
+          }else{
+            this.verificar(unaPromocion)
+            this.listaPromocion.push(unaPromocion)
+          }
+          
           unaPromocion = new Promocion();
         });
       },
       error => { }
     )
   }
+
+  
 
   verificar(unaPromocion: Promocion) {
     let unaBebida = new Bebida();
@@ -54,8 +62,9 @@ export class PromocionComponent implements OnInit {
         unaPromocion.disponibilidadPromocion = false;
         this.promocionService.actualizarPromocion(unaPromocion).subscribe()
       }else{ 
-        unaPromocion.fechaPromocion = new Date(unaPromocion.fechaPromocion);
-        if (unaPromocion.fechaPromocion < new Date()) {
+        
+        const fecha = new Date(unaPromocion.fechaPromocion);
+        if (fecha < new Date()) {
           unaPromocion.disponibilidadPromocion=false;
           this.promocionService.actualizarPromocion(unaPromocion).subscribe()
         }
@@ -75,24 +84,52 @@ export class PromocionComponent implements OnInit {
   public eliminarPromocion(promocion: Promocion) {
     this.promocionService.eliminarPromocion(promocion).subscribe(
       result => {
-        if (result.status == 1) {
-          this.listaPromocion = new Array<Promocion>();
-          this.obtenerPromociones();
-        }
+        this.toastrService.error(`Se ha eliminado ${promocion.nombrePromocion}`, '¡Bebida eliminada con éxito!', {
+          closeButton: true,
+        });
+       /* setTimeout(() => {
+          location.reload();
+        }, 1000);*/
+        this.listaPromocion=[];
+        this.obtenerPromociones();
+        
       },
       error => { }
     )
   }
 
   cambiarEstadoPromocion(promo:Promocion){
-    promo.fechaPromocion = new Date(promo.fechaPromocion);
-    if (promo.fechaPromocion < new Date()) {
-      this.toastrService.warning("Promocion caduco... cambiar fecha antes")
+    const fecha = new Date(promo.fechaPromocion);
+   // let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
+    console.log("fecha del objeto: "+promo.fechaPromocion)
+    console.log("fecha actual: "+new Date())
+    if (fecha < new Date()) {
+      this.toastrService.warning("Promocion caducada... cambiar fecha antes")
     }else{
-      promo.disponibilidadPromocion=!promo.disponibilidadPromocion
-      this.promocionService.actualizarPromocion(promo).subscribe();
-      this.obtenerPromociones;
+      if(this.verificarDisponibilidadBebida(promo.bebidas)==false){
+        this.toastrService.warning("Error al cambiar disponibilidad... Bebida no dispoble/s")
+      }else{
+        promo.disponibilidadPromocion=!promo.disponibilidadPromocion
+        this.promocionService.actualizarPromocion(promo).subscribe();
+        this.toastrService.success("Se cambio estado con exito")
+        this.listaPromocion=[]
+        this.obtenerPromociones();
+      }
     }
+  }
+
+  public verificarDisponibilidadBebida(bebidas:Array<Bebida>):boolean{
+    let bandera:boolean=true;
+    bebidas.forEach((element: Bebida) => {
+      if (element.disponibilidadBebida == false) {
+        bandera=false;
+      }else{
+        bandera= true;
+      }
+    });
+
+
+    return bandera;
   }
   
 }

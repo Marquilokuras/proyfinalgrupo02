@@ -2,24 +2,16 @@ const Comentario = require('../models/comentario');
 const comentarioCtrl = {}
 
 comentarioCtrl.getComentarios = async (req, res) => {
-    const comentarios = await Comentario.find()
+    const comentarios = await Comentario.find().populate('usuario');
     res.json(comentarios);
 }
 
 comentarioCtrl.createComentario = async (req, res) => {
+    console.log(req.body);
     var comentario = new Comentario(req.body);
     try {
-        await comentario.save();
-        res.json({})
-    } catch (error) {
-        res.status(400).json({})
-    }
-}
-
-comentarioCtrl.editComentario = async (req, res) => {
-    const comentario = new Comentario(req.body);
-    try {
-        await Comentario.updateOne({ _id: req.body._id }, comentario);
+        const prueba = await comentario.save();
+        console.log(prueba);
         res.json({})
     } catch (error) {
         res.status(400).json({})
@@ -35,17 +27,12 @@ comentarioCtrl.deleteComentario = async (req, res) => {
     }
 }
 
-comentarioCtrl.getComentario = async (req, res) => {
-    const comentario = await Comentario.findById(req.params.id)
-    res.json(comentario);
-}
-
 comentarioCtrl.getComment = async (req, res) => {
     let criteria = {}
     if (req.query.puntajeComentario != null && req.query.puntajeComentario != "") {
         criteria.puntajeComentario = req.query.puntajeComentario;
     }
-    var comment = await Comentario.find(criteria)
+    var comment = await Comentario.find(criteria).populate('usuario')
     res.json(comment);
 }
 

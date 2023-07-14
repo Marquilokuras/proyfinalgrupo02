@@ -46,3 +46,14 @@ h2{
   padding: 12px 24px;
   font-size: 20px;
 }
+
+.texto{
+  color: #251a21;
+  -webkit-text-stroke: 0.5px #251a21;
+  font-size: 18px;
+}
+
+.texto2{
+  color: #f5e7aa;
+  font-size: 18px;
+}

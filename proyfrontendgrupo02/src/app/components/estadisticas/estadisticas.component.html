@@ -1,41 +1,82 @@
-<div class="container-fluid" *ngIf="tipoLogged() ==  ('administrador') ">
+<div class="container-fluid" *ngIf="tipoLogged() == 'administrador'">
   <h2 class="text-center">Estadisticas de Usuarios</h2>
   <div class="row">
-    <div class="col-md-8" id="chart">
-      <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [dataLabels]="chartOptions.dataLabels"
-        [plotOptions]="chartOptions.plotOptions" [yaxis]="chartOptions.yaxis" [fill]="chartOptions.fill"
-        [stroke]="chartOptions.stroke" [tooltip]="chartOptions.tooltip" [xaxis]="chartOptions.xaxis">
+    <div class="col-lg-8 col-md-12 d-none d-md-block">
+      <apx-chart
+        [series]="chartOptions.series"
+        [chart]="chartOptions.chart"
+        [dataLabels]="chartOptions.dataLabels"
+        [plotOptions]="chartOptions.plotOptions"
+        [yaxis]="chartOptions.yaxis"
+        [fill]="chartOptions.fill"
+        [stroke]="chartOptions.stroke"
+        [tooltip]="chartOptions.tooltip"
+        [xaxis]="chartOptions.xaxis"
+      >
       </apx-chart>
     </div>
-
-    <div class="col-md-4 torta" id="chart">
-      <apx-chart [series]="chartOptionsTorta.series" [chart]="chartOptionsTorta.chart"
-        [labels]="chartOptionsTorta.labels" [responsive]="chartOptionsTorta.responsive"></apx-chart>
+    <div class="col-12 col-md-4 col-sm-6 mt-4 mt-md-12 d-flex justify-content-center align-items-center h-100">
+      <apx-chart
+        [series]="chartOptionsTorta.series"
+        [chart]="chartOptionsTorta.chart"
+        [labels]="chartOptionsTorta.labels"
+        [responsive]="chartOptionsTorta.responsive"
+      ></apx-chart>
     </div>
   </div>
 
   <h2 class="text-center">Estadísticas de Pedidos</h2>
   <div class="grafico-pedido">
-    <apx-chart [series]="chartOptionsPedido.series" [chart]="chartOptionsPedido.chart"
-      [dataLabels]="chartOptionsPedido.dataLabels" [plotOptions]="chartOptionsPedido.plotOptions"
-      [yaxis]="chartOptionsPedido.yaxis" [xaxis]="chartOptionsPedido.xaxis" [fill]="chartOptionsPedido.fill"
-      [tooltip]="chartOptionsPedido.tooltip" [stroke]="chartOptionsPedido.stroke"></apx-chart>
+    <apx-chart
+      [series]="chartOptionsPedido.series"
+      [chart]="chartOptionsPedido.chart"
+      [dataLabels]="chartOptionsPedido.dataLabels"
+      [plotOptions]="chartOptionsPedido.plotOptions"
+      [yaxis]="chartOptionsPedido.yaxis"
+      [xaxis]="chartOptionsPedido.xaxis"
+      [fill]="chartOptionsPedido.fill"
+      [tooltip]="chartOptionsPedido.tooltip"
+      [stroke]="chartOptionsPedido.stroke"
+    ></apx-chart>
   </div>
 
   <h2 class="text-center">Estadísticas por Tipo de Pedido</h2>
   <div class="grafico-por-pedido">
-    <apx-chart [series]="chartOptionsPorPedido.series" [chart]="chartOptionsPorPedido.chart"
-      [dataLabels]="chartOptionsPorPedido.dataLabels" [plotOptions]="chartOptionsPorPedido.plotOptions"
-      [yaxis]="chartOptionsPorPedido.yaxis" [xaxis]="chartOptionsPorPedido.xaxis" [fill]="chartOptionsPorPedido.fill"
-      [tooltip]="chartOptionsPorPedido.tooltip" [stroke]="chartOptionsPorPedido.stroke"></apx-chart>
+    <apx-chart
+      [series]="chartOptionsPorPedido.series"
+      [chart]="chartOptionsPorPedido.chart"
+      [dataLabels]="chartOptionsPorPedido.dataLabels"
+      [plotOptions]="chartOptionsPorPedido.plotOptions"
+      [yaxis]="chartOptionsPorPedido.yaxis"
+      [xaxis]="chartOptionsPorPedido.xaxis"
+      [fill]="chartOptionsPorPedido.fill"
+      [tooltip]="chartOptionsPorPedido.tooltip"
+      [stroke]="chartOptionsPorPedido.stroke"
+    ></apx-chart>
   </div>
 
-  <h2 class="text-center">Estadística Ganancia por Fecha</h2>
-  <div class="grafico-por-pedido">
-    <apx-chart [series]="chartOptionsPorPedido.series" [chart]="chartOptionsPorPedido.chart"
-      [dataLabels]="chartOptionsPorPedido.dataLabels" [plotOptions]="chartOptionsPorPedido.plotOptions"
-      [yaxis]="chartOptionsPorPedido.yaxis" [xaxis]="chartOptionsPorPedido.xaxis" [fill]="chartOptionsPorPedido.fill"
-      [tooltip]="chartOptionsPorPedido.tooltip" [stroke]="chartOptionsPorPedido.stroke"></apx-chart>
+  <h2 class="text-center">Estadística Ganancia por Mes</h2>
+  <div class="row">
+    <div class="col-md-8">
+      <apx-chart
+        [series]="chartOptionsPorMesPedido.series"
+        [chart]="chartOptionsPorMesPedido.chart"
+        [dataLabels]="chartOptionsPorMesPedido.dataLabels"
+        [plotOptions]="chartOptionsPorMesPedido.plotOptions"
+        [yaxis]="chartOptionsPorMesPedido.yaxis"
+        [xaxis]="chartOptionsPorMesPedido.xaxis"
+        [fill]="chartOptionsPorMesPedido.fill"
+        [tooltip]="chartOptionsPorMesPedido.tooltip"
+        [stroke]="chartOptionsPorMesPedido.stroke"
+      ></apx-chart>
+    </div>
+    <div class="col-md-4 mt-4 mt-md-12 d-flex justify-content-center align-items-center">
+      <apx-chart
+        [series]="chartOptionsTortaHorario.series"
+        [chart]="chartOptionsTortaHorario.chart"
+        [labels]="chartOptionsTortaHorario.labels"
+        [responsive]="chartOptionsTortaHorario.responsive"
+      ></apx-chart>
+    </div>
   </div>
-
 </div>

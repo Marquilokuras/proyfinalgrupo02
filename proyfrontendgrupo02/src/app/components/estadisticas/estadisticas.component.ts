@@ -27,7 +27,15 @@ export type ChartOptions = {
   tooltip: ApexTooltip;
   stroke: ApexStroke;
 };
+
 export type chartOptionsTorta = {
+  series: ApexNonAxisChartSeries | any[];
+  chart: ApexChart;
+  responsive: ApexResponsive[];
+  labels: any;
+};
+
+export type chartOptionsTortaHorario = {
   series: ApexNonAxisChartSeries | any[];
   chart: ApexChart;
   responsive: ApexResponsive[];
@@ -58,6 +66,19 @@ export type ChartOptionsPorPedido = {
   stroke: ApexStroke;
 };
 
+
+export type ChartOptionsPorMesPedido = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+};
+
 @Component({
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
@@ -67,8 +88,10 @@ export class EstadisticasComponent implements OnInit {
 
   chartOptions!: ChartOptions;
   chartOptionsTorta!: chartOptionsTorta;
+  chartOptionsTortaHorario!: chartOptionsTorta;
   chartOptionsPedido!: ChartOptionsPedido;
   chartOptionsPorPedido!: ChartOptionsPorPedido;
+  chartOptionsPorMesPedido!: ChartOptionsPorMesPedido;
   contadorEdadCliente: number = 0;
   contadorEdadGestor: number = 0;
   contadorEdadAdmin: number = 0;
@@ -86,6 +109,7 @@ export class EstadisticasComponent implements OnInit {
     this.obtenerEstadistica();
     this.obtenerEstadisticaPedido();
     this.obtenerEstadisticaPorPedido();
+    this.obtenerEstadisticaPorMesPedido();
   }
 
   public tipoLogged() {
@@ -298,7 +322,7 @@ export class EstadisticasComponent implements OnInit {
                 case "Gin Tonic":
                   this.totalGin = this.totalGin + pedido[j].cantidadBebidas;
                   break;
-                case "Sex on the beach":
+                case "Blue Label de Johnnie Walker":
                   this.totalBeach = this.totalBeach + pedido[j].cantidadBebidas;
                   break;
                 case "Garibaldi":
@@ -351,7 +375,7 @@ export class EstadisticasComponent implements OnInit {
           categories: [
             "Gin Tonic",
             "Mojito",
-            "Sex on the beach",
+            "Blue Label de Johnnie Walker",
             "Garibaldi",
             "Negroni"
           ]
@@ -371,6 +395,185 @@ export class EstadisticasComponent implements OnInit {
             }
           }
         }
+      };
+    });
+  }
+
+  obtenerEstadisticaPorMesPedido() {
+    this.pedido.mostrarPedido().subscribe(result => {
+      const pedidos = result;
+      let totalEnero = 0;
+      let totalFebrero = 0;
+      let totalMarzo = 0;
+      let totalAbril = 0;
+      let totalMayo = 0;
+      let totalJunio = 0;
+      let totalJulio = 0;
+      let totalAgosto = 0;
+      let totalSeptiembre = 0;
+      let totalOctubre = 0;
+      let totalNoviembre = 0;
+      let totalDiciembre = 0;
+      let totalTarde = 0;
+      let totalNoche = 0;
+      let totalAnochecer = 0;
+
+      for (let i = 0; i < pedidos.length; i++) {
+        let pedido = pedidos[i];
+
+        if (pedido) {
+          let partesFecha = pedido.fechaPedido.split(" ");
+          let fechaSinHora = partesFecha[0];
+          let partesFechaSinHora = fechaSinHora.split("/");
+          let mes = parseInt(partesFechaSinHora[1]);
+
+          switch (mes) {
+            case 1:
+              totalEnero = totalEnero + pedido.totalPedido;
+              break;
+            case 2:
+              totalFebrero = totalFebrero + pedido.totalPedido;
+              break;
+            case 3:
+              totalMarzo = totalMarzo + pedido.totalPedido;
+              break;
+            case 4:
+              totalAbril = totalAbril + pedido.totalPedido;
+              break;
+            case 5:
+              totalMayo = totalMayo + pedido.totalPedido;
+              break;
+            case 6:
+              totalJunio = totalJunio + pedido.totalPedido;
+              break;
+            case 7:
+              totalJulio = totalJulio + pedido.totalPedido;
+              break;
+            case 8:
+              totalAgosto = totalAgosto + pedido.totalPedido;
+              break;
+            case 9:
+              totalSeptiembre = totalSeptiembre + pedido.totalPedido;
+              break;
+            case 10:
+              totalOctubre = totalOctubre + pedido.totalPedido;
+              break;
+            case 11:
+              totalNoviembre = totalNoviembre + pedido.totalPedido;
+              break;
+            case 12:
+              totalDiciembre = totalDiciembre + pedido.totalPedido;
+              break;
+            default:
+              break;
+          }
+
+          let hora = parseInt(partesFecha[1].split(":")[0]);
+          if (hora >= 18 && hora <= 20) {
+            totalTarde += pedido.totalPedido;
+          } else if (hora >= 0 && hora <= 4) {
+            totalAnochecer += pedido.totalPedido;
+          } else {
+            if (hora >= 20 && hora <= 23 && parseInt(partesFecha[1].split(":")[1]) >= 1) {
+              totalNoche += pedido.totalPedido;
+            }
+          }
+        }
+      }
+
+      this.chartOptionsPorMesPedido = {
+        series: [
+          {
+            name: "Ganancia por Mes",
+            data: [
+              totalEnero,
+              totalFebrero,
+              totalMarzo,
+              totalAbril,
+              totalMayo,
+              totalJunio,
+              totalJulio,
+              totalAgosto,
+              totalSeptiembre,
+              totalOctubre,
+              totalNoviembre,
+              totalDiciembre,
+            ],
+          },
+        ],
+        chart: {
+          type: "bar",
+          height: 350,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%",
+            borderRadius: 0,
+            distributed: true
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"],
+        },
+        xaxis: {
+          categories: [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Agosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Diciembre",
+          ],
+        },
+        yaxis: {
+          title: {
+            text: "Ganancia Total",
+          },
+        },
+        fill: {
+          opacity: 1,
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$" + val + "";
+            },
+          },
+        },
+      };
+
+      this.chartOptionsTortaHorario = {
+        series: [totalTarde, totalNoche, totalAnochecer],
+        chart: {
+          width: 380,
+          type: "pie"
+        },
+        labels: ["Tarde", "Noche", "Anochecer"],
+        responsive: [
+          {
+            breakpoint: 480,
+            options: {
+              chart: {
+                width: 200
+              },
+              legend: {
+                position: "bottom"
+              }
+            }
+          }
+        ]
       };
     });
   }

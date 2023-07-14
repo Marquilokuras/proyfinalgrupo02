@@ -50,6 +50,7 @@ h2{
 .btn-danger {
   background-color: #fa6816;
   border-color: #fa6816;
+color: #ffffff;
   transition: background-color 0.3s, border-color 0.3s;
 }
 

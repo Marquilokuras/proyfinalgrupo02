@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/service/login/login.service';
 import { PedidoService } from 'src/app/service/pedido/pedido.service';
 import * as ExcelJS from 'exceljs';
 import { ToastrService } from 'ngx-toastr';
+import { PromocionService } from 'src/app/service/promocion/promocion.service';
 
 @Component({
   selector: 'app-pedido-form',
@@ -17,9 +18,16 @@ export class PedidoFormComponent implements OnInit {
   dtOptions: DataTables.Settings = {};
   dtTrigger: Subject<any> = new Subject<any>();
   pedidos = new Array();
-  bebidaPedido = new Array()
+  bebidaPedido = new Array();
+  promocion = new Array();
 
-  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router, private toastrService:ToastrService) { }
+  descuentoPromo !: any
+  fechaPromocion !: string
+  totalPrecioBebidasSinDescuento !: number
+  totalPrecioPromocion !: number
+  nombreBebidas !: any
+
+  constructor(private pedidoService: PedidoService, public loginService: LoginService, private router: Router, private toastrService: ToastrService, private promocionService: PromocionService) { }
 
   ngOnInit(): void {
     this.dtOptions = {
@@ -34,7 +42,7 @@ export class PedidoFormComponent implements OnInit {
     const create = workbook.creator = ('Marcos Quinteros');
     const worksheet = workbook.addWorksheet('Registro de Pedidos')
 
-    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas', 'Total Precio Pedido'])
+    worksheet.addRow(['Nombre Bebida', 'Ingredientes Bebida', 'Precio por Bebida', 'Cantidad de Bebidas', 'Fecha de Pedido', 'Total Precio Pedido', 'Nombre Promocion'])
 
     for (const pedido of this.pedidos) {
       for (const bebida of pedido.bebidasPedido) {
@@ -43,7 +51,9 @@ export class PedidoFormComponent implements OnInit {
           bebida.bebida?.ingredientesBebida,
           bebida.precioDetalle,
           bebida.cantidadBebidas,
-          pedido.totalPedido
+          pedido.fechaPedido,
+          pedido.totalPedido,
+          pedido.promocion
         ]);
       }
     }
@@ -55,6 +65,11 @@ export class PedidoFormComponent implements OnInit {
       a.href = url
       a.download = 'registroPedidos.xlsx';
       a.click();
+    });
+
+    this.toastrService.success(`Revisa tus descargas`, '¡Informe generado con éxito!', {
+      closeButton: true,
+      positionClass: 'toast-top-left',
     });
   }
 
@@ -102,4 +117,19 @@ export class PedidoFormComponent implements OnInit {
     this.router.navigate(['pedido', idPedido],);
   }
 
+  buscarPromocionId(nombrePromo: string) {
+    this.promocionService.obtenerPromocionId(nombrePromo).subscribe(
+      result => {
+        this.promocion = result
+        console.log(this.promocion)
+        this.descuentoPromo  = result.descuento
+        this.fechaPromocion = result.fechaPromocion
+        this.totalPrecioBebidasSinDescuento = result.totalPrecioBebidasSinDescuento
+        this.totalPrecioPromocion = result.totalPrecioPromocion
+        this.nombreBebidas = result.bebidas
+        console.log(result.bebidas)
+      },
+      error => { }
+    )
+  }
 }
