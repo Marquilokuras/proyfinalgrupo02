@@ -9,7 +9,7 @@ var app = express();
 //middlewares
 //app.use(express.json());
 //app.use(cors({ origin: 'https://proyfinalgrupo02.vercel.app' }));
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: '*' })); 
 
 app.use(bodyParser.json({ limit: '10mb' }));
 app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }));
