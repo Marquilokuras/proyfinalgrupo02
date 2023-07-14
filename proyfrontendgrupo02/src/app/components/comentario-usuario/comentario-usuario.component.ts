@@ -53,7 +53,6 @@ export class ComentarioUsuarioComponent implements OnInit {
     this.comentarioService.obtenerComentarios().subscribe(
       result => {
         this.listaComentarios = result;
-        console.log(this.listaComentarios);
         this.dtTrigger.next(this.listaComentarios);
       })
   }
@@ -61,7 +60,6 @@ export class ComentarioUsuarioComponent implements OnInit {
       this.comentarioService.filtroPuntuacion(this.filtroP).subscribe(
         result =>{
           this.listaComentarios = result;
-          console.log(this.listaComentarios);
           this.comentario.Usuario
         },
       )
@@ -97,17 +95,14 @@ export class ComentarioUsuarioComponent implements OnInit {
         this.listUsuario = result;
         console.log(this.listUsuario)
         this.usuario = sessionStorage.getItem("user");
-        this.emailBuscado = this.usuario ; // Email que estás buscando
+        this.emailBuscado = this.usuario ; 
         this.listUsuario.forEach(usuario => {
           if (usuario.email == this.emailBuscado) {
-              console.log('email encontrado ' + usuario.email)
               this.comentario.usuario = usuario.email
-            return; // Termina el bucle si se encuentra el email
+            return; 
           }
         });
-
       },
-
     )
   }
 

@@ -10,6 +10,7 @@ const PedidoSchema = new Schema({
             promocion : { type: String }
         }
     ],
+    numeroPedido: { type: Number , required: true },
     totalPedido: { type: Number , required: true },
     fechaPedido: { type: String, required: true},
     bebidasPedido: [

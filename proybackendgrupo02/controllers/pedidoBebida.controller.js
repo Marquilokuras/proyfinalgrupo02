@@ -9,7 +9,7 @@ pedidoCtrl.getPedidoBebida = async (req, res) => {
 }
 
 pedidoCtrl.createPedidoBebida = async (req, res) => {
-    let pedido = new Pedido({ totalPedido: 0, bebidasPedido: [], fechaPedido: "", arrayPromo: [] })
+    let pedido = new Pedido({ totalPedido: 0, bebidasPedido: [], fechaPedido: "", arrayPromo: [],numeroPedido:0 })
     try {
         let cantidadBebidas = 0;
         let precioDetalle = 0;
@@ -32,6 +32,7 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
             pedido.promo.push({ promocion })
         }
 
+        pedido.numeroPedido = req.body.numeroPedido
         pedido.totalPedido = req.body.totalPedido
         pedido.fechaPedido = req.body.fechaPedido
 
@@ -52,7 +53,7 @@ pedidoCtrl.createPedidoBebida = async (req, res) => {
             to: emailUsuario,
             subject: 'Pedido Registrado',
             text: "Gracias por tu Pedido esperamos que lo Disfrutes!! "
-                + ", su total a pagar es de: $" + pedido.totalPedido
+                + ", Tu numero de pedido es el: "+pedido.numeroPedido+", corresponde a la fecha "+pedido.fechaPedido+", su total a pagar es de: $" + pedido.totalPedido
         };
 
         transporter.sendMail(mailOptions, function (error, info) {
