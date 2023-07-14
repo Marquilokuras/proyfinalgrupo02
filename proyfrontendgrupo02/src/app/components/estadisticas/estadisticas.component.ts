@@ -79,6 +79,17 @@ export type ChartOptionsPorMesPedido = {
   stroke: ApexStroke;
 };
 
+export type ChartOptionsPorDiaPedido = {
+  series: ApexAxisChartSeries;
+  chart: ApexChart;
+  dataLabels: ApexDataLabels;
+  plotOptions: ApexPlotOptions;
+  yaxis: ApexYAxis;
+  xaxis: ApexXAxis;
+  fill: ApexFill;
+  tooltip: ApexTooltip;
+  stroke: ApexStroke;
+};
 @Component({
   selector: 'app-estadisticas',
   templateUrl: './estadisticas.component.html',
@@ -92,6 +103,7 @@ export class EstadisticasComponent implements OnInit {
   chartOptionsPedido!: ChartOptionsPedido;
   chartOptionsPorPedido!: ChartOptionsPorPedido;
   chartOptionsPorMesPedido!: ChartOptionsPorMesPedido;
+  chartOptionsPorDiaPedido !: ChartOptionsPorDiaPedido;
   contadorEdadCliente: number = 0;
   contadorEdadGestor: number = 0;
   contadorEdadAdmin: number = 0;
@@ -110,6 +122,7 @@ export class EstadisticasComponent implements OnInit {
     this.obtenerEstadisticaPedido();
     this.obtenerEstadisticaPorPedido();
     this.obtenerEstadisticaPorMesPedido();
+    this.obtenerEstadisticaPorDiaPedido();
   }
 
   public tipoLogged() {
@@ -577,5 +590,107 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
+
+  obtenerEstadisticaPorDiaPedido() {
+    this.pedido.mostrarPedido().subscribe(result => {
+      const pedidos = result;
+      let totalLunes = 0;
+      let totalMartes = 0;
+      let totalMiercoles = 0;
+      let totalJueves = 0;
+      let totalViernes = 0;
+      let totalSabado = 0;
+      let totalDomingo = 0;
+  
+      for (let i = 0; i < pedidos.length; i++) {
+        let pedido = pedidos[i];
+  
+        if (pedido) {
+          let partesFecha = pedido.fechaPedido.split("/");
+          let dia = parseInt(partesFecha[0]);
+          let mes = parseInt(partesFecha[1]);
+          let anio = parseInt(partesFecha[2]);
+          let fecha = new Date(anio, mes - 1, dia); 
+          let diaSemana = fecha.toLocaleString("en-US", { weekday: "short" });
+  
+          switch (diaSemana) {
+            case "Sun": // Domingo
+              totalDomingo += pedido.totalPedido;
+              break;
+            case "Mon": // Lunes
+              totalLunes += pedido.totalPedido;
+              break;
+            case "Tue": // Martes
+              totalMartes += pedido.totalPedido;
+              break;
+            case "Wed": // Miércoles
+              totalMiercoles += pedido.totalPedido;
+              break;
+            case "Thu": // Jueves
+              totalJueves += pedido.totalPedido;
+              break;
+            case "Fri": // Viernes
+              totalViernes += pedido.totalPedido;
+              break;
+            case "Sat": // Sábado
+              totalSabado += pedido.totalPedido;
+              break;
+            default:
+              break;
+          }
+        }
+      }
+  
+      this.chartOptionsPorDiaPedido = {
+        series: [
+          {
+            name: "Ganancia por Día de la Semana",
+            data: [totalDomingo, totalLunes, totalMartes, totalMiercoles, totalJueves, totalViernes, totalSabado],
+          },
+        ],
+        chart: {
+          type: "bar",
+          height: 350,
+        },
+        plotOptions: {
+          bar: {
+            horizontal: false,
+            columnWidth: "55%",
+            borderRadius: 0,
+            distributed: true
+          },
+        },
+        dataLabels: {
+          enabled: false,
+        },
+        stroke: {
+          show: true,
+          width: 2,
+          colors: ["transparent"],
+        },
+        xaxis: {
+          categories: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+        },
+        yaxis: {
+          title: {
+            text: "Ganancia Total",
+          },
+        },
+        fill: {
+          opacity: 1,
+        },
+        tooltip: {
+          y: {
+            formatter: function (val) {
+              return "$" + val + "";
+            },
+          },
+        },
+      };
+    });
+  }
+  
+  
+  
 
 }

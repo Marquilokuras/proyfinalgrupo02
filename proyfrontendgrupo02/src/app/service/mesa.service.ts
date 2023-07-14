@@ -8,9 +8,9 @@ import { Mesa } from '../models/mesa';
 })
 export class MesaService {
 
-  urlBase: string = "https://proygrupo02.onrender.com/api/mesa/"
+  // urlBase: string = "https://proygrupo02.onrender.com/api/mesa/"
 
-  //urlBase: string = "http://localhost:3000/api/mesa/"
+  urlBase: string = "http://localhost:3000/api/mesa/"
 
   constructor(private _http: HttpClient) { }
 
@@ -56,6 +56,16 @@ export class MesaService {
       params: new HttpParams()
     }
     return this._http.get(this.urlBase + id, httpOptions);
+  }
+
+  obtenerMesaPorNumero(numero:Number): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+      params: new HttpParams().append("numero",numero.toString())
+    }
+    return this._http.get(this.urlBase + "porNumero" , httpOptions);
   }
 
   borrarMesa(id: string): Observable<any> {
