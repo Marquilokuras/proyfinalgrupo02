@@ -22,16 +22,6 @@ export class ComentarioService {
     return this._http.get(this.url, httpOptions);
   }
 
-  public obtenerComentario(id: string): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
-      params: new HttpParams()
-    }
-    return this._http.get(this.url + id, httpOptions);
-  }
-
   public altaComentario(comentario: Comentario): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
@@ -44,19 +34,6 @@ export class ComentarioService {
 
     let body = JSON.stringify(comentario);
     return this._http.post(this.url, body, httpOptions);
-  }
-
-  public modificarComentario(comentario: Comentario): Observable<any> {
-    const httpOptions = {
-      headers: new HttpHeaders({
-        "Content-type": "application/json",
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
-      params: new HttpParams()
-    }
-
-    let body = JSON.stringify(comentario);
-    return this._http.put(this.url + comentario._id, body, httpOptions);
   }
 
   public eliminarComentario(id: string): Observable<any> {
