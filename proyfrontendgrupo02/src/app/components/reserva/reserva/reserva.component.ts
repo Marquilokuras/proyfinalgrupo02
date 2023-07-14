@@ -16,6 +16,7 @@ export class ReservaComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject<any>();
   usuario!: any;
   reservas!: Array<Reserva>
+  reservaEliminar: any;
   constructor(private router: Router, private servicioR: ReservaService) {
     this.reservas = new Array<Reserva>();
   }
@@ -71,5 +72,8 @@ export class ReservaComponent implements OnInit {
     return tipoUsuario;
   }
 
+  abrirModalEliminar(reserva: any) {
+    this.reservaEliminar = reserva;
+  }
 }
 

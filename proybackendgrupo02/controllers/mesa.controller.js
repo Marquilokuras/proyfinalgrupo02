@@ -50,4 +50,11 @@ mesaCtrl.getUnaMesa = async (req, res) => {
     res.json(mesa);
 }
 
+mesaCtrl.getMesaPorNumero = async (req, res) => {
+    let criteria = {}
+    criteria.numeroMesa = parseInt(req.query.numero)
+    const mesa = await Mesa.find({ numeroMesa: criteria.numeroMesa })
+    res.json(mesa);
+}
+
 module.exports = mesaCtrl;

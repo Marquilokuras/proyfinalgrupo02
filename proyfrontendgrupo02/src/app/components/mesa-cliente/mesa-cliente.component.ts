@@ -155,17 +155,23 @@ export class MesaClienteComponent implements OnInit {
     const horarios: string[] = [];
     let horaActual = new Date().getHours();
     const horaLimite = 25;
-    if (horaActual >= 2 && horaActual <= 18) {
+    if (horaActual >= 1 && horaActual <= 18) {
       horaActual = 17;
     }
 
     for (let i = horaActual + 1; i <= horaLimite; i++) {
 
       if (i === 24) {
-        horarios.push("24:00 a 02:00");
+        horarios.push("00:00 a 02:00");
       }
       if (i !== 25 && i !== 24) {
-        horarios.push(`${i}:00 a ${i + 2}:00`);
+        let h = i;
+        if (h +2 == 24){
+          horarios.push(`${i}:00 a 00:00`);
+        }else{
+          horarios.push(`${i}:00 a ${i + 2}:00`);
+        }
+        
       }
       i++;
     }
