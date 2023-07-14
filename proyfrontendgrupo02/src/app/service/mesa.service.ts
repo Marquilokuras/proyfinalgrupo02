@@ -58,6 +58,16 @@ export class MesaService {
     return this._http.get(this.urlBase + id, httpOptions);
   }
 
+  obtenerMesaPorNumero(numero:Number): Observable<any> {
+    let httpOptions = {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+      }),
+      params: new HttpParams().append("numero",numero.toString())
+    }
+    return this._http.get(this.urlBase + "porNumero" , httpOptions);
+  }
+
   borrarMesa(id: string): Observable<any> {
     let httpOptions = {
       headers: new HttpHeaders({

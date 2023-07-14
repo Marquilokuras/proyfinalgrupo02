@@ -4,7 +4,7 @@
     <div class="table-responsive" >
       <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped" style="max-width: 100%;">
         <thead>
-          <button type="button" class="btn btn-primary mb-2" (click)="nuevaMesa()" *ngIf="tipoLogged() == 'gestor'">Agregar Mesa</button>
+          <button type="button" class="btn btn-primary mb-2" (click)="nuevaMesa()" *ngIf="tipoLogged() == 'gestor' || tipoLogged() ==  ('administrador')">Agregar Mesa</button>
           <tr>
             <th scope="col">Numero de mesa</th>
             <th scope="col">Cantidad de mesas</th>
