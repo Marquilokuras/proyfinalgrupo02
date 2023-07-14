@@ -103,17 +103,22 @@ export class ReservaFormComponent implements OnInit {
   }
 
 
-  traerMesa(){
+  traerMesa(){ 
+    
     this.servicioMesa.obtenerMesaPorNumero(this.reserva.numeroMesa).subscribe(
       result=>{
+console.log(this.local)
+
         Object.assign(this.nueva, result[0]);
         this.obtenerPorNumeroDeMesa(this.nueva.numeroMesa)
         this.getNumerosHastaCantidadSillas();
         this.getNumerosHastaCantidadMesas()
         this.getHorariosDisponibles();
         this.local=0;
+       
       }, error=>{
-        alert("error")
+   
+        
       }
     )
   }
