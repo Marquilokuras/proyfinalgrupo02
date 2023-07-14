@@ -37,8 +37,8 @@ export class PromocionService {
   public obtenerPromocionId(nombrePromo:string):Observable<any>{
     const httpOptions={
       headers : new HttpHeaders({
-        Authorization: 'Bearer ' + localStorage.getItem('token'),
-      }),
+/*         Authorization: 'Bearer ' + localStorage.getItem('token'),
+ */      }),
       params : new HttpParams()
     }
     return this._http.get(this.urlBase+"idPromo/"+nombrePromo,httpOptions);

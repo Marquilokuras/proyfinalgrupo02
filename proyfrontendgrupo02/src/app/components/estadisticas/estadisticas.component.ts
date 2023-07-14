@@ -322,7 +322,7 @@ export class EstadisticasComponent implements OnInit {
                 case "Gin Tonic":
                   this.totalGin = this.totalGin + pedido[j].cantidadBebidas;
                   break;
-                case "Sex on the beach":
+                case "Blue Label de Johnnie Walker":
                   this.totalBeach = this.totalBeach + pedido[j].cantidadBebidas;
                   break;
                 case "Garibaldi":
@@ -375,7 +375,7 @@ export class EstadisticasComponent implements OnInit {
           categories: [
             "Gin Tonic",
             "Mojito",
-            "Sex on the beach",
+            "Blue Label de Johnnie Walker",
             "Garibaldi",
             "Negroni"
           ]
@@ -398,7 +398,7 @@ export class EstadisticasComponent implements OnInit {
       };
     });
   }
-  
+
   obtenerEstadisticaPorMesPedido() {
     this.pedido.mostrarPedido().subscribe(result => {
       const pedidos = result;
@@ -417,16 +417,16 @@ export class EstadisticasComponent implements OnInit {
       let totalTarde = 0;
       let totalNoche = 0;
       let totalAnochecer = 0;
-  
+
       for (let i = 0; i < pedidos.length; i++) {
         let pedido = pedidos[i];
-  
+
         if (pedido) {
           let partesFecha = pedido.fechaPedido.split(" ");
           let fechaSinHora = partesFecha[0];
           let partesFechaSinHora = fechaSinHora.split("/");
           let mes = parseInt(partesFechaSinHora[1]);
-  
+
           switch (mes) {
             case 1:
               totalEnero = totalEnero + pedido.totalPedido;
@@ -467,18 +467,20 @@ export class EstadisticasComponent implements OnInit {
             default:
               break;
           }
-  
+
           let hora = parseInt(partesFecha[1].split(":")[0]);
-          if ((hora >= 18 && hora <= 20) || (hora >= 20 && hora <= 23 && parseInt(partesFecha[1].split(":")[1]) >= 1)) {
+          if (hora >= 18 && hora <= 20) {
             totalTarde += pedido.totalPedido;
           } else if (hora >= 0 && hora <= 4) {
             totalAnochecer += pedido.totalPedido;
           } else {
-            totalNoche += pedido.totalPedido;
+            if (hora >= 20 && hora <= 23 && parseInt(partesFecha[1].split(":")[1]) >= 1) {
+              totalNoche += pedido.totalPedido;
+            }
           }
         }
       }
-  
+
       this.chartOptionsPorMesPedido = {
         series: [
           {
@@ -508,7 +510,7 @@ export class EstadisticasComponent implements OnInit {
             horizontal: false,
             columnWidth: "55%",
             borderRadius: 0,
-            distributed: true 
+            distributed: true
           },
         },
         dataLabels: {

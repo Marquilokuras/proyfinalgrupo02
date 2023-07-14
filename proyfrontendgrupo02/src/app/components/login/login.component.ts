@@ -64,7 +64,6 @@ export class LoginComponent implements OnInit {
         this.loginService.login(this.emailUsuario, this.passwordUsuario).subscribe(
           (result) => {
             var user = result;
-            console.log(user);
 
             if (user.status == 1) {
               sessionStorage.setItem("token", user.token);
@@ -119,7 +118,6 @@ export class LoginComponent implements OnInit {
   }
 
   token() {
-    console.log(this.gooService.getToken());
     alert(this.gooService.getToken())
   }
 

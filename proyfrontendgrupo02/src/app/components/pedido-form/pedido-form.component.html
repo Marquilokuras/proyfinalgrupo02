@@ -13,6 +13,7 @@
                         </div>
                     </div>
                     <tr>
+                        <th scope="col">Numero de Pedido</th>
                         <th scope="col">Nombre Bebida</th>
                         <th scope="col">Ingredientes Bebida</th>
                         <th scope="col">Precio por Bebida</th>
@@ -25,6 +26,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let pedido of pedidos">
+                        <td>{{pedido.numeroPedido}}</td>
                         <td>
                             <div *ngFor="let bebida of pedido.bebidasPedido">
                                 {{ bebida.bebida?.nombreBebida }}
