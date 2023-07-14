@@ -57,6 +57,7 @@ export class PedidoComponent implements OnInit {
   habilitacionPedido: boolean = false;
   cantidadBebidaPromo: number = 0;
   nombrePromo !: string;
+  numeroPedido : number = 0;
 
   constructor(private pedidoService: PedidoService, private activatedRoute: ActivatedRoute, public loginService: LoginService, public bebidaService: BebidaService, private conversorService: ConversorService, private toastrService: ToastrService, private promocionService: PromocionService, private router: Router) {
     this.fechaPedido = new Date();
@@ -75,6 +76,7 @@ export class PedidoComponent implements OnInit {
     this.obtenerBebidas();
     this.obtenerMonedas();
     this.obtenerPromociones();
+    this.obtenerPedidos();
   }
 
   habilitarConversion(): void {
@@ -126,6 +128,16 @@ export class PedidoComponent implements OnInit {
     )
   }
 
+  obtenerPedidos() {
+    this.pedidoService.mostrarPedido().subscribe(
+      result => {
+        this.pedido = result;
+        this.numeroPedido = this.pedido.length+1;
+      },
+      error => { }
+    )
+  }
+
   obtenerBebidas() {
     this.bebidaService.obtenerBebidasDisponibles().subscribe(
       result => {
@@ -159,7 +171,7 @@ export class PedidoComponent implements OnInit {
      if(this.arrayPedido.length>0){
       this.emailUsuario = this.loginService.userLogged();
       let fechaActual = format(this.fechaPedido, 'dd/MM/yyyy HH:mm:ss')
-      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual,this.arrayPromo,this.total).subscribe(
+      this.pedidoService.generarPedido(this.arrayPedido, this.emailUsuario, fechaActual,this.arrayPromo,this.total,this.numeroPedido).subscribe(
         result => {
           this.arrayPedido = [];
           this.arrayPromo = [];
