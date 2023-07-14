@@ -79,4 +79,19 @@
       ></apx-chart>
     </div>
   </div>
+
+  <h2 class="text-center">Estadísticas de Ganancia por Dia de la Semana</h2>
+  <div class="grafico-por-pedido">
+    <apx-chart
+      [series]="chartOptionsPorDiaPedido.series"
+      [chart]="chartOptionsPorDiaPedido.chart"
+      [dataLabels]="chartOptionsPorDiaPedido.dataLabels"
+      [plotOptions]="chartOptionsPorDiaPedido.plotOptions"
+      [yaxis]="chartOptionsPorDiaPedido.yaxis"
+      [xaxis]="chartOptionsPorDiaPedido.xaxis"
+      [fill]="chartOptionsPorDiaPedido.fill"
+      [tooltip]="chartOptionsPorDiaPedido.tooltip"
+      [stroke]="chartOptionsPorDiaPedido.stroke"
+    ></apx-chart>
+  </div>
 </div>
