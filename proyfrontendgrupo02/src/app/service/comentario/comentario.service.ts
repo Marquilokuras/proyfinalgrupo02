@@ -8,8 +8,8 @@ import { Comentario } from 'src/app/models/comentario/comentario';
 })
 
 export class ComentarioService {
-  url = "https://proygrupo02.onrender.com/api/comentario/";
-  //url="http://localhost:3000/api/comentario/";
+  //url = "https://proygrupo02.onrender.com/api/comentario/";
+  url="http://localhost:3000/api/comentario/";
 
   constructor(private _http: HttpClient) { }
 
