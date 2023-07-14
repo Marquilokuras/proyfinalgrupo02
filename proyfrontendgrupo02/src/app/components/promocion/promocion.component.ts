@@ -123,11 +123,8 @@ export class PromocionComponent implements OnInit {
     bebidas.forEach((element: Bebida) => {
       if (element.disponibilidadBebida == false) {
         bandera=false;
-      }else{
-        bandera= true;
       }
     });
-
 
     return bandera;
   }
