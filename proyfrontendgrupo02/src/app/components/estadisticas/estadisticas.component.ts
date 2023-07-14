@@ -322,7 +322,7 @@ export class EstadisticasComponent implements OnInit {
                 case "Gin Tonic":
                   this.totalGin = this.totalGin + pedido[j].cantidadBebidas;
                   break;
-                case "Sex on the beach":
+                case "Blue Label de Johnnie Walker":
                   this.totalBeach = this.totalBeach + pedido[j].cantidadBebidas;
                   break;
                 case "Garibaldi":
@@ -375,7 +375,7 @@ export class EstadisticasComponent implements OnInit {
           categories: [
             "Gin Tonic",
             "Mojito",
-            "Sex on the beach",
+            "Blue Label de Johnnie Walker",
             "Garibaldi",
             "Negroni"
           ]
