@@ -74,8 +74,17 @@ export class PedidoComponent implements OnInit {
       }
     });
     this.obtenerBebidas();
+    setTimeout(() => {
+     
+    }, 1000)
     this.obtenerMonedas();
+    setTimeout(() => {
+
+    }, 1000)
     this.obtenerPromociones();
+    setTimeout(() => {
+
+    }, 1000)
     this.obtenerPedidos();
   }
 
